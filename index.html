@@ -123,17 +123,9 @@ details.tips li{margin:4px 0}
   <header class="top">
     <div class="eyebrow">Plan de 3 días · 20 minutos</div>
     <h1>Entrena en casa</h1>
-    <p class="lede">Cada ejercicio tiene una demostración animada, los pasos para hacerlo bien y los errores más típicos. Toca la animación para pausarla.</p>
+    <p class="lede">Todo con bandas elásticas de 10, 20 y 30 kg. Cada ejercicio tiene una demostración animada, los pasos para hacerlo bien y los errores más típicos. Toca la animación para pausarla.</p>
   </header>
 
-  <div class="version" role="group" aria-label="Versión de los ejercicios">
-    <span class="lbl">Nivel:</span>
-    <div class="seg">
-      <button type="button" data-ver="inicio" aria-pressed="true">Inicio</button>
-      <button type="button" data-ver="normal" aria-pressed="false">Normal</button>
-    </div>
-    <span class="hint" id="verHint">Versión suave, para las primeras semanas.</span>
-  </div>
 
   <nav class="tabs" aria-label="Secciones">
     <a href="#calentamiento" data-view="calentamiento">Calentamiento</a>
@@ -225,7 +217,7 @@ function lerp(a,b,k){
 }
 const ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
 
-const BASE={hip:[120,117],t:0,a1:[0,0],a2:[0,0],l1:[0,0],l2:[0,0],fa1:90,fa2:90,hd:[0,0],sd:[0,0]};
+const BASE={hip:[120,117],t:0,a1:[0,0],a2:[0,0],l1:[0,0],l2:[0,0],fa1:90,fa2:90,hd:[0,0],sd:[0,0],pp:0};
 const S=o=>Object.assign({},BASE,o);
 
 /* ---- props ---- */
@@ -243,6 +235,7 @@ function propsSVG(props){
          `<rect x="${x1+3}" y="${y+6}" width="5" height="${GY-y-6}"/><rect x="${x2-8}" y="${y+6}" width="5" height="${GY-y-6}"/>`+
          (back==='left'?`<rect x="${x1}" y="${y-58}" width="6" height="58" rx="2"/>`:`<rect x="${x2-6}" y="${y-58}" width="6" height="58" rx="2"/>`)+`</g>`;
     }
+    if(pr.type==='towel') s+=`<rect x="${pr.x}" y="${pr.y}" width="${pr.w}" height="${pr.h}" rx="3" fill="#BFD6CC" stroke="#8FB5A5"/>`;
     if(pr.type==='mat') s+=`<rect x="${pr.x1}" y="${GY-3}" width="${pr.x2-pr.x1}" height="4" rx="2" fill="#C9D9D1"/>`;
   }
   return s;
@@ -254,7 +247,7 @@ function mk(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const
 class Fig{
   constructor(container,anim,opts={}){
     this.anim=anim; this.view=anim.view||'side';
-    const svg=mk('svg',{viewBox:'0 0 260 215',role:'img','aria-label':opts.label||'Demostración del ejercicio'});
+    const svg=mk('svg',{viewBox:'0 -16 260 231',role:'img','aria-label':opts.label||'Demostración del ejercicio'});
     svg.innerHTML=propsSVG(anim.props)+(anim.label?`<text x="248" y="26" text-anchor="end" font-family="Outfit, system-ui, sans-serif" font-size="11" font-weight="600" fill="#9A3A06">${anim.label}</text>`:'');
     container.appendChild(svg); this.svg=svg;
     const front=this.view==='front';
@@ -273,6 +266,7 @@ class Fig{
       if(b.ring) return {b,el:mk('ellipse',{rx:5,ry:9,fill:'none',stroke:'var(--accent)','stroke-width':3.5},g)};
       return {b,el:mk('line',{stroke:'var(--accent)','stroke-width':3.5,'stroke-linecap':'round'},g)};
     });
+    if(anim.pulse){this.pulse=mk('path',{stroke:'var(--accent)','stroke-width':3.5,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},g);}
     this.T=0; this.playing=true; this.build();
     this.draw(anim.frames[0]);
   }
@@ -309,6 +303,9 @@ class Fig{
     E.a2.setAttribute('points',[P.s2,P.e2,P.w2].map(f).join(' '));
     E.l1.setAttribute('points',[P.h1,P.k1,P.f1,P.t1].map(f).join(' '));
     E.l2.setAttribute('points',[P.h2,P.k2,P.f2,P.t2].map(f).join(' '));
+    if(this.pulse){const pu=this.anim.pulse,c=P[pu.part],x=c[0]+pu.dx,y=c[1]+(pu.dy||0),d=pu.dir;
+      this.pulse.setAttribute('d',`M${x-d*12} ${y} L${x} ${y} M${x-d*5} ${y-6} L${x} ${y} L${x-d*5} ${y+6}`);
+      this.pulse.setAttribute('opacity',Math.max(0,Math.min(1,p.pp)));}
     for(const {b,el} of this.bands){
       if(b.ring){el.setAttribute('cx',P[b.ring][0]);el.setAttribute('cy',P[b.ring][1]);continue;}
       const A=typeof b.from==='string'?P[b.from]:b.from, B=typeof b.to==='string'?P[b.to]:b.to;
@@ -472,104 +469,108 @@ A.face={loop:'pingpong',dur:1.1,label:'banda 10 kg',props:[{type:'door',x:222,ax
   Object.assign(S({hip:[108,118],t:-4,l1:{to:[116,197],b:-1},l2:{to:[98,197],b:-1},a1:[-150,90,.7],a2:[-150,90,.7]}),{h:.4})]};
 A.trap={view:'front',loop:'pingpong',dur:1.8,frames:[[8,3],[10,4]].map(hd=>S({hip:[130,117],hd,l1:[3,3],l2:[3,3],a2:[8,4],a1:[140,-110]}))};
 
+const KN={hip:[120,153],l1:[0,-90],l2:[0,-90],fa1:-90,fa2:-90};
+A.shrugB={loop:'pingpong',dur:.9,bands:[BAND('m1','w1')],frames:[S({a1:[2,0],a2:[2,0]}),Object.assign(S({a1:[2,0],a2:[2,0],sd:[0,-9]}),{h:.4})]};
+A.crunch={loop:'pingpong',dur:1.1,props:[{type:'door',x:222,ax:222,ay:28},{type:'mat',x1:60,x2:180}],bands:[BAND('w1',[222,28])],frames:[
+  S({...KN,t:10,a1:{to:[6,-10],ref:'sho',b:1},a2:{to:[6,-10],ref:'sho',b:1}}),
+  Object.assign(S({...KN,t:62,a1:{to:[6,-10],ref:'sho',b:1},a2:{to:[6,-10],ref:'sho',b:1}}),{h:.3})]};
+A.lat={loop:'pingpong',dur:1.1,props:[{type:'door',x:222,ax:222,ay:28},{type:'mat',x1:50,x2:170}],bands:[BAND('w1',[222,28])],frames:[
+  S({...KN,hip:[110,153],t:6,a1:[152,152],a2:[152,152]}),
+  Object.assign(S({...KN,hip:[110,153],t:6,a1:[10,168],a2:[10,168]}),{h:.3})]};
+const rb=(a)=>S({hip:[108,132],t:52,l1:{to:[128,197],b:-1},l2:{to:[124,197],b:-1},a1:a,a2:a});
+A.rowBent={loop:'pingpong',dur:1.1,bands:[BAND('m1','w1')],frames:[rb([0,0]),Object.assign(rb([-150,5]),{h:.3})]};
+A.yraise={view:'front',loop:'pingpong',dur:1.2,bands:[BAND('m1','w1'),BAND('m2','w2')],frames:[
+  S({hip:[130,117],a1:[8,8],a2:[8,8],l1:[4,4],l2:[4,4]}),Object.assign(S({hip:[130,117],a1:[150,150],a2:[150,150],l1:[4,4],l2:[4,4]}),{h:.3})]};
+A.curl={loop:'pingpong',dur:1,bands:[BAND('m1','w1')],frames:[S({a1:[4,4],a2:[4,4]}),Object.assign(S({a1:[4,160],a2:[4,160]}),{h:.2})]};
+const ch=(x,y)=>S({hip:[150,117],l1:[8,8],l2:[8,8],a1:{to:[x,y],ref:'sho',b:1},a2:{to:[x,y],ref:'sho',b:-1}});
+A.chop={view:'front',loop:'pingpong',dur:1.1,props:[{type:'door',x:20,ax:30,ay:30}],bands:[BAND('w1',[30,30])],frames:[ch(-62,-52),Object.assign(ch(58,58),{h:.2})]};
+A.wallBack={loop:'pingpong',dur:.6,props:[{type:'wall',x:66,w:12}],pulse:{part:'head',dx:-15,dir:-1},frames:[
+  Object.assign(S({hip:[90,117],l1:{to:[104,197],b:-1},l2:{to:[104,197],b:-1},hd:[1,0],pp:0}),{h:.5}),
+  Object.assign(S({hip:[90,117],l1:{to:[104,197],b:-1},l2:{to:[104,197],b:-1},hd:[-3,1],pp:1}),{h:1.6})]};
+A.wallSide={view:'front',loop:'pingpong',dur:.6,props:[{type:'wall',x:160,w:14},{type:'towel',x:141,y:31,w:19,h:20}],pulse:{part:'head',dx:6,dir:1},frames:[
+  Object.assign(S({hip:[128,117],a1:[6,4],a2:[6,4],l1:[4,4],l2:[4,4],pp:0}),{h:.5}),
+  Object.assign(S({hip:[128,117],a1:[6,4],a2:[6,4],l1:[4,4],l2:[4,4],hd:[1,0],pp:1}),{h:1.6})]};
+
 /* ============ Ejercicios ============ */
 const EX={
-  jj:{name:'Jumping jacks',yt:'jumping jacks principiantes bajo impacto',
-    normal:{anim:A.jj,how:['De pie, pies juntos y brazos pegados al cuerpo.','Salta abriendo piernas y subiendo los brazos por encima de la cabeza.','Vuelve a cerrar con otro salto. Aterriza suave, con la punta del pie.'],avoid:['Caer con las piernas rígidas.','Ir tan rápido que pierdes el ritmo de la respiración.']},
-    inicio:{name:'Paso lateral con brazos',anim:A.jjIni,how:['De pie, brazos abajo.','Saca un pie hacia el lado mientras subes los brazos.','Vuelve al centro y repite hacia el otro lado. Sin saltar.'],avoid:['Bloquear las rodillas.','Encoger los hombros al subir los brazos.']}},
-  circ:{name:'Círculos de brazos',yt:'circulos de brazos calentamiento hombros',
-    normal:{anim:A.circ,how:['De pie, brazos estirados a los lados del cuerpo.','Dibuja círculos grandes y lentos con los brazos.','A mitad del tiempo, cambia el sentido.'],avoid:['Hacerlos rápido y a tirones.','Arquear la espalda.']}},
-  sq0:{name:'Sentadilla sin peso',yt:'sentadilla sin peso principiantes tecnica',
-    normal:{anim:A.sq0,how:['Pies a la anchura de los hombros, puntas un poco hacia fuera.','Lleva la cadera hacia atrás como si fueras a sentarte, subiendo los brazos al frente.','Baja solo hasta donde estés cómodo y sube empujando con los talones.'],avoid:['Levantar los talones del suelo.','Que las rodillas se vayan hacia dentro.']}},
-  hip:{name:'Rotaciones de cadera',yt:'rotaciones de cadera calentamiento',
-    normal:{anim:A.hip,how:['Pies separados, manos en la cintura.','Dibuja círculos con la cadera, sin mover los pies.','A mitad del tiempo, cambia de sentido.'],avoid:['Doblar mucho las rodillas.','Mover los hombros en lugar de la cadera.']}},
-  pull:{name:'Aperturas con banda',sub:'Pull-apart',yt:'pull apart banda elastica tecnica',
-    normal:{anim:A.pull,band:'10 kg',how:['Sujeta la banda con los brazos estirados al frente, a la altura del pecho.','Separa las manos hasta que la banda toque el pecho, juntando las escápulas.','Vuelve despacio, sin dejar que la banda tire de ti.'],avoid:['Doblar mucho los codos.','Subir los hombros hacia las orejas.']}},
-  knees:{name:'Elevación de rodillas',yt:'elevacion de rodillas en el sitio principiantes',
-    normal:{anim:A.knees,how:['De pie, en el sitio.','Sube una rodilla hacia la cadera y bájala; luego la otra, como marchando.','Acompaña con los brazos. Puedes ir a ritmo de paseo.'],avoid:['Inclinar el cuerpo hacia atrás.','Dejar caer el pie de golpe.']}},
+  jj:{name:'Jumping jacks',yt:'jumping jacks tecnica',anim:A.jj,
+    how:['De pie, pies juntos y brazos pegados al cuerpo.','Salta abriendo piernas y subiendo los brazos por encima de la cabeza.','Vuelve a cerrar con otro salto. Aterriza suave, con la punta del pie.'],avoid:['Caer con las piernas rígidas.','Ir tan rápido que pierdes el ritmo.']},
+  circ:{name:'Círculos de brazos',yt:'circulos de brazos calentamiento hombros',anim:A.circ,
+    how:['De pie, brazos estirados a los lados del cuerpo.','Dibuja círculos grandes con los brazos.','A mitad del tiempo, cambia el sentido.'],avoid:['Hacerlos a tirones.','Arquear la espalda.']},
+  sq0:{name:'Sentadilla sin peso',yt:'sentadilla sin peso tecnica',anim:A.sq0,
+    how:['Pies a la anchura de los hombros, puntas un poco hacia fuera.','Lleva la cadera atrás como si fueras a sentarte, con los brazos al frente.','Baja hasta muslos paralelos y sube empujando con los talones.'],avoid:['Levantar los talones del suelo.','Que las rodillas se vayan hacia dentro.']},
+  pull:{name:'Aperturas con banda',sub:'Pull-apart · espalda alta',yt:'pull apart banda elastica tecnica',anim:A.pull,band:'10–20 kg',
+    how:['Sujeta la banda con los brazos estirados al frente, a la altura del pecho.','Separa las manos hasta que la banda toque el pecho, juntando las escápulas.','Vuelve despacio, sin dejar que la banda tire de ti.'],avoid:['Doblar mucho los codos.','Subir los hombros hacia las orejas.']},
 
-  squat:{name:'Sentadilla con banda',yt:'sentadilla con banda elastica tecnica',
-    normal:{anim:A.squat,band:'20 kg',how:['Pisa la banda con los pies a la anchura de los hombros y pásala por encima de los hombros.','Baja llevando la cadera atrás, pecho alto, hasta que los muslos queden paralelos al suelo.','Sube empujando con los talones y aprieta los glúteos arriba.'],avoid:['Que las rodillas se cierren hacia dentro.','Redondear la espalda al bajar.']},
-    inicio:{name:'Sentadilla a silla',anim:A.squatIni,how:['Ponte delante de una silla estable, pies a la anchura de los hombros.','Baja despacio llevando la cadera atrás hasta sentarte, con los brazos al frente.','Sin balancearte, levántate empujando con los talones.'],avoid:['Dejarse caer en la silla.','Tomar impulso echando el cuerpo hacia delante.']}},
-  push:{name:'Flexiones',yt:'flexiones tecnica correcta principiantes',
-    normal:{anim:A.push,how:['Manos en el suelo algo más abiertas que los hombros, cuerpo en línea recta.','Baja el pecho doblando los codos hacia atrás (no abiertos a los lados).','Empuja el suelo hasta estirar los brazos.'],avoid:['Hundir la cadera o subirla en pico.','Abrir los codos en cruz.']},
-    inicio:{name:'Flexiones en pared',anim:A.pushIni,how:['De pie frente a una pared, a un paso largo. Manos en la pared a la altura del pecho.','Con el cuerpo recto, acerca el pecho a la pared doblando los codos.','Empuja para volver. Cuanto más lejos los pies, más difícil.'],avoid:['Doblar la cadera.','Mirar hacia arriba forzando el cuello.']}},
-  row:{name:'Remo de pie con banda',yt:'remo con banda elastica anclada en puerta',
-    normal:{anim:A.row,band:'20 kg',anchor:true,how:['Ancla la banda a la altura del pecho (puerta cerrada o poste) y da unos pasos atrás.','Con los brazos estirados, tira llevando los codos hacia atrás pegados al cuerpo.','Junta las escápulas al final y vuelve despacio.'],avoid:['Echar el cuerpo hacia atrás para tirar.','Subir los hombros.']},
-    inicio:{anim:A.rowIni,band:'10 kg'}},
-  lunge:{name:'Zancadas alternas',yt:'zancadas alternas tecnica correcta',
-    normal:{anim:A.lunge,how:['De pie, manos en la cintura.','Da un paso largo al frente y baja hasta que la rodilla de atrás casi toque el suelo.','Empuja con la pierna de delante para volver y cambia de pierna.'],avoid:['Que la rodilla de delante se vaya hacia dentro.','Dar un paso tan corto que la rodilla pase mucho de la punta del pie.']},
-    inicio:{name:'Media zancada fija',anim:A.lungeIni,how:['Ponte con un pie delante y otro detrás, como dando un paso. Si quieres, apóyate en una silla o pared.','Baja un poco doblando las dos rodillas y vuelve a subir, sin mover los pies.','A mitad del tiempo, cambia la pierna de delante.'],avoid:['Bajar más de lo que te resulta cómodo.','Inclinar el tronco hacia delante.']}},
-  plank:{name:'Plancha',yt:'plancha abdominal tecnica principiantes',
-    normal:{anim:A.plank,how:['Antebrazos en el suelo, codos debajo de los hombros.','Estira las piernas apoyando las puntas de los pies.','Aprieta abdomen y glúteos y mantén el cuerpo recto respirando normal.'],avoid:['Dejar caer la cadera.','Aguantar la respiración.']},
-    inicio:{name:'Plancha con rodillas',anim:A.plankIni,how:['Antebrazos en el suelo, codos debajo de los hombros.','Apoya las rodillas; el cuerpo recto desde la cabeza hasta las rodillas.','Aprieta abdomen y respira normal. Si cuesta, aguanta 10 s y descansa 5.'],avoid:['Levantar el culo en pico.','Hundir la zona lumbar.']}},
+  squat:{name:'Sentadilla con banda',yt:'sentadilla con banda elastica tecnica',anim:A.squat,band:'20–30 kg',
+    how:['Pisa la banda con los pies a la anchura de los hombros y pásala por encima de los hombros.','Baja llevando la cadera atrás, pecho alto, hasta que los muslos queden paralelos al suelo.','Sube empujando con los talones y aprieta los glúteos arriba.'],avoid:['Que las rodillas se cierren hacia dentro.','Redondear la espalda al bajar.']},
+  row:{name:'Remo de pie con banda',sub:'Espalda',yt:'remo con banda elastica anclada en puerta',anim:A.row,band:'20–30 kg',anchor:true,
+    how:['Ancla la banda a la altura del pecho y da unos pasos atrás hasta que tenga tensión.','Con los brazos estirados, tira llevando los codos hacia atrás, pegados al cuerpo.','Junta las escápulas 1 segundo al final y vuelve despacio.'],avoid:['Echar el cuerpo hacia atrás para tirar.','Subir los hombros.']},
+  chest:{name:'Press de pecho con banda',yt:'press de pecho con banda elastica anclada',anim:A.chest,band:'20 kg',anchor:true,
+    how:['Ancla la banda a la altura del pecho y ponte de espaldas a la puerta, con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante hasta estirar los brazos.','Vuelve despacio controlando la banda.'],avoid:['Arquear la espalda al empujar.','Soltar la tensión de golpe.']},
+  shrugB:{name:'Encogimientos con banda',sub:'Trapecio',yt:'encogimientos de trapecio con banda elastica',anim:A.shrugB,band:'30 kg',
+    how:['Pisa la banda con los dos pies y agarra los extremos con los brazos estirados a los lados.','Sube los hombros hacia las orejas todo lo que puedas, sin doblar los codos.','Aguanta 1 segundo arriba y baja despacio, del todo.'],avoid:['Girar los hombros en círculo.','Adelantar la cabeza al subir.']},
+  crunch:{name:'Crunch de rodillas con banda',sub:'Abdominales',yt:'crunch de rodillas con banda elastica',anim:A.crunch,band:'20 kg',anchor:true,
+    how:['Ancla la banda arriba, arrodíllate de frente a la puerta (con un cojín bajo las rodillas) y sujeta la banda junto a la cabeza.','Encoge el abdomen llevando los codos hacia los muslos, redondeando la espalda.','Vuelve despacio sin dejar que la banda te levante.'],avoid:['Tirar con los brazos: las manos no se separan de la cabeza.','Echar el culo hacia atrás para bajar.']},
 
-  rdl:{name:'Peso muerto rumano con banda',yt:'peso muerto rumano con banda elastica',
-    normal:{anim:A.rdl,band:'20–30 kg',how:['Pisa la banda con los pies a la anchura de la cadera y agarra los extremos.','Con las rodillas un poco flexionadas, lleva la cadera atrás bajando el tronco con la espalda recta.','Cuando notes tensión detrás de los muslos, sube apretando los glúteos.'],avoid:['Redondear la espalda.','Doblar mucho las rodillas (no es una sentadilla).']},
-    inicio:{anim:A.rdlIni,band:'10 kg'}},
-  ohp:{name:'Press de hombros con banda',yt:'press militar con banda elastica',
-    normal:{anim:A.ohp,band:'10–20 kg',how:['Pisa la banda con los dos pies y sube las manos a la altura de los hombros.','Empuja hacia arriba hasta estirar los brazos.','Baja despacio a la altura de los hombros.'],avoid:['Arquear la zona lumbar al empujar.','Bajar de golpe.']},
-    inicio:{anim:A.ohpIni,band:'10 kg'}},
-  bridge:{name:'Puente de glúteo',yt:'puente de gluteo con banda tecnica',
-    normal:{anim:A.bridge,band:'10 kg en las rodillas',how:['Tumbado boca arriba, rodillas dobladas y pies apoyados. Banda alrededor de las rodillas.','Sube la cadera empujando con los talones y abriendo un poco las rodillas contra la banda.','Aguanta un segundo arriba y baja despacio.'],avoid:['Arquear la espalda en lugar de subir con los glúteos.','Empujar con las puntas de los pies.']},
-    inicio:{name:'Puente de glúteo sin banda',anim:A.bridgeIni,how:['Tumbado boca arriba, rodillas dobladas y pies apoyados cerca del culo.','Sube la cadera empujando con los talones hasta formar una línea rodillas–hombros.','Aguanta un segundo arriba y baja despacio.'],avoid:['Subir demasiado arqueando la espalda.','Separar mucho los pies.']}},
-  deadbug:{name:'Dead bug',sub:'Bicho muerto',yt:'dead bug ejercicio abdominal tecnica',
-    normal:{anim:A.deadbug,how:['Boca arriba, brazos hacia el techo y rodillas dobladas a 90°.','Estira un brazo hacia atrás y la pierna contraria hacia delante, sin tocar el suelo.','Vuelve y cambia de lado. La zona lumbar siempre pegada al suelo.'],avoid:['Que la zona lumbar se despegue del suelo.','Hacerlo rápido.']},
-    inicio:{name:'Toques de talón',anim:A.deadbugIni,how:['Boca arriba, brazos hacia el techo y rodillas dobladas a 90°.','Baja un pie despacio hasta tocar el suelo con el talón y vuelve.','Alterna piernas, con la zona lumbar pegada al suelo.'],avoid:['Dejar caer la pierna.','Arquear la espalda.']}},
+  rdl:{name:'Peso muerto rumano con banda',yt:'peso muerto rumano con banda elastica',anim:A.rdl,band:'30 kg',
+    how:['Pisa la banda con los pies a la anchura de la cadera y agarra los extremos.','Con las rodillas un poco flexionadas, lleva la cadera atrás bajando el tronco con la espalda recta.','Cuando notes tensión detrás de los muslos, sube apretando los glúteos.'],avoid:['Redondear la espalda.','Doblar mucho las rodillas (no es una sentadilla).']},
+  row1:{name:'Remo a una mano con banda',sub:'Espalda',yt:'remo a una mano con banda elastica',anim:A.row1,band:'20–30 kg',switch:true,
+    how:['Pisa la banda con el pie de delante, inclina el tronco y apoya la otra mano en el muslo.','Tira llevando el codo hacia atrás y arriba, pegado al cuerpo.','Baja despacio. A mitad del tiempo, cambia de brazo.'],avoid:['Girar el tronco para tirar.','Redondear la espalda.']},
+  ohp:{name:'Press de hombros con banda',yt:'press militar con banda elastica',anim:A.ohp,band:'10–20 kg',
+    how:['Pisa la banda con los dos pies y sube las manos a la altura de los hombros.','Empuja hacia arriba hasta estirar los brazos.','Baja despacio a la altura de los hombros.'],avoid:['Arquear la zona lumbar al empujar.','Bajar de golpe.']},
+  face:{name:'Face pull con banda',sub:'Trapecio medio y hombro posterior',yt:'face pull con banda elastica tecnica',anim:A.face,band:'10–20 kg',anchor:true,
+    how:['Ancla la banda a la altura de la cara y agárrala con las palmas hacia abajo.','Tira hacia la cara abriendo los codos hacia los lados y altos.','Junta las escápulas al final, con las manos a los lados de la cabeza, y vuelve despacio.'],avoid:['Encoger los hombros al tirar.','Echar el cuerpo hacia atrás.']},
+  lat:{name:'Jalón con banda',sub:'Espalda (dorsales)',yt:'jalon al pecho con banda elastica anclada puerta',anim:A.lat,band:'20 kg',anchor:true,
+    how:['Ancla la banda arriba, arrodíllate a un paso de la puerta y agárrala con los brazos estirados hacia arriba.','Tira llevando los codos hacia abajo, hacia las costillas, sacando pecho.','Junta las escápulas abajo y vuelve despacio con los brazos estirados.'],avoid:['Encoger los hombros.','Echar el cuerpo hacia atrás para tirar.']},
+  bridge:{name:'Puente de glúteo con banda',yt:'puente de gluteo con banda tecnica',anim:A.bridge,band:'10–20 kg en las rodillas',
+    how:['Tumbado boca arriba, rodillas dobladas y pies apoyados. Banda alrededor de las rodillas.','Sube la cadera empujando con los talones y abriendo un poco las rodillas contra la banda.','Aguanta un segundo arriba y baja despacio.'],avoid:['Arquear la espalda en lugar de subir con los glúteos.','Empujar con las puntas de los pies.']},
 
-  rlunge:{name:'Zancada inversa con banda',yt:'zancada inversa con banda elastica',switch:true,
-    normal:{anim:A.rlunge,band:'20 kg',how:['Pisa la banda con el pie de delante y sujeta los extremos a la altura de los hombros.','Da un paso atrás con la otra pierna y baja hasta que la rodilla casi toque el suelo.','Vuelve empujando con la pierna de delante. A mitad del tiempo, cambia de pierna.'],avoid:['Que la rodilla de delante se vaya hacia dentro.','Inclinarte hacia delante.']},
-    inicio:{name:'Zancada inversa corta',anim:A.rlungeIni,how:['De pie, manos en la cintura. Si quieres, apóyate en una silla.','Da un paso atrás y baja solo un poco.','Vuelve a juntar los pies. A mitad del tiempo, cambia de pierna.'],avoid:['Dar un paso demasiado largo.','Perder el equilibrio por ir rápido.']}},
-  chest:{name:'Press de pecho con banda',yt:'press de pecho con banda elastica anclada',
-    normal:{anim:A.chest,band:'20 kg',anchor:true,how:['Ancla la banda detrás de ti a la altura del pecho y ponte de espaldas, con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante hasta estirar los brazos.','Vuelve despacio controlando la banda.'],avoid:['Arquear la espalda al empujar.','Soltar la tensión de golpe.']},
-    inicio:{anim:A.chestIni,band:'10 kg'}},
-  row1:{name:'Remo a una mano con banda',yt:'remo a una mano con banda elastica',switch:true,
-    normal:{anim:A.row1,band:'20 kg',how:['Pisa la banda con el pie de delante, inclina el tronco y apoya la otra mano en el muslo.','Tira llevando el codo hacia atrás y arriba, pegado al cuerpo.','Baja despacio. A mitad del tiempo, cambia de brazo.'],avoid:['Girar el tronco para tirar.','Redondear la espalda.']},
-    inicio:{anim:A.row1Ini,band:'10 kg'}},
-  dips:{name:'Fondos de tríceps en silla',yt:'fondos de triceps en silla tecnica',
-    normal:{anim:A.dips,how:['Manos en el borde de una silla estable, de espaldas a ella. Rodillas dobladas.','Baja doblando los codos hacia atrás, con la espalda cerca de la silla.','Empuja hasta estirar los brazos.'],avoid:['Bajar demasiado y forzar los hombros.','Abrir los codos hacia los lados.']},
-    inicio:{name:'Extensión de tríceps con banda',anim:A.dipsIni,band:'10 kg',anchor:true,how:['Ancla la banda arriba (parte alta de una puerta cerrada) y ponte de frente.','Codos pegados al cuerpo; estira los brazos hacia abajo.','Sube despacio hasta que los antebrazos queden horizontales. Los codos no se mueven.'],avoid:['Separar los codos del cuerpo.','Inclinarte encima de la banda.']}},
-  mc:{name:'Mountain climbers',sub:'Escaladores',yt:'mountain climbers tecnica principiantes',
-    normal:{anim:A.mc,how:['En posición de flexión, manos debajo de los hombros.','Lleva una rodilla hacia el pecho y vuelve a estirar la pierna.','Alterna piernas a un ritmo constante, con la cadera baja.'],avoid:['Subir la cadera.','Que las manos queden por delante de los hombros.']},
-    inicio:{name:'Escaladores en pared',anim:A.mcIni,how:['Manos en la pared a la altura del pecho, cuerpo inclinado.','Sube una rodilla hacia la pared y bájala.','Alterna piernas como si marcharas, a un ritmo que te deje hablar.'],avoid:['Doblar la espalda.','Ir tan rápido que pierdes la postura.']}},
+  rlunge:{name:'Zancada inversa con banda',yt:'zancada inversa con banda elastica',anim:A.rlunge,band:'20 kg',switch:true,
+    how:['Pisa la banda con el pie de delante y sujeta los extremos a la altura de los hombros.','Da un paso atrás con la otra pierna y baja hasta que la rodilla casi toque el suelo.','Vuelve empujando con la pierna de delante. A mitad del tiempo, cambia de pierna.'],avoid:['Que la rodilla de delante se vaya hacia dentro.','Inclinarte hacia delante.']},
+  rowBent:{name:'Remo inclinado con banda',sub:'Espalda',yt:'remo inclinado con banda elastica',anim:A.rowBent,band:'20–30 kg',
+    how:['Pisa la banda con los dos pies, flexiona un poco las rodillas e inclina el tronco con la espalda recta.','Tira de los dos extremos llevando los codos hacia atrás, pegados al cuerpo.','Junta las escápulas arriba y baja despacio.'],avoid:['Redondear la espalda.','Levantar el tronco para tirar.']},
+  pushdown:{name:'Extensión de tríceps con banda',yt:'extension de triceps con banda elastica polea alta',anim:A.dipsIni,band:'10–20 kg',anchor:true,
+    how:['Ancla la banda arriba (parte alta de la puerta) y ponte de frente.','Codos pegados al cuerpo; estira los brazos hacia abajo del todo.','Sube despacio hasta que los antebrazos queden horizontales. Los codos no se mueven.'],avoid:['Separar los codos del cuerpo.','Inclinarte encima de la banda.']},
+  yraise:{name:'Elevaciones en Y con banda',sub:'Trapecio bajo y postura',yt:'elevaciones en Y con banda elastica',anim:A.yraise,band:'10 kg',
+    how:['Pisa la banda con los dos pies y agarra un extremo con cada mano.','Con los brazos estirados y los pulgares hacia arriba, súbelos en diagonal formando una Y.','Baja despacio. Mientras subes, lleva los hombros hacia abajo y atrás.'],avoid:['Encoger los hombros hacia las orejas.','Arquear la espalda para subir más.']},
+  curl:{name:'Curl de bíceps con banda',yt:'curl de biceps con banda elastica',anim:A.curl,band:'20 kg',
+    how:['Pisa la banda con los dos pies y agarra los extremos con las palmas hacia delante.','Sube las manos doblando los codos, que se quedan pegados al cuerpo.','Baja despacio hasta estirar los brazos.'],avoid:['Balancear el cuerpo.','Adelantar los codos.']},
+  chop:{name:'Leñador con banda',sub:'Abdominales y oblicuos',yt:'leñador con banda elastica woodchop',anim:A.chop,band:'10–20 kg',anchor:true,switch:true,
+    how:['Ancla la banda arriba y ponte de lado a la puerta, con los pies separados.','Con los brazos casi estirados, tira de la banda en diagonal desde arriba hasta la cadera contraria, girando el tronco.','Vuelve despacio. A mitad del tiempo, cambia de lado.'],avoid:['Tirar solo con los brazos: el giro sale del tronco.','Doblar la espalda.']},
 
-  chin:{name:'Retracción de cuello',sub:'Doble mentón',yt:'retraccion cervical chin tuck ejercicio',
-    normal:{anim:A.chin,how:['Sentado o de pie, espalda recta y mirada al frente.','Lleva la cabeza hacia atrás en línea recta, como haciendo papada, sin mirar hacia abajo.','Aguanta 2–3 segundos y suelta. Movimiento pequeño y suave.'],avoid:['Inclinar la cabeza hacia abajo en lugar de llevarla hacia atrás.','Hacerlo con fuerza o con dolor.']}},
-  shrug:{name:'Círculos de hombros',yt:'circulos de hombros hacia atras ejercicio',
-    normal:{anim:A.shrug,how:['Brazos relajados a los lados.','Sube los hombros hacia las orejas, llévalos hacia atrás y bájalos, dibujando un círculo.','Hazlo lento, siempre hacia atrás, soltando la tensión al bajar.'],avoid:['Hacerlo rápido.','Mover la cabeza a la vez.']}},
-  angel:{name:'Ángeles en la pared',yt:'angeles en la pared wall angels ejercicio postura',
-    normal:{anim:A.angel,how:['De espaldas a una pared: culo, espalda y, si puedes, cabeza apoyados. Pies un poco separados de la pared.','Brazos en forma de W, con codos y dorso de las manos tocando la pared.','Desliza los brazos hacia arriba sin despegarlos y vuelve a bajar a la W.'],avoid:['Arquear la zona lumbar para llegar más arriba.','Subir los hombros hacia las orejas. Si no llegan a la pared, sube solo hasta donde llegues.']}},
-  face:{name:'Face pull con banda',sub:'Tirón a la cara',yt:'face pull con banda elastica tecnica',
-    normal:{anim:A.face,band:'10 kg',anchor:true,how:['Ancla la banda a la altura de la cara (parte alta de una puerta cerrada) y agárrala con las palmas hacia abajo.','Tira hacia la cara abriendo los codos hacia los lados y altos.','Junta las escápulas al final, con las manos a los lados de la cabeza, y vuelve despacio.'],avoid:['Encoger los hombros al tirar.','Echar el cuerpo hacia atrás.']}},
-  trap:{name:'Estiramiento de trapecio',yt:'estiramiento trapecio superior cuello',switch:true,
-    normal:{anim:A.trap,how:['Sentado o de pie, deja caer el hombro derecho, con el brazo relajado hacia el suelo.','Inclina la cabeza hacia el lado izquierdo, oreja hacia el hombro.','Si quieres más, apoya la mano izquierda encima de la cabeza sin tirar. A mitad del tiempo, cambia de lado.'],avoid:['Tirar de la cabeza con la mano.','Girar la cara: la nariz mira al frente.']}},
-  quad:{name:'Estiramiento de cuádriceps',yt:'estiramiento de cuadriceps de pie',switch:true,
-    normal:{anim:A.quad,how:['De pie, apóyate en una pared o silla con una mano.','Lleva el talón hacia el glúteo y sujeta el pie (o el pantalón) con la otra mano.','Rodillas juntas. A mitad del tiempo, cambia de pierna.'],avoid:['Si no llegas al pie, usa una toalla o apoya el empeine en una silla detrás.','Arquear la espalda.']}},
-  ham:{name:'Estiramiento de isquiotibiales',yt:'estiramiento isquiotibiales de pie',switch:true,
-    normal:{anim:A.ham,how:['Adelanta una pierna estirada con el talón en el suelo y la punta hacia arriba.','Dobla la pierna de atrás e inclina el tronco hacia delante con la espalda recta, manos en el muslo.','Notarás el estiramiento detrás del muslo. A mitad del tiempo, cambia.'],avoid:['Rebotar.','Redondear la espalda para llegar más abajo.']}},
-  pec:{name:'Estiramiento de pecho',yt:'estiramiento de pecho en pared',switch:true,
-    normal:{anim:A.pec,how:['Apoya la palma de la mano en una pared o marco de puerta, brazo a la altura del hombro.','Gira el cuerpo poco a poco hacia el lado contrario.','Notarás el estiramiento en el pecho y el hombro. A mitad del tiempo, cambia.'],avoid:['Forzar hasta sentir dolor en el hombro.','Encoger el hombro.']}},
-  child:{name:'Postura del niño',yt:'postura del niño estiramiento espalda',
-    normal:{anim:A.child,how:['De rodillas, siéntate sobre los talones. Separa las rodillas para estar más cómodo.','Inclínate hacia delante y estira los brazos en el suelo.','Respira hondo y relaja la espalda.'],avoid:['Si molestan las rodillas, pon un cojín debajo o hazlo sentado en una silla, inclinándote hacia delante.','Aguantar la respiración.']}},
+  chin:{name:'Retracción de cuello',sub:'Doble mentón',yt:'retraccion cervical chin tuck ejercicio',anim:A.chin,
+    how:['Sentado o de pie, espalda recta y mirada al frente.','Lleva la cabeza hacia atrás en línea recta, como haciendo papada, sin mirar hacia abajo.','Aguanta 2–3 segundos y suelta.'],avoid:['Inclinar la cabeza hacia abajo en lugar de llevarla hacia atrás.','Hacerlo con dolor.']},
+  wallBack:{name:'Empuje de cabeza contra la pared',sub:'Isométrico hacia atrás',yt:'isometrico cuello contra la pared retraccion',anim:A.wallBack,
+    how:['De espaldas a una pared, con los talones a un palmo de ella y la espalda apoyada.','Mete la barbilla (como haciendo papada) y empuja la parte de atrás de la cabeza contra la pared.','Aguanta 5–10 segundos empujando con fuerza, suelta y repite hasta acabar el tiempo.'],avoid:['Levantar la barbilla al empujar.','Ir al máximo de golpe: sube la fuerza poco a poco.']},
+  wallSide:{name:'Empuje lateral contra la pared',sub:'Isométrico de lado',yt:'isometrico lateral cuello contra la pared',anim:A.wallSide,switch:true,
+    how:['De lado a la pared, con una toalla doblada entre la cabeza y la pared.','Con la cabeza recta, empuja de lado contra la toalla sin mover el cuello.','Aguanta 5–10 segundos, suelta y repite. A mitad del tiempo, cambia de lado.'],avoid:['Inclinar la cabeza: no se mueve, solo empuja.','Subir el hombro del lado que empuja.']},
+  angel:{name:'Ángeles en la pared',sub:'Postura',yt:'angeles en la pared wall angels ejercicio postura',anim:A.angel,
+    how:['De espaldas a una pared: culo, espalda y cabeza apoyados. Pies un poco separados de la pared.','Brazos en forma de W, con codos y dorso de las manos tocando la pared.','Desliza los brazos hacia arriba sin despegarlos y vuelve a bajar a la W.'],avoid:['Arquear la zona lumbar para llegar más arriba.','Subir los hombros hacia las orejas.']},
+  trap:{name:'Estiramiento de trapecio',yt:'estiramiento trapecio superior cuello',anim:A.trap,switch:true,
+    how:['Sentado o de pie, deja caer el hombro derecho, con el brazo relajado hacia el suelo.','Inclina la cabeza hacia el lado izquierdo, oreja hacia el hombro.','Apoya la mano izquierda encima de la cabeza sin tirar. A mitad del tiempo, cambia de lado.'],avoid:['Tirar de la cabeza con la mano.','Girar la cara: la nariz mira al frente.']},
+  pec:{name:'Estiramiento de pecho',yt:'estiramiento de pecho en pared',anim:A.pec,switch:true,
+    how:['Apoya la palma en una pared o marco de puerta, brazo a la altura del hombro.','Gira el cuerpo poco a poco hacia el lado contrario.','Notarás el estiramiento en el pecho y el hombro. A mitad del tiempo, cambia.'],avoid:['Forzar hasta sentir dolor en el hombro.','Encoger el hombro.']},
+  quad:{name:'Estiramiento de cuádriceps',yt:'estiramiento de cuadriceps de pie',anim:A.quad,switch:true,
+    how:['De pie, apóyate en una pared con una mano.','Lleva el talón hacia el glúteo y sujeta el pie con la otra mano.','Rodillas juntas. A mitad del tiempo, cambia de pierna.'],avoid:['Si no llegas al pie, usa una toalla o apoya el empeine en una silla detrás.','Arquear la espalda.']},
+  ham:{name:'Estiramiento de isquiotibiales',yt:'estiramiento isquiotibiales de pie',anim:A.ham,switch:true,
+    how:['Adelanta una pierna estirada con el talón en el suelo y la punta hacia arriba.','Dobla la pierna de atrás e inclina el tronco con la espalda recta, manos en el muslo.','Notarás el estiramiento detrás del muslo. A mitad del tiempo, cambia.'],avoid:['Rebotar.','Redondear la espalda para llegar más abajo.']},
 };
 
 const PLAN={
-  'calentamiento':{title:'Calentamiento',sub:'3 minutos · igual todos los días · 30 s por ejercicio, sin descanso',ids:['jj','circ','sq0','hip','pull','knees']},
-  'dia-a':{title:'Día A · Piernas y empuje',sub:'Circuito de 5 ejercicios',ids:['squat','push','row','lunge','plank']},
-  'dia-b':{title:'Día B · Cadena posterior y hombros',sub:'Circuito de 5 ejercicios',ids:['rdl','ohp','bridge','pull','deadbug']},
-  'dia-c':{title:'Día C · Fuerza general',sub:'Circuito de 5 ejercicios',ids:['rlunge','chest','row1','dips','mc']},
-  'estiramientos':{title:'Vuelta a la calma',sub:'2 minutos y medio · 30 s por estiramiento, respirando tranquilo',ids:['quad','ham','pec','trap','child']},
-  'cuello':{title:'Cuello y espalda alta',sub:'5 minutos · todos los días, también los de descanso · 40 s por ejercicio',ids:['chin','shrug','angel','face','trap','pec']},
+  'calentamiento':{title:'Calentamiento',sub:'2 minutos · igual todos los días · 30 s por ejercicio, sin descanso',ids:['jj','circ','sq0','pull']},
+  'dia-a':{title:'Día A · Piernas, empuje y espalda',sub:'Circuito de 6 ejercicios con banda',ids:['squat','row','chest','shrugB','pull','crunch']},
+  'dia-b':{title:'Día B · Cadena posterior, hombros y espalda',sub:'Circuito de 6 ejercicios con banda',ids:['rdl','row1','ohp','face','lat','bridge']},
+  'dia-c':{title:'Día C · Fuerza general y espalda',sub:'Circuito de 6 ejercicios con banda',ids:['rlunge','rowBent','pushdown','yraise','curl','chop']},
+  'estiramientos':{title:'Vuelta a la calma',sub:'2 minutos · 30 s por estiramiento, respirando tranquilo',ids:['quad','ham','pec','trap']},
+  'cuello':{title:'Cuello y espalda alta',sub:'6 minutos · todos los días, también los de descanso · 40 s por ejercicio',ids:['chin','wallBack','wallSide','angel','face','trap','pec']},
 };
 
 /* ============ Estado ============ */
-let VER='inicio';
-try{const v=localStorage.getItem('ver');if(v==='normal'||v==='inicio')VER=v;}catch(e){}
-
 function variant(id){
-  const ex=EX[id]; const n=ex.normal;
-  if(VER==='inicio'&&ex.inicio){const i=ex.inicio;return {anchor:i.name?!!i.anchor:(i.anchor||n.anchor),name:i.name||ex.name,isAlt:!!i.name,anim:i.anim||n.anim,band:('band' in i)?i.band:(i.anim?null:n.band),how:i.how||n.how,avoid:i.avoid||n.avoid,sub:i.name?null:ex.sub};}
-  return {anchor:!!n.anchor,name:ex.name,anim:n.anim,band:n.band,how:n.how,avoid:n.avoid,sub:ex.sub};
+  const ex=EX[id];
+  const anim=ex.band?Object.assign({},ex.anim,{label:'banda '+ex.band.replace(' en las rodillas','')}):Object.assign({},ex.anim,{label:undefined});
+  return Object.assign({},ex,{anim});
 }
 
 const YT_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#E62117" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8z"/><path fill="#fff" d="M9.8 15.1V8.9L15.2 12z"/></svg>';
@@ -582,7 +583,7 @@ function renderList(key){
   clearFigs();
   const isCircuit=key.startsWith('dia');
   v.innerHTML=`<section class="intro"><h2>${P.title}</h2><p>${P.sub}${isCircuit?' · trabajo/descanso según la semana (mira la pestaña Entrenar)':''}</p>
-    <div class="meta">${isCircuit?'<span class="pill">3 rondas</span><span class="pill">≈15 min</span>':''}<span class="pill ${VER==='inicio'?'ok':''}">Nivel ${VER==='inicio'?'inicio':'normal'}</span></div>${P.ids.some(id=>variant(id).anchor)?'<button class="vid" type="button" id="introVid" style="margin-top:12px">▶ Vídeo: cómo anclar la banda a la puerta (1 min)</button>':''}</section>
+    <div class="meta">${isCircuit?'<span class="pill">6 ejercicios</span><span class="pill">3 rondas</span><span class="pill">15 min</span>':''}</div>${P.ids.some(id=>variant(id).anchor)?'<button class="vid" type="button" id="introVid" style="margin-top:12px">▶ Vídeo: cómo anclar la banda a la puerta (1 min)</button>':''}</section>
     ${key==='calentamiento'?TIPS:''}${key==='cuello'?NECK:''}
     <div class="grid" id="grid"></div>`;
   const grid=document.getElementById('grid');
@@ -592,12 +593,12 @@ function renderList(key){
     const c=document.createElement('article'); c.className='card';
     c.innerHTML=`<div class="stage"><span class="num">${i+1}</span><button class="pp" type="button">Pausa</button></div>
       <div class="body">
-        <div><h3>${V.name}</h3>${V.sub?`<div class="sub">${V.sub}</div>`:''}${V.isAlt?`<div class="sub">Versión de inicio de: ${ex.name}</div>`:''}</div>
+        <div><h3>${V.name}</h3>${V.sub?`<div class="sub">${V.sub}</div>`:''}</div>
         <div class="meta" style="margin-top:0">${V.band?`<span class="pill band">Banda ${V.band}</span>`:'<span class="pill">Sin banda</span>'}${ex.switch?'<span class="pill">Cambia de lado a mitad</span>':''}</div>
         <div><h4>Cómo se hace</h4><ol>${V.how.map(x=>`<li>${x}</li>`).join('')}</ol></div>
         <div><h4>Evita</h4><ul class="avoid">${V.avoid.map(x=>`<li>${x}</li>`).join('')}</ul></div>
         ${V.anchor?'<button class="vid" type="button">▶ Vídeo: cómo anclar la banda a la puerta</button>':''}
-        <a class="yt" href="${ytUrl(V.isAlt?V.name+' '+'ejercicio':ex.yt)}" target="_blank" rel="noopener">${YT_ICON} Ver vídeos en YouTube</a>
+        <a class="yt" href="${ytUrl(ex.yt)}" target="_blank" rel="noopener">${YT_ICON} Ver vídeos en YouTube</a>
       </div>`;
     grid.appendChild(c);
     const st=c.querySelector('.stage'), pp=c.querySelector('.pp');
@@ -609,20 +610,20 @@ function renderList(key){
 }
 
 const TIPS=`<details class="tips" open><summary>Antes de empezar (léelo una vez)</summary><ul>
-<li><b>Empieza con el nivel Inicio</b> al menos 3–4 semanas. Cuando todo salga fácil y con buena técnica, pasa a Normal ejercicio a ejercicio.</li>
-<li><b>Debe poder hablar</b> mientras entrena. Si se ahoga, que baje el ritmo o descanse más: no pasa nada.</li>
-<li><b>Si 3 rondas son demasiadas</b>, que haga 2. Lo importante es repetir 3 días por semana, no acabar destrozado.</li>
-<li><b>Agujetas sí, dolor articular no.</b> Si le duele una rodilla, la espalda o un hombro, que pare ese ejercicio.</li>
-<li>Como es su primera vez, es buena idea que lo comente con su médico antes de empezar, sobre todo si tiene la tensión alta o algún problema de corazón o articulaciones.</li>
-<li>Zapatillas, agua cerca y una esterilla o alfombra para los ejercicios en el suelo.</li>
+<li><b>Elige la banda para que cueste.</b> En cada ejercicio, las 2–3 últimas repeticiones tienen que costar de verdad, pero con buena técnica. Si acaba el tiempo sobrado, la próxima vez usa una banda más dura o junta dos.</li>
+<li><b>Ritmo controlado:</b> 1 segundo para tirar o empujar y 2 segundos para volver. Sin rebotes ni tirones.</li>
+<li><b>Progresa:</b> cada dos semanas sube el tiempo de trabajo (pestaña Entrenar) y, en cuanto puedas, la banda.</li>
+<li><b>Agujetas sí, dolor articular no.</b> Si duele una rodilla, la espalda o un hombro, para ese ejercicio.</li>
+<li>Si hace mucho que no hace ejercicio y tiene la tensión alta o algún problema de corazón, mejor que se haga una revisión antes de apretar.</li>
+<li>Necesita un anclaje de puerta para los ejercicios con la banda anclada (mira el vídeo), zapatillas y agua cerca.</li>
 </ul></details>`;
 
 const NECK=`<details class="tips" open><summary>Para el cuello y los trapecios (por estar muchas horas sentado)</summary><ul>
-<li><b>Haz esta rutina a diario</b>, por ejemplo a media mañana o al terminar de trabajar. Son 5 minutos y se puede hacer en ropa de calle.</li>
+<li><b>Haz esta rutina a diario</b>, por ejemplo a media mañana o al terminar de trabajar. Son 6 minutos y se puede hacer en ropa de calle.</li>
 <li><b>Levántate cada 45–60 minutos</b> aunque sea un minuto: camina, haz 5 retracciones de cuello y 10 círculos de hombros.</li>
 <li><b>Pantalla a la altura de los ojos</b> y a un brazo de distancia; si usa portátil, mejor con un soporte y teclado aparte.</li>
 <li><b>Hombros abajo y atrás</b> al teclear, con los codos apoyados. Los trapecios cargados suelen venir de tener los hombros subidos sin darse cuenta.</li>
-<li>Todo debe ser suave y sin dolor. Si el dolor baja al brazo, hay hormigueos, mareos o no mejora en unas semanas, que lo vea un fisioterapeuta o su médico.</li>
+<li>Los empujes contra la pared van con fuerza, pero sin dolor. Si el dolor baja al brazo, hay hormigueos, mareos o no mejora en unas semanas, que lo vea un fisioterapeuta o su médico.</li>
 </ul></details>`;
 
 function openVideo(){
@@ -634,9 +635,10 @@ function closeVideo(){const m=document.getElementById('vmodal'); m.hidden=true; 
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo();});
 
 /* ============ Modo entrenar ============ */
-const WEEKS=[{k:'s1',label:'Semanas 1–2',w:30,r:30},{k:'s3',label:'Semanas 3–4',w:40,r:20},{k:'s5',label:'Semana 5 en adelante',w:45,r:15}];
+const WEEKS=[{k:'s1',label:'Semanas 1–2',w:30,r:20},{k:'s3',label:'Semanas 3–4',w:35,r:15},{k:'s5',label:'Semana 5 en adelante',w:40,r:10}];
 const SET={day:'dia-a',week:'s1',rounds:3,sound:true};
 try{Object.assign(SET,JSON.parse(localStorage.getItem('set')||'{}'));}catch(e){}
+SET.rounds=3; if(!WEEKS.some(w=>w.k===SET.week))SET.week='s1';
 const saveSet=()=>{try{localStorage.setItem('set',JSON.stringify(SET));}catch(e){}};
 
 function buildSeq(){
@@ -667,11 +669,9 @@ function renderSession(){
   v.innerHTML=`<section class="setup" id="setup">
     <h2>Entrenamiento guiado</h2>
     <p class="small" style="margin:-8px 0 0">El temporizador te va diciendo qué hacer, con la animación de cada ejercicio. Calentamiento + circuito + estiramientos.</p>
-    <div class="field"><span class="lbl">¿Qué día toca?</span><div class="chips">${chips('day',[{v:'dia-a',l:'Día A'},{v:'dia-b',l:'Día B'},{v:'dia-c',l:'Día C'},{v:'cuello',l:'Solo cuello y espalda (5 min)'}])}</div></div>
+    <div class="field"><span class="lbl">¿Qué día toca?</span><div class="chips">${chips('day',[{v:'dia-a',l:'Día A'},{v:'dia-b',l:'Día B'},{v:'dia-c',l:'Día C'},{v:'cuello',l:'Solo cuello y espalda (6 min)'}])}</div></div>
     <div class="field" id="fWeek"><span class="lbl">¿En qué semana está?</span><div class="chips">${chips('week',WEEKS.map(w=>({v:w.k,l:`${w.label} · ${w.w}s / ${w.r}s`})))}</div>
-      <span class="small">Trabajo / descanso por ejercicio.</span></div>
-    <div class="field" id="fRounds"><span class="lbl">Rondas del circuito</span><div class="chips">${chips('rounds',[{v:2,l:'2 rondas'},{v:3,l:'3 rondas'}])}</div>
-      <span class="small">Si 3 se hacen muy duras al principio, empieza con 2.</span></div>
+      <span class="small">Trabajo / descanso por ejercicio. Siempre 3 rondas.</span></div>
     <div class="field"><span class="lbl">Sonido</span><div class="chips">${chips('sound',[{v:true,l:'Pitidos activados'},{v:false,l:'Sin sonido'}])}</div></div>
     <div class="summary" id="sum"></div>
     <button class="big" id="start" type="button">▶ Empezar</button>
@@ -698,8 +698,8 @@ function renderSession(){
   </section>`;
   const upd=()=>{
     const seq=buildSeq(); const tot=seq.reduce((s,x)=>s+x.d,0);
-    const nk=SET.day==='cuello'; document.getElementById('fWeek').hidden=nk; document.getElementById('fRounds').hidden=nk;
-    document.getElementById('sum').innerHTML=`<b>${PLAN[SET.day].title}</b> · duración total ≈ <b>${Math.round(tot/60)} min</b> · nivel ${VER}`;
+    const nk=SET.day==='cuello'; document.getElementById('fWeek').hidden=nk; 
+    document.getElementById('sum').innerHTML=`<b>${PLAN[SET.day].title}</b> · duración total ≈ <b>${Math.round(tot/60)} min</b>`;
   };
   v.querySelectorAll('.chips button').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.k; let val=b.dataset.v;
@@ -793,14 +793,6 @@ function tickRun(){
 }
 
 /* ============ Navegación ============ */
-function setVer(v){
-  VER=v; try{localStorage.setItem('ver',v);}catch(e){}
-  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.ver===v)));
-  document.getElementById('verHint').textContent=v==='inicio'?'Versión suave, para las primeras semanas.':'Versión completa, cuando la de inicio sea fácil.';
-  route();
-}
-document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>setVer(b.dataset.ver)));
-
 function route(){
   const h=(location.hash||'').replace('#','');
   const key=(h in PLAN||h==='entrenar')?h:'calentamiento';
@@ -810,7 +802,7 @@ function route(){
   if(key==='entrenar') renderSession(); else renderList(key);
 }
 window.addEventListener('hashchange',route);
-setVer(VER);
+route();
 </script>
 </body>
 </html>
