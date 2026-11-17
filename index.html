@@ -135,6 +135,7 @@ details.tips li{margin:4px 0}
     <a href="#dia-b" data-view="dia-b">Día B</a>
     <a href="#dia-c" data-view="dia-c">Día C</a>
     <a href="#estiramientos" data-view="estiramientos">Estiramientos</a>
+    <a href="#cuello" data-view="cuello">Cuello y espalda</a>
     <a href="#entrenar" data-view="entrenar" class="go">▶ Entrenar</a>
   </nav>
 
@@ -167,7 +168,10 @@ function solve(p,view){
   if(p.sh){t=Math.atan2(p.sh[0]-hip[0],-(p.sh[1]-hip[1]))*180/Math.PI;}
   const td=[Math.sin(rad(t)),-Math.cos(rad(t))];
   const front=view==='front';
-  P.hip=hip; P.sho=add(hip,td,L.T); P.head=add(P.sho,td,L.N+L.R); P.neck=add(P.sho,td,L.N);
+  P.hip=hip; P.sho=add(hip,td,L.T); P.head=add(P.sho,td,L.N+L.R);
+  if(p.hd) P.head=add(P.head,p.hd);
+  if(p.sd) P.sho=add(P.sho,p.sd);
+  {const dx=P.head[0]-P.sho[0],dy=P.head[1]-P.sho[1],dd=Math.hypot(dx,dy)||1;P.neck=add(P.sho,[dx/dd,dy/dd],Math.max(0,dd-L.R));}
   const sw=front?15:0,hw=front?9:0;
   P.s1=add(P.sho,[sw,0]); P.s2=add(P.sho,[-sw,0]); P.h1=add(hip,[hw,0]); P.h2=add(hip,[-hw,0]);
   const limbs=[['a1','s1',L.U,L.F,'e1','w1',1],['a2','s2',L.U,L.F,'e2','w2',2],['l1','h1',L.TH,L.SH,'k1','f1',1],['l2','h2',L.TH,L.SH,'k2','f2',2]];
@@ -209,7 +213,7 @@ function lerp(a,b,k){
 }
 const ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
 
-const BASE={hip:[120,117],t:0,a1:[0,0],a2:[0,0],l1:[0,0],l2:[0,0],fa1:90,fa2:90};
+const BASE={hip:[120,117],t:0,a1:[0,0],a2:[0,0],l1:[0,0],l2:[0,0],fa1:90,fa2:90,hd:[0,0],sd:[0,0]};
 const S=o=>Object.assign({},BASE,o);
 
 /* ---- props ---- */
@@ -248,6 +252,7 @@ class Fig{
     this.el={
       a2:pl(farC,7), l2:pl(farC,8),
       torso:pl('var(--ink)',11),
+      neck:pl('var(--ink)',7),
       l1:pl('var(--ink)',8),
       head:mk('circle',{r:L.R,fill:'var(--ink)'},g),
       a1:pl('var(--ink)',7)
@@ -286,6 +291,7 @@ class Fig{
     const P=solve(p,this.view), f=x=>x[0].toFixed(1)+','+x[1].toFixed(1);
     const E=this.el;
     E.torso.setAttribute('points',[P.hip,P.sho].map(f).join(' '));
+    E.neck.setAttribute('points',[P.sho,P.neck].map(f).join(' '));
     E.head.setAttribute('cx',P.head[0]); E.head.setAttribute('cy',P.head[1]);
     E.a1.setAttribute('points',[P.s1,P.e1,P.w1].map(f).join(' '));
     E.a2.setAttribute('points',[P.s2,P.e2,P.w2].map(f).join(' '));
@@ -444,6 +450,16 @@ A.ham={loop:'pingpong',dur:1.8,frames:[52,58].map(t=>S({hip:[108,140],t,l1:{to:[
 A.pec={loop:'pingpong',dur:1.8,props:[{type:'wall',x:56,w:14}],frames:[4,9].map(t=>S({hip:[125,117],t,a1:[-88,-88],a2:[0,10]}))};
 A.child={loop:'pingpong',dur:1.8,props:[{type:'mat',x1:50,x2:235}],frames:[107,110].map(t=>S({hip:[95,165],t,l1:[43,-90],l2:[43,-90],fa1:-90,fa2:-90,a1:[85,88],a2:[85,88]}))};
 
+A.chin={loop:'pingpong',dur:.8,frames:[S({hd:[1,0]}),Object.assign(S({hd:[-8,1]}),{h:.9})]};
+A.shrug={loop:'cycle',dur:.5,frames:[S({sd:[0,0]}),S({sd:[2,-8]}),S({sd:[-4,-6]}),S({sd:[-5,1]})]};
+A.angel={view:'front',loop:'pingpong',dur:1.4,frames:[
+  S({hip:[130,117],a1:[92,178],a2:[92,178],l1:[3,3],l2:[3,3]}),
+  S({hip:[130,117],a1:[138,162],a2:[138,162],l1:[3,3],l2:[3,3]})]};
+A.face={loop:'pingpong',dur:1.1,label:'banda 10 kg',props:[{type:'door',x:222,ax:222,ay:42}],bands:[BAND('w1',[222,42])],frames:[
+  S({hip:[108,118],t:-4,l1:{to:[116,197],b:-1},l2:{to:[98,197],b:-1},a1:[97,97],a2:[97,97]}),
+  Object.assign(S({hip:[108,118],t:-4,l1:{to:[116,197],b:-1},l2:{to:[98,197],b:-1},a1:[-150,90,.7],a2:[-150,90,.7]}),{h:.4})]};
+A.trap={view:'front',loop:'pingpong',dur:1.8,frames:[[8,3],[10,4]].map(hd=>S({hip:[130,117],hd,l1:[3,3],l2:[3,3],a2:[8,4],a1:[140,-110]}))};
+
 /* ============ Ejercicios ============ */
 const EX={
   jj:{name:'Jumping jacks',yt:'jumping jacks principiantes bajo impacto',
@@ -505,6 +521,16 @@ const EX={
     normal:{anim:A.mc,how:['En posición de flexión, manos debajo de los hombros.','Lleva una rodilla hacia el pecho y vuelve a estirar la pierna.','Alterna piernas a un ritmo constante, con la cadera baja.'],avoid:['Subir la cadera.','Que las manos queden por delante de los hombros.']},
     inicio:{name:'Escaladores en pared',anim:A.mcIni,how:['Manos en la pared a la altura del pecho, cuerpo inclinado.','Sube una rodilla hacia la pared y bájala.','Alterna piernas como si marcharas, a un ritmo que te deje hablar.'],avoid:['Doblar la espalda.','Ir tan rápido que pierdes la postura.']}},
 
+  chin:{name:'Retracción de cuello',sub:'Doble mentón',yt:'retraccion cervical chin tuck ejercicio',
+    normal:{anim:A.chin,how:['Sentado o de pie, espalda recta y mirada al frente.','Lleva la cabeza hacia atrás en línea recta, como haciendo papada, sin mirar hacia abajo.','Aguanta 2–3 segundos y suelta. Movimiento pequeño y suave.'],avoid:['Inclinar la cabeza hacia abajo en lugar de llevarla hacia atrás.','Hacerlo con fuerza o con dolor.']}},
+  shrug:{name:'Círculos de hombros',yt:'circulos de hombros hacia atras ejercicio',
+    normal:{anim:A.shrug,how:['Brazos relajados a los lados.','Sube los hombros hacia las orejas, llévalos hacia atrás y bájalos, dibujando un círculo.','Hazlo lento, siempre hacia atrás, soltando la tensión al bajar.'],avoid:['Hacerlo rápido.','Mover la cabeza a la vez.']}},
+  angel:{name:'Ángeles en la pared',yt:'angeles en la pared wall angels ejercicio postura',
+    normal:{anim:A.angel,how:['De espaldas a una pared: culo, espalda y, si puedes, cabeza apoyados. Pies un poco separados de la pared.','Brazos en forma de W, con codos y dorso de las manos tocando la pared.','Desliza los brazos hacia arriba sin despegarlos y vuelve a bajar a la W.'],avoid:['Arquear la zona lumbar para llegar más arriba.','Subir los hombros hacia las orejas. Si no llegan a la pared, sube solo hasta donde llegues.']}},
+  face:{name:'Face pull con banda',sub:'Tirón a la cara',yt:'face pull con banda elastica tecnica',
+    normal:{anim:A.face,band:'10 kg',how:['Ancla la banda a la altura de la cara (parte alta de una puerta cerrada) y agárrala con las palmas hacia abajo.','Tira hacia la cara abriendo los codos hacia los lados y altos.','Junta las escápulas al final, con las manos a los lados de la cabeza, y vuelve despacio.'],avoid:['Encoger los hombros al tirar.','Echar el cuerpo hacia atrás.']}},
+  trap:{name:'Estiramiento de trapecio',yt:'estiramiento trapecio superior cuello',switch:true,
+    normal:{anim:A.trap,how:['Sentado o de pie, deja caer el hombro derecho, con el brazo relajado hacia el suelo.','Inclina la cabeza hacia el lado izquierdo, oreja hacia el hombro.','Si quieres más, apoya la mano izquierda encima de la cabeza sin tirar. A mitad del tiempo, cambia de lado.'],avoid:['Tirar de la cabeza con la mano.','Girar la cara: la nariz mira al frente.']}},
   quad:{name:'Estiramiento de cuádriceps',yt:'estiramiento de cuadriceps de pie',switch:true,
     normal:{anim:A.quad,how:['De pie, apóyate en una pared o silla con una mano.','Lleva el talón hacia el glúteo y sujeta el pie (o el pantalón) con la otra mano.','Rodillas juntas. A mitad del tiempo, cambia de pierna.'],avoid:['Si no llegas al pie, usa una toalla o apoya el empeine en una silla detrás.','Arquear la espalda.']}},
   ham:{name:'Estiramiento de isquiotibiales',yt:'estiramiento isquiotibiales de pie',switch:true,
@@ -520,7 +546,8 @@ const PLAN={
   'dia-a':{title:'Día A · Piernas y empuje',sub:'Circuito de 5 ejercicios',ids:['squat','push','row','lunge','plank']},
   'dia-b':{title:'Día B · Cadena posterior y hombros',sub:'Circuito de 5 ejercicios',ids:['rdl','ohp','bridge','pull','deadbug']},
   'dia-c':{title:'Día C · Fuerza general',sub:'Circuito de 5 ejercicios',ids:['rlunge','chest','row1','dips','mc']},
-  'estiramientos':{title:'Vuelta a la calma',sub:'2 minutos · 30 s por estiramiento, respirando tranquilo',ids:['quad','ham','pec','child']},
+  'estiramientos':{title:'Vuelta a la calma',sub:'2 minutos y medio · 30 s por estiramiento, respirando tranquilo',ids:['quad','ham','pec','trap','child']},
+  'cuello':{title:'Cuello y espalda alta',sub:'5 minutos · todos los días, también los de descanso · 40 s por ejercicio',ids:['chin','shrug','angel','face','trap','pec']},
 };
 
 /* ============ Estado ============ */
@@ -544,7 +571,7 @@ function renderList(key){
   const isCircuit=key.startsWith('dia');
   v.innerHTML=`<section class="intro"><h2>${P.title}</h2><p>${P.sub}${isCircuit?' · trabajo/descanso según la semana (mira la pestaña Entrenar)':''}</p>
     <div class="meta">${isCircuit?'<span class="pill">3 rondas</span><span class="pill">≈15 min</span>':''}<span class="pill ${VER==='inicio'?'ok':''}">Nivel ${VER==='inicio'?'inicio':'normal'}</span></div></section>
-    ${key==='calentamiento'?TIPS:''}
+    ${key==='calentamiento'?TIPS:''}${key==='cuello'?NECK:''}
     <div class="grid" id="grid"></div>`;
   const grid=document.getElementById('grid');
   P.ids.forEach((id,i)=>{
@@ -575,6 +602,14 @@ const TIPS=`<details class="tips" open><summary>Antes de empezar (léelo una vez
 <li>Zapatillas, agua cerca y una esterilla o alfombra para los ejercicios en el suelo.</li>
 </ul></details>`;
 
+const NECK=`<details class="tips" open><summary>Para el cuello y los trapecios (por estar muchas horas sentado)</summary><ul>
+<li><b>Haz esta rutina a diario</b>, por ejemplo a media mañana o al terminar de trabajar. Son 5 minutos y se puede hacer en ropa de calle.</li>
+<li><b>Levántate cada 45–60 minutos</b> aunque sea un minuto: camina, haz 5 retracciones de cuello y 10 círculos de hombros.</li>
+<li><b>Pantalla a la altura de los ojos</b> y a un brazo de distancia; si usa portátil, mejor con un soporte y teclado aparte.</li>
+<li><b>Hombros abajo y atrás</b> al teclear, con los codos apoyados. Los trapecios cargados suelen venir de tener los hombros subidos sin darse cuenta.</li>
+<li>Todo debe ser suave y sin dolor. Si el dolor baja al brazo, hay hormigueos, mareos o no mejora en unas semanas, que lo vea un fisioterapeuta o su médico.</li>
+</ul></details>`;
+
 /* ============ Modo entrenar ============ */
 const WEEKS=[{k:'s1',label:'Semanas 1–2',w:30,r:30},{k:'s3',label:'Semanas 3–4',w:40,r:20},{k:'s5',label:'Semana 5 en adelante',w:45,r:15}];
 const SET={day:'dia-a',week:'s1',rounds:3,sound:true};
@@ -584,6 +619,11 @@ const saveSet=()=>{try{localStorage.setItem('set',JSON.stringify(SET));}catch(e)
 function buildSeq(){
   const wk=WEEKS.find(w=>w.k===SET.week)||WEEKS[0];
   const seq=[];
+  if(SET.day==='cuello'){
+    const ids=PLAN.cuello.ids;
+    ids.forEach((id,i)=>{seq.push({id,kind:'work',d:40,phase:'Cuello y espalda'});if(ids[i+1])seq.push({id:ids[i+1],kind:'rest',d:8,phase:'Cambio'});});
+    return seq;
+  }
   PLAN['calentamiento'].ids.forEach(id=>seq.push({id,kind:'warm',d:30,phase:'Calentamiento'}));
   const ids=PLAN[SET.day].ids;
   for(let r=1;r<=SET.rounds;r++){
@@ -604,10 +644,10 @@ function renderSession(){
   v.innerHTML=`<section class="setup" id="setup">
     <h2>Entrenamiento guiado</h2>
     <p class="small" style="margin:-8px 0 0">El temporizador te va diciendo qué hacer, con la animación de cada ejercicio. Calentamiento + circuito + estiramientos.</p>
-    <div class="field"><span class="lbl">¿Qué día toca?</span><div class="chips">${chips('day',[{v:'dia-a',l:'Día A'},{v:'dia-b',l:'Día B'},{v:'dia-c',l:'Día C'}])}</div></div>
-    <div class="field"><span class="lbl">¿En qué semana está?</span><div class="chips">${chips('week',WEEKS.map(w=>({v:w.k,l:`${w.label} · ${w.w}s / ${w.r}s`})))}</div>
+    <div class="field"><span class="lbl">¿Qué día toca?</span><div class="chips">${chips('day',[{v:'dia-a',l:'Día A'},{v:'dia-b',l:'Día B'},{v:'dia-c',l:'Día C'},{v:'cuello',l:'Solo cuello y espalda (5 min)'}])}</div></div>
+    <div class="field" id="fWeek"><span class="lbl">¿En qué semana está?</span><div class="chips">${chips('week',WEEKS.map(w=>({v:w.k,l:`${w.label} · ${w.w}s / ${w.r}s`})))}</div>
       <span class="small">Trabajo / descanso por ejercicio.</span></div>
-    <div class="field"><span class="lbl">Rondas del circuito</span><div class="chips">${chips('rounds',[{v:2,l:'2 rondas'},{v:3,l:'3 rondas'}])}</div>
+    <div class="field" id="fRounds"><span class="lbl">Rondas del circuito</span><div class="chips">${chips('rounds',[{v:2,l:'2 rondas'},{v:3,l:'3 rondas'}])}</div>
       <span class="small">Si 3 se hacen muy duras al principio, empieza con 2.</span></div>
     <div class="field"><span class="lbl">Sonido</span><div class="chips">${chips('sound',[{v:true,l:'Pitidos activados'},{v:false,l:'Sin sonido'}])}</div></div>
     <div class="summary" id="sum"></div>
@@ -635,6 +675,7 @@ function renderSession(){
   </section>`;
   const upd=()=>{
     const seq=buildSeq(); const tot=seq.reduce((s,x)=>s+x.d,0);
+    const nk=SET.day==='cuello'; document.getElementById('fWeek').hidden=nk; document.getElementById('fRounds').hidden=nk;
     document.getElementById('sum').innerHTML=`<b>${PLAN[SET.day].title}</b> · duración total ≈ <b>${Math.round(tot/60)} min</b> · nivel ${VER}`;
   };
   v.querySelectorAll('.chips button').forEach(b=>b.addEventListener('click',()=>{
