@@ -144,7 +144,7 @@ table.prog th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;col
   <header class="top">
     <div class="eyebrow">Fuerza 3 días · Cuello y trapecios a diario</div>
     <h1>Entrena en casa</h1>
-    <p class="lede">Plan de fuerza con bandas elásticas de 10, 20 y 30 kg y un programa específico para el cuello y los trapecios. Cada ejercicio tiene una animación que marca en naranja los músculos que trabajan.</p>
+    <p class="lede">Plan de fuerza con el kit de gomas PORTENTUM de 136 kg (8 gomas con asas) y un programa específico para el cuello y los trapecios. Cada ejercicio tiene una animación que marca en naranja los músculos que trabajan.</p>
   </header>
 
   <nav class="tabs" aria-label="Secciones">
@@ -179,43 +179,43 @@ const EX={
     how:['Pies a la anchura de los hombros, puntas un poco hacia fuera.','Lleva la cadera atrás como si fueras a sentarte, con los brazos al frente.','Baja hasta muslos paralelos y sube empujando con los talones.'],avoid:['Levantar los talones del suelo.','Que las rodillas se vayan hacia dentro.']},
   circ:{name:'Círculos de brazos',musc:'Hombros',yt:'circulos de brazos calentamiento hombros',
     how:['De pie, brazos estirados.','Dibuja círculos grandes con los brazos, hacia delante.','A mitad del tiempo, cambia el sentido.'],avoid:['Hacerlos a tirones.','Arquear la espalda.']},
-  pull:{name:'Aperturas con banda',sub:'Pull-apart',musc:'Espalda alta y hombro posterior',band:'10 kg',yt:'pull apart banda elastica tecnica',
-    how:['Sujeta la banda con los brazos estirados al frente, a la altura del pecho.','Separa las manos hasta que la banda toque el pecho, juntando las escápulas.','Vuelve despacio, sin dejar que la banda tire de ti.'],avoid:['Doblar mucho los codos.','Subir los hombros hacia las orejas.']},
+  pull:{name:'Aperturas con banda',sub:'Pull-apart',musc:'Espalda alta y hombro posterior',g:['azul'],up:['roja'],yt:'pull apart banda elastica tecnica',
+    how:['Sujeta la goma por las asas, con los brazos estirados al frente, a la altura del pecho.','Separa las manos hasta que la goma toque el pecho, juntando las escápulas.','Vuelve despacio, sin dejar que la goma tire de ti.'],avoid:['Doblar mucho los codos.','Subir los hombros hacia las orejas.']},
   // Fuerza
-  squat:{name:'Sentadilla con banda',musc:'Cuádriceps y glúteos',band:'20–30 kg',yt:'sentadilla con banda elastica tecnica',
-    how:['Pisa la banda con los pies a la anchura de los hombros y pásala por encima de los hombros.','Baja llevando la cadera atrás, pecho alto, hasta que los muslos queden paralelos al suelo.','Sube empujando con los talones y aprieta los glúteos arriba.'],avoid:['Que las rodillas se cierren hacia dentro.','Redondear la espalda al bajar.']},
-  row:{name:'Remo de pie con banda',musc:'Espalda media, dorsales y bíceps',band:'20–30 kg',anchor:'pecho',yt:'remo con banda elastica anclada en puerta',
-    how:['Ancla la banda a la altura del pecho y da unos pasos atrás hasta que tenga tensión.','Con los brazos estirados, tira llevando los codos atrás, pegados al cuerpo.','Junta las escápulas 1 segundo al final y vuelve despacio.'],avoid:['Echar el cuerpo hacia atrás para tirar.','Subir los hombros.']},
-  chest:{name:'Press de pecho con banda',musc:'Pecho, tríceps y hombro',band:'20–30 kg',anchor:'pecho',yt:'press de pecho con banda elastica anclada',
-    how:['Ancla la banda a la altura del pecho y ponte de espaldas a la puerta, con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante hasta estirar los brazos.','Vuelve despacio controlando la banda.'],avoid:['Arquear la espalda al empujar.','Soltar la tensión de golpe.']},
-  shrugB:{name:'Encogimientos con banda',musc:'Trapecio superior',band:'30 kg',yt:'encogimientos de trapecio con banda elastica',
-    how:['Pisa la banda con los dos pies y agarra los extremos con los brazos estirados.','Sube los hombros hacia las orejas todo lo que puedas, sin doblar los codos.','Aguanta 2 segundos arriba y baja despacio, del todo.'],avoid:['Girar los hombros en círculo.','Adelantar la cabeza al subir.']},
-  bridge:{name:'Puente de glúteo con banda',musc:'Glúteos e isquiotibiales',band:'10–20 kg en las rodillas',yt:'puente de gluteo con banda tecnica',
-    how:['Tumbado boca arriba, rodillas dobladas, pies apoyados y la banda alrededor de las rodillas.','Sube la cadera empujando con los talones y abriendo un poco las rodillas contra la banda.','Aguanta 2 segundos arriba y baja despacio.'],avoid:['Arquear la espalda en lugar de subir con los glúteos.','Empujar con las puntas de los pies.']},
-  face:{name:'Face pull con banda',musc:'Trapecio medio y hombro posterior',band:'10–20 kg',anchor:'cara',yt:'face pull con banda elastica tecnica',
-    how:['Ancla la banda a la altura de la cara y agárrala con las palmas hacia abajo.','Tira hacia la cara abriendo los codos hacia los lados y altos.','Junta las escápulas 1 segundo, con las manos a los lados de la cabeza, y vuelve despacio.'],avoid:['Encoger los hombros al tirar.','Echar el cuerpo hacia atrás.']},
-  rdl:{name:'Peso muerto rumano con banda',musc:'Isquiotibiales, glúteos y lumbares',band:'30 kg',yt:'peso muerto rumano con banda elastica',
-    how:['Pisa la banda con los pies a la anchura de la cadera y agarra los extremos.','Con las rodillas un poco flexionadas, lleva la cadera atrás bajando el tronco con la espalda recta.','Cuando notes tensión detrás de los muslos, sube apretando los glúteos.'],avoid:['Redondear la espalda.','Doblar mucho las rodillas (no es una sentadilla).']},
-  lat:{name:'Jalón con banda',musc:'Dorsales y espalda alta',band:'20 kg',anchor:'arriba',yt:'jalon al pecho con banda elastica anclada puerta',
-    how:['Ancla la banda arriba, arrodíllate a un paso de la puerta (con un cojín) y agárrala con los brazos estirados.','Tira llevando los codos hacia abajo, hacia las costillas, sacando pecho.','Junta las escápulas abajo y vuelve despacio.'],avoid:['Encoger los hombros.','Echar el cuerpo hacia atrás para tirar.']},
-  ohp:{name:'Press de hombros con banda',musc:'Hombros y tríceps',band:'20 kg',yt:'press militar con banda elastica',
-    how:['Pisa la banda con los dos pies y sube las manos a la altura de los hombros.','Empuja hacia arriba hasta estirar los brazos, con el abdomen apretado.','Baja despacio a la altura de los hombros.'],avoid:['Arquear la zona lumbar al empujar.','Bajar de golpe.']},
-  row1:{name:'Remo a una mano con banda',musc:'Dorsales y espalda media',band:'20–30 kg',switch:true,yt:'remo a una mano con banda elastica',
-    how:['Pisa la banda con el pie de delante, inclina el tronco y apoya la otra mano en el muslo.','Tira llevando el codo atrás y arriba, pegado al cuerpo.','Baja despacio. A mitad del tiempo, cambia de brazo.'],avoid:['Girar el tronco para tirar.','Redondear la espalda.']},
-  deadbugB:{name:'Dead bug con banda',musc:'Abdominales profundos',band:'10 kg',anchor:'abajo',yt:'dead bug con banda elastica',
-    how:['Ancla la banda abajo, detrás de tu cabeza. Túmbate boca arriba y sujétala con los brazos estirados hacia el techo.','Rodillas dobladas a 90°. Estira una pierna hasta casi tocar el suelo sin que los brazos se muevan.','Vuelve y cambia de pierna. La zona lumbar, siempre pegada al suelo.'],avoid:['Que la zona lumbar se despegue del suelo.','Dejar que la banda te mueva los brazos.']},
-  yraise:{name:'Elevaciones en Y con banda',musc:'Trapecio inferior y hombros',band:'10 kg',yt:'elevaciones en Y con banda elastica',
-    how:['Pisa la banda con los dos pies y agarra un extremo con cada mano.','Con los brazos estirados y los pulgares hacia arriba, súbelos en diagonal formando una Y.','Baja despacio. Mientras subes, lleva los hombros hacia abajo y atrás.'],avoid:['Encoger los hombros hacia las orejas.','Arquear la espalda para subir más.']},
-  rlunge:{name:'Zancada inversa con banda',musc:'Cuádriceps y glúteos',band:'20 kg',switch:true,yt:'zancada inversa con banda elastica',
-    how:['Pisa la banda con el pie de delante y sujeta los extremos a la altura de los hombros.','Da un paso atrás y baja hasta que la rodilla de atrás casi toque el suelo.','Vuelve empujando con la pierna de delante. A mitad del tiempo, cambia de pierna.'],avoid:['Que la rodilla de delante se vaya hacia dentro.','Inclinarte hacia delante.']},
-  rowBent:{name:'Remo inclinado con banda',musc:'Espalda media, dorsales y trapecio',band:'20–30 kg',yt:'remo inclinado con banda elastica',
-    how:['Pisa la banda con los dos pies, flexiona un poco las rodillas e inclina el tronco con la espalda recta.','Tira de los dos extremos llevando los codos atrás, pegados al cuerpo.','Junta las escápulas 1 segundo y baja despacio.'],avoid:['Redondear la espalda.','Levantar el tronco para tirar.']},
-  pressInc:{name:'Press inclinado con banda',musc:'Pecho superior y hombros',band:'20 kg',anchor:'abajo',yt:'press inclinado con banda elastica',
-    how:['Ancla la banda abajo, ponte de espaldas a la puerta con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante y hacia arriba, en diagonal.','Vuelve despacio a la altura del pecho.'],avoid:['Arquear la zona lumbar.','Encoger los hombros al empujar.']},
-  chop:{name:'Leñador con banda',musc:'Abdominales y oblicuos',band:'10–20 kg',anchor:'arriba',switch:true,yt:'leñador con banda elastica woodchop',
-    how:['Ancla la banda arriba y ponte de lado a la puerta, pies separados.','Con los brazos casi estirados, tira en diagonal desde arriba hasta la cadera contraria, girando el tronco.','Vuelve despacio. A mitad del tiempo, cambia de lado.'],avoid:['Tirar solo con los brazos: el giro sale del tronco.','Doblar la espalda.']},
-  pushdown:{name:'Extensión de tríceps con banda',musc:'Tríceps',band:'10–20 kg',anchor:'arriba',yt:'extension de triceps con banda elastica polea alta',
-    how:['Ancla la banda arriba y ponte de frente.','Codos pegados al cuerpo; estira los brazos hacia abajo del todo.','Sube despacio hasta que los antebrazos queden horizontales.'],avoid:['Separar los codos del cuerpo.','Inclinarte encima de la banda.']},
+  squat:{name:'Sentadilla con banda',musc:'Cuádriceps y glúteos',g:['negra', 'verde'],up:['negra', 'negra'],yt:'sentadilla con banda elastica tecnica',
+    how:['Pisa el centro de la goma con los pies a la anchura de los hombros y sube las asas a la altura de los hombros.','Baja llevando la cadera atrás, pecho alto, hasta que los muslos queden paralelos al suelo.','Sube empujando con los talones y aprieta los glúteos arriba.'],avoid:['Que las rodillas se cierren hacia dentro.','Redondear la espalda al bajar.']},
+  row:{name:'Remo de pie con banda',musc:'Espalda media, dorsales y bíceps',g:['verde'],up:['negra'],anchor:'pecho',yt:'remo con banda elastica anclada en puerta',
+    how:['Ancla la goma a la altura del pecho y da unos pasos atrás hasta que tenga tensión.','Con los brazos estirados, tira llevando los codos atrás, pegados al cuerpo.','Junta las escápulas 1 segundo al final y vuelve despacio.'],avoid:['Echar el cuerpo hacia atrás para tirar.','Subir los hombros.']},
+  chest:{name:'Press de pecho con banda',musc:'Pecho, tríceps y hombro',g:['verde'],up:['negra'],anchor:'pecho',yt:'press de pecho con banda elastica anclada',
+    how:['Ancla la goma a la altura del pecho y ponte de espaldas a la puerta, con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante hasta estirar los brazos.','Vuelve despacio controlando la goma.'],avoid:['Arquear la espalda al empujar.','Soltar la tensión de golpe.']},
+  shrugB:{name:'Encogimientos con banda',musc:'Trapecio superior',g:['negra', 'negra'],up:['negra', 'negra', 'negra'],yt:'encogimientos de trapecio con banda elastica',
+    how:['Pisa el centro de la goma con los dos pies y agarra las asas con los brazos estirados.','Sube los hombros hacia las orejas todo lo que puedas, sin doblar los codos.','Aguanta 2 segundos arriba y baja despacio, del todo.'],avoid:['Girar los hombros en círculo.','Adelantar la cabeza al subir.']},
+  bridge:{name:'Puente de glúteo con banda',musc:'Glúteos e isquiotibiales',g:['negra'],up:['negra', 'verde'],yt:'puente de gluteo con banda tecnica',
+    how:['Tumbado boca arriba, rodillas dobladas y pies apoyados. Pasa la goma por encima de la cadera y sujeta las asas contra el suelo.','Sube la cadera empujando con los talones contra la goma.','Aguanta 2 segundos arriba y baja despacio.'],avoid:['Arquear la espalda en lugar de subir con los glúteos.','Empujar con las puntas de los pies.']},
+  face:{name:'Face pull con banda',musc:'Trapecio medio y hombro posterior',g:['azul'],up:['roja'],anchor:'cara',yt:'face pull con banda elastica tecnica',
+    how:['Ancla la goma a la altura de la cara y agárrala con las palmas hacia abajo.','Tira hacia la cara abriendo los codos hacia los lados y altos.','Junta las escápulas 1 segundo, con las manos a los lados de la cabeza, y vuelve despacio.'],avoid:['Encoger los hombros al tirar.','Echar el cuerpo hacia atrás.']},
+  rdl:{name:'Peso muerto rumano con banda',musc:'Isquiotibiales, glúteos y lumbares',g:['negra', 'negra'],up:['negra', 'negra', 'verde'],yt:'peso muerto rumano con banda elastica',
+    how:['Pisa el centro de la goma con los pies a la anchura de la cadera y agarra las asas.','Con las rodillas un poco flexionadas, lleva la cadera atrás bajando el tronco con la espalda recta.','Cuando notes tensión detrás de los muslos, sube apretando los glúteos.'],avoid:['Redondear la espalda.','Doblar mucho las rodillas (no es una sentadilla).']},
+  lat:{name:'Jalón con banda',musc:'Dorsales y espalda alta',g:['verde'],up:['negra'],anchor:'arriba',yt:'jalon al pecho con banda elastica anclada puerta',
+    how:['Ancla la goma arriba, arrodíllate a un paso de la puerta (con un cojín) y agárrala con los brazos estirados.','Tira llevando los codos hacia abajo, hacia las costillas, sacando pecho.','Junta las escápulas abajo y vuelve despacio.'],avoid:['Encoger los hombros.','Echar el cuerpo hacia atrás para tirar.']},
+  ohp:{name:'Press de hombros con banda',musc:'Hombros y tríceps',g:['roja'],up:['verde'],yt:'press militar con banda elastica',
+    how:['Pisa el centro de la goma con los dos pies y sube las manos a la altura de los hombros.','Empuja hacia arriba hasta estirar los brazos, con el abdomen apretado.','Baja despacio a la altura de los hombros.'],avoid:['Arquear la zona lumbar al empujar.','Bajar de golpe.']},
+  row1:{name:'Remo a una mano con banda',musc:'Dorsales y espalda media',g:['verde'],up:['negra'],switch:true,yt:'remo a una mano con banda elastica',
+    how:['Pisa el centro de la goma con el pie de delante, inclina el tronco y apoya la otra mano en el muslo.','Tira llevando el codo atrás y arriba, pegado al cuerpo.','Baja despacio. A mitad del tiempo, cambia de brazo.'],avoid:['Girar el tronco para tirar.','Redondear la espalda.']},
+  deadbugB:{name:'Dead bug con banda',musc:'Abdominales profundos',g:['azul'],up:['roja'],anchor:'abajo',yt:'dead bug con banda elastica',
+    how:['Ancla la goma abajo, detrás de tu cabeza. Túmbate boca arriba y sujétala con los brazos estirados hacia el techo.','Rodillas dobladas a 90°. Estira una pierna hasta casi tocar el suelo sin que los brazos se muevan.','Vuelve y cambia de pierna. La zona lumbar, siempre pegada al suelo.'],avoid:['Que la zona lumbar se despegue del suelo.','Dejar que la goma te mueva los brazos.']},
+  yraise:{name:'Elevaciones en Y con banda',musc:'Trapecio inferior y hombros',g:['amarilla'],up:['azul'],yt:'elevaciones en Y con banda elastica',
+    how:['Pisa el centro de la goma con los dos pies y agarra un asa con cada mano.','Con los brazos estirados y los pulgares hacia arriba, súbelos en diagonal formando una Y.','Baja despacio. Mientras subes, lleva los hombros hacia abajo y atrás.'],avoid:['Encoger los hombros hacia las orejas.','Arquear la espalda para subir más.']},
+  rlunge:{name:'Zancada inversa con banda',musc:'Cuádriceps y glúteos',g:['roja'],up:['verde'],switch:true,yt:'zancada inversa con banda elastica',
+    how:['Pisa el centro de la goma con el pie de delante y sujeta las asas a la altura de los hombros.','Da un paso atrás y baja hasta que la rodilla de atrás casi toque el suelo.','Vuelve empujando con la pierna de delante. A mitad del tiempo, cambia de pierna.'],avoid:['Que la rodilla de delante se vaya hacia dentro.','Inclinarte hacia delante.']},
+  rowBent:{name:'Remo inclinado con banda',musc:'Espalda media, dorsales y trapecio',g:['negra'],up:['negra', 'roja'],yt:'remo inclinado con banda elastica',
+    how:['Pisa el centro de la goma con los dos pies, flexiona un poco las rodillas e inclina el tronco con la espalda recta.','Tira de las dos asas llevando los codos atrás, pegados al cuerpo.','Junta las escápulas 1 segundo y baja despacio.'],avoid:['Redondear la espalda.','Levantar el tronco para tirar.']},
+  pressInc:{name:'Press inclinado con banda',musc:'Pecho superior y hombros',g:['roja'],up:['verde'],anchor:'abajo',yt:'press inclinado con banda elastica',
+    how:['Ancla la goma abajo, ponte de espaldas a la puerta con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante y hacia arriba, en diagonal.','Vuelve despacio a la altura del pecho.'],avoid:['Arquear la zona lumbar.','Encoger los hombros al empujar.']},
+  chop:{name:'Leñador con banda',musc:'Abdominales y oblicuos',g:['azul'],up:['roja'],anchor:'arriba',switch:true,yt:'leñador con banda elastica woodchop',
+    how:['Ancla la goma arriba y ponte de lado a la puerta, pies separados.','Con los brazos casi estirados, tira en diagonal desde arriba hasta la cadera contraria, girando el tronco.','Vuelve despacio. A mitad del tiempo, cambia de lado.'],avoid:['Tirar solo con los brazos: el giro sale del tronco.','Doblar la espalda.']},
+  pushdown:{name:'Extensión de tríceps con banda',musc:'Tríceps',g:['azul'],up:['roja'],anchor:'arriba',yt:'extension de triceps con banda elastica polea alta',
+    how:['Ancla la goma arriba y ponte de frente.','Codos pegados al cuerpo; estira los brazos hacia abajo del todo.','Sube despacio hasta que los antebrazos queden horizontales.'],avoid:['Separar los codos del cuerpo.','Inclinarte encima de la goma.']},
   // Estiramientos
   quad:{name:'Estiramiento de cuádriceps',musc:'Cuádriceps',switch:true,yt:'estiramiento de cuadriceps de pie',
     how:['De pie, apóyate en una pared con una mano.','Lleva el talón hacia el glúteo y sujeta el pie con la otra mano.','Rodillas juntas. A mitad del tiempo, cambia de pierna.'],avoid:['Si no llegas al pie, usa una toalla.','Arquear la espalda.']},
@@ -232,10 +232,10 @@ const EX={
     how:['De espaldas a una pared, con los talones a un palmo de ella y la espalda apoyada.','Mete la barbilla y empuja la parte de atrás de la cabeza contra la pared.','Aguanta y suelta (mira la progresión arriba). Repite hasta acabar el tiempo.'],avoid:['Levantar la barbilla al empujar.','Ir al máximo de golpe: sube la fuerza poco a poco.']},
   isoSide:{name:'Isométrico lateral con la mano',sub:'Inclinación lateral',musc:'Laterales del cuello',switch:true,yt:'isometrico lateral cuello con la mano',
     how:['Sentado o de pie, cabeza recta. Apoya la palma en un lado de la cabeza, sobre la oreja.','Empuja la cabeza contra la mano y la mano contra la cabeza: nada se mueve.','Aguanta y suelta. A mitad del tiempo, cambia de lado.'],avoid:['Inclinar o girar la cabeza.','Subir el hombro.']},
-  latRaise:{name:'Elevaciones laterales con banda',sub:'El ejercicio estrella del programa',musc:'Hombros y trapecio superior',band:'10–20 kg',yt:'elevaciones laterales con banda elastica',
-    how:['Pisa la banda con los dos pies y agarra un extremo con cada mano.','Sube los brazos por los lados, con los codos un poco doblados, hasta la altura de los hombros.','Baja despacio en 2–3 segundos. Haz entre 10 y 20 repeticiones.'],avoid:['Subir los brazos por encima de los hombros.','Balancear el cuerpo.']},
-  extRot:{name:'Rotación externa con banda',musc:'Manguito rotador y hombro posterior',band:'10 kg',yt:'rotacion externa con banda elastica hombro',
-    how:['Codos pegados al cuerpo y doblados a 90°, banda entre las manos.','Abre los antebrazos hacia fuera sin separar los codos del cuerpo.','Junta las escápulas al final y vuelve despacio.'],avoid:['Separar los codos.','Arquear la espalda.']},
+  latRaise:{name:'Elevaciones laterales con banda',sub:'El ejercicio estrella del programa',musc:'Hombros y trapecio superior',g:['amarilla'],up:['azul'],yt:'elevaciones laterales con banda elastica',
+    how:['Pisa el centro de la goma con los dos pies y agarra un asa con cada mano.','Sube los brazos por los lados, con los codos un poco doblados, hasta la altura de los hombros.','Baja despacio en 2–3 segundos. Haz entre 10 y 20 repeticiones.'],avoid:['Subir los brazos por encima de los hombros.','Balancear el cuerpo.']},
+  extRot:{name:'Rotación externa con banda',musc:'Manguito rotador y hombro posterior',g:['amarilla'],up:['azul'],yt:'rotacion externa con banda elastica hombro',
+    how:['Codos pegados al cuerpo y doblados a 90°, una asa en cada mano (goma corta: agárrala más cerca del centro).','Abre los antebrazos hacia fuera sin separar los codos del cuerpo.','Junta las escápulas al final y vuelve despacio.'],avoid:['Separar los codos.','Arquear la espalda.']},
   angel:{name:'Ángeles en la pared',sub:'Postura',musc:'Trapecio medio e inferior',yt:'angeles en la pared wall angels ejercicio postura',
     how:['De espaldas a una pared: culo, espalda y cabeza apoyados. Pies un poco separados de la pared.','Brazos en forma de W, con codos y dorso de las manos tocando la pared.','Desliza los brazos hacia arriba sin despegarlos y vuelve a la W.'],avoid:['Arquear la zona lumbar.','Subir los hombros hacia las orejas.']},
   levator:{name:'Estiramiento del elevador de la escápula',sub:'Nariz hacia la axila',musc:'Parte de atrás del cuello',switch:true,yt:'estiramiento elevador de la escapula',
@@ -257,6 +257,10 @@ const WEEKS=[{k:'s1',label:'Semanas 1–2',w:35},{k:'s3',label:'Semanas 3–5',w
 const ROUND=120, CHANGE=10, ROUNDS=3;
 
 /* ================= Utilidades ================= */
+const GOMA={amarilla:[4.5,'#F2C230'],azul:[9,'#2F7FD8'],roja:[13.6,'#D93A2B'],verde:[18.1,'#2E9E4F'],negra:[22.5,'#2A2D31']};
+const kgTxt=n=>(Math.round(n*10)/10).toString().replace('.',',');
+const gTxt=arr=>arr.join(' + ')+' ('+kgTxt(arr.reduce((t,c)=>t+GOMA[c][0],0))+' kg)';
+const dots=arr=>arr.map(c=>`<i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${GOMA[c][1]};margin-right:2px;vertical-align:-1px"></i>`).join('');
 const YT_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#E62117" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8z"/><path fill="#fff" d="M9.8 15.1V8.9L15.2 12z"/></svg>';
 const ytUrl=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
 const media=id=>({src:'anim/'+id+'.mp4',poster:'anim/'+id+'.jpg'});
@@ -279,10 +283,10 @@ function videoEl(id){
 function card(id,label){
   const ex=EX[id];
   const c=document.createElement('article'); c.className='card';
-  c.innerHTML=`<div class="stage"><span class="num">${label}</span>${ex.band?`<span class="kg">banda ${ex.band.replace(' en las rodillas','')}</span>`:''}<button class="pp" type="button">Pausa</button></div>
+  c.innerHTML=`<div class="stage"><span class="num">${label}</span>${ex.g?`<span class="kg">${dots(ex.g)} ${ex.g.join(' + ')}</span>`:''}<button class="pp" type="button">Pausa</button></div>
     <div class="body">
       <div><h3>${ex.name}</h3><div class="sub">${ex.musc}${ex.sub&&ex.sub!==ex.musc?' · '+ex.sub:''}</div></div>
-      <div class="meta" style="margin-top:0">${ex.band?`<span class="pill band">Banda ${ex.band}</span>`:''}${ex.anchor?`<span class="pill">${ANCH[ex.anchor]}</span>`:''}${ex.switch?'<span class="pill">Cambia de lado a mitad</span>':''}</div>
+      <div class="meta" style="margin-top:0">${ex.g?`<span class="pill band">Goma: ${gTxt(ex.g)}</span><span class="pill">Para subir: ${ex.up.join(' + ')}</span>`:''}${ex.anchor?`<span class="pill">${ANCH[ex.anchor]}</span>`:''}${ex.switch?'<span class="pill">Cambia de lado a mitad</span>':''}</div>
       <div><h4>Cómo se hace</h4><ol>${ex.how.map(x=>`<li>${x}</li>`).join('')}</ol></div>
       <div><h4>Evita</h4><ul class="avoid">${ex.avoid.map(x=>`<li>${x}</li>`).join('')}</ul></div>
       <div class="links">${ex.anchor?'<button class="vid" type="button">▶ Cómo anclar la banda</button>':''}<a class="yt" href="${ytUrl(ex.yt)}" target="_blank" rel="noopener">${YT_ICON} Vídeos en YouTube</a></div>
@@ -298,8 +302,8 @@ function card(id,label){
 
 /* ================= Vistas ================= */
 const TIPS_FUERZA=`<details class="tips"><summary>Cómo hacer cada serie (léelo una vez)</summary><ul>
-<li><b>Elige la banda para hacer 10–15 repeticiones</b> en el tiempo de trabajo, con las 2 últimas difíciles pero bien hechas.</li>
-<li><b>Cuando llegue sobrado a 15</b>, sube de banda en ese ejercicio o junta dos bandas. Así progresa semana a semana.</li>
+<li><b>Cada ejercicio dice con qué goma empezar.</b> El objetivo son 10–15 repeticiones en el tiempo de trabajo, con las 2 últimas difíciles pero bien hechas.</li>
+<li><b>Cuando llegue sobrado a 15</b>, pasa a la combinación de «Para subir»: engancha otra goma con el mosquetón al mismo asa y las resistencias se suman. También puede alejarse un paso más de la puerta o pisar la goma con los pies más separados.</li>
 <li><b>Ritmo:</b> 1 segundo para tirar o empujar, 1 segundo de pausa apretando (sobre todo en los de espalda) y 2 segundos para volver.</li>
 <li><b>Agujetas sí, dolor articular no.</b> Si duele una rodilla, la espalda o un hombro, para ese ejercicio.</li>
 </ul></details>`;
@@ -322,8 +326,8 @@ function renderDay(key){
 
 const NECK_TIPS=`<details class="tips teal" open><summary>Por qué este programa y cómo progresar</summary><ul>
 <li><b>Fuerza, no solo estiramientos.</b> En un ensayo con trabajadores de oficina con dolor frecuente de cuello y hombros, solo 2 minutos al día de elevaciones laterales con banda elástica, cinco días a la semana durante 10 semanas, redujeron de forma clara el dolor. Este programa parte de esa idea y añade los flexores profundos del cuello, isométricos y trabajo de postura.</li>
-<li><b>Semanas 1–2:</b> isométricos al 50 % de fuerza, 5 segundos y 5 de descanso. Bandas de 10 kg en elevaciones y rotaciones; 20 kg en encogimientos.</li>
-<li><b>Semanas 3–6:</b> isométricos al 70 %, 10 segundos. Coge la banda más corta o pasa a la siguiente cuando hagas 20 repeticiones fáciles.</li>
+<li><b>Semanas 1–2:</b> isométricos al 50 % de fuerza, 5 segundos y 5 de descanso. Goma amarilla en elevaciones y rotaciones; dos negras en encogimientos.</li>
+<li><b>Semanas 3–6:</b> isométricos al 70 %, 10 segundos. Pisa la goma más abierta o pasa a la siguiente (amarilla → azul → roja) cuando hagas 20 repeticiones fáciles.</li>
 <li><b>Semana 7 en adelante:</b> haz dos vueltas seguidas de elevaciones laterales y encogimientos (el resto, una).</li>
 <li><b>En el trabajo:</b> levántate cada 45–60 minutos; pantalla a la altura de los ojos y a un brazo de distancia; hombros abajo y codos apoyados al teclear.</li>
 <li><b>Molestia leve</b> que se va en el día: normal. <b>Si el dolor baja al brazo, hay hormigueo, pérdida de fuerza o mareos</b>, o no mejora en unas semanas, que lo vea un médico o fisioterapeuta.</li>
@@ -352,17 +356,17 @@ function renderPlan(){
         <li><b>Cuerpo completo 3 veces por semana:</b> cada músculo recibe trabajo cada 2–3 días, lo más eficaz cuando se empieza.</li>
         <li><b>Más volumen en menos tiempo:</b> con superseries salen 18 series de trabajo en unos 18 minutos: a la semana, unas 12 series para las piernas y 6–9 para pecho y hombros.</li>
         <li><b>Prioridad a la espalda y el trapecio:</b> 8 ejercicios de tirón a la semana (unas 24 series), más el programa de cuello, para compensar las horas sentado.</li>
-        <li><b>Progresión clara:</b> más tiempo de trabajo cada pocas semanas y bandas más duras cuando las repeticiones salen fáciles.</li>
+        <li><b>Progresión clara:</b> más tiempo de trabajo cada pocas semanas y gomas más duras (o varias juntas) cuando las repeticiones salen fáciles.</li>
       </ul></div>
       <div class="box"><h3>Progresión del plan de fuerza</h3>
         <table class="prog"><thead><tr><th>Semanas</th><th>Trabajo</th><th>Descanso por ronda</th></tr></thead><tbody>
         <tr><td>1–2</td><td>35 s por ejercicio</td><td>40 s</td></tr>
         <tr><td>3–5</td><td>40 s por ejercicio</td><td>30 s</td></tr>
         <tr><td>6 en adelante</td><td>45 s por ejercicio</td><td>20 s</td></tr></tbody></table>
-        <p class="small" style="margin:10px 0 0">Siempre 3 rondas por superserie. Además, sube de banda en cuanto llegue a 15 repeticiones fáciles.</p></div>
+        <p class="small" style="margin:10px 0 0">Siempre 3 rondas por superserie. Además, sube de goma en cuanto llegue a 15 repeticiones fáciles.</p></div>
       <div class="box"><h3>Lo que necesita</h3><ul>
-        <li>Las bandas de 10, 20 y 30 kg.</li>
-        <li>Un anclaje de puerta (en la pestaña de cada día está el vídeo de cómo ponerlo).</li>
+        <li>El kit de gomas: cuatro negras (22,5 kg), verde (18,1), roja (13,6), azul (9) y amarilla (4,5).</li>
+        <li>Del mismo kit: las dos asas y el anclaje de puerta (en la pestaña de cada día está el vídeo de cómo ponerlo). Las tobilleras no hacen falta en este plan.</li>
         <li>Una esterilla o alfombra y un cojín para las rodillas.</li>
         <li>Zapatillas y agua.</li>
       </ul></div>
@@ -496,7 +500,7 @@ function stopRun(done){
   if(!RUN) return; clearInterval(RUN.timer); try{RUN.lock&&RUN.lock.release();}catch(e){}
   try{RUN.video.pause();}catch(e){}
   RUN=null;
-  if(done) document.getElementById('runner').innerHTML=`<div class="done"><h2>¡Sesión completada! 💪</h2><p class="small">Buen trabajo. Bebe agua y anota qué bandas has usado para superarlo la próxima vez.</p><button class="big" type="button" onclick="renderSession()">Volver</button></div>`;
+  if(done) document.getElementById('runner').innerHTML=`<div class="done"><h2>¡Sesión completada! 💪</h2><p class="small">Buen trabajo. Bebe agua y anota qué gomas has usado para superarlo la próxima vez.</p><button class="big" type="button" onclick="renderSession()">Volver</button></div>`;
   else renderSession();
 }
 function nextStep(){
@@ -510,7 +514,7 @@ function showStep(){
   ph.textContent=s.phase; ph.className='phase '+(s.kind==='work'?'work':s.kind==='rest'?'rest':s.kind==='neck'?'neck':'warm');
   document.getElementById('rName').textContent=s.kind==='rest'?'Siguiente: '+ex.name:ex.name;
   const cue=document.getElementById('rCue'); cue.classList.remove('flash');
-  cue.textContent=s.kind==='rest'?('Respira y prepárate.'+(ex.band?' Banda '+ex.band+'.':'')+(ex.anchor?' '+ANCH[ex.anchor]+'.':'')):ex.how[1];
+  cue.textContent=s.kind==='rest'?('Respira y prepárate.'+(ex.g?' Goma: '+gTxt(ex.g)+'.':'')+(ex.anchor?' '+ANCH[ex.anchor]+'.':'')):ex.how[1];
   let nx=null; for(let j=RUN.i+1;j<RUN.seq.length;j++){if(RUN.seq[j].kind!=='rest'&&RUN.seq[j].id!==s.id){nx=RUN.seq[j];break;}}
   document.getElementById('rNext').textContent=nx&&s.kind!=='rest'?'Después: '+EX[nx.id].name:'';
   const m=media(s.id);
