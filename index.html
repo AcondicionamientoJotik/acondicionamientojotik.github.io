@@ -3,71 +3,91 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Entrena en casa · 20 minutos</title>
+<title>Entrena en casa · Plan con bandas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F5F1EA; --card:#FFFDF9; --ink:#1E2227; --muted:#6A6F76; --line:#E4DDD1;
-  --accent:#E4580B; --accent-soft:#FCE7DA; --ok:#2E6B57; --ok-soft:#DDEEE7;
-  --far:#A3A8AE; --prop:#DCD3C4; --prop-dark:#BFB4A2;
+  --accent:#E4580B; --accent-soft:#FCE7DA; --ok:#2E6B57; --ok-soft:#DDEEE7; --teal:#2F5D6E; --teal-soft:#DCE9EC;
   --radius:18px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;font-size:16px;line-height:1.5}
-h1,h2,h3{font-family:"Bricolage Grotesque",Outfit,sans-serif;line-height:1.1;margin:0}
+h1,h2,h3{font-family:"Bricolage Grotesque",Outfit,system-ui,sans-serif;line-height:1.1;margin:0}
 button{font-family:inherit;cursor:pointer}
 a{color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 80px}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 80px}
 header.top{padding:18px 0 8px}
 .eyebrow{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
 h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;margin:.25rem 0 .5rem;letter-spacing:-.02em}
-.lede{color:var(--muted);max-width:640px;margin:0}
+.lede{color:var(--muted);max-width:680px;margin:0}
 
-.version{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:18px 0 6px}
-.version .lbl{font-weight:600}
-.seg{display:inline-flex;background:#ECE6DC;border-radius:999px;padding:4px}
-.seg button{border:0;background:transparent;padding:8px 16px;border-radius:999px;font-size:.95rem;color:var(--muted);font-weight:500}
-.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.version .hint{font-size:.88rem;color:var(--muted)}
-
-nav.tabs{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin:8px 0 14px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+nav.tabs{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin:14px 0 16px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
 nav.tabs::-webkit-scrollbar{display:none}
-nav.tabs a{flex:0 0 auto;text-decoration:none;padding:9px 14px;border-radius:12px;font-weight:600;font-size:.95rem;color:var(--muted);background:transparent;border:1px solid transparent}
+nav.tabs a{flex:0 0 auto;text-decoration:none;padding:9px 14px;border-radius:12px;font-weight:600;font-size:.95rem;color:var(--muted);border:1px solid transparent}
 nav.tabs a[aria-current="page"]{background:var(--card);color:var(--ink);border-color:var(--line)}
 nav.tabs a.go{background:var(--accent);color:#fff}
 nav.tabs a.go[aria-current="page"]{background:var(--ink);border-color:var(--ink);color:#fff}
 
-.intro{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px}
-.intro h2{font-size:1.35rem;margin-bottom:4px}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px}
+.intro h2{font-size:1.45rem;margin-bottom:6px}
 .intro p{margin:.2rem 0 0;color:var(--muted)}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;padding:4px 10px;border-radius:999px;background:#EFE9DF;color:var(--ink)}
 .pill.band{background:var(--accent-soft);color:#9A3A06}
 .pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.teal{background:var(--teal-soft);color:var(--teal)}
 
-details.tips{background:var(--ok-soft);border-radius:var(--radius);padding:14px 18px;margin-bottom:18px}
+details.tips{background:var(--ok-soft);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px}
+details.tips.teal{background:var(--teal-soft)}
 details.tips summary{font-weight:600;cursor:pointer;color:var(--ok)}
+details.tips.teal summary{color:var(--teal)}
 details.tips ul{margin:10px 0 2px;padding-left:20px}
-details.tips li{margin:4px 0}
+details.tips li{margin:5px 0}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.block{margin:22px 0 10px}
+.block-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.block-head h3{font-size:1.2rem}
+.block-head span{color:var(--muted);font-size:.92rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.grid.pair{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
-.stage{position:relative;background:linear-gradient(#FBF8F3,#F3EDE3);border-bottom:1px solid var(--line);cursor:pointer}
-.stage svg{display:block;width:100%;height:auto}
-.stage .num{position:absolute;top:10px;left:12px;font-family:"Bricolage Grotesque",Outfit,system-ui,sans-serif;font-weight:800;font-size:1.05rem;color:var(--ink);background:var(--card);border:1px solid var(--line);width:32px;height:32px;border-radius:50%;display:grid;place-items:center}
+.stage{position:relative;background:#F3EDE3;border-bottom:1px solid var(--line);aspect-ratio:720/640;cursor:pointer}
+.stage video,.stage img{display:block;width:100%;height:100%;object-fit:cover}
+.stage .num{position:absolute;top:10px;left:12px;font-family:"Bricolage Grotesque",Outfit,sans-serif;font-weight:800;font-size:1rem;color:var(--ink);background:var(--card);border:1px solid var(--line);min-width:34px;height:34px;padding:0 8px;border-radius:999px;display:grid;place-items:center}
 .stage .pp{position:absolute;bottom:10px;right:12px;border:0;background:rgba(30,34,39,.82);color:#fff;border-radius:999px;font-size:.78rem;padding:5px 11px}
+.stage .kg{position:absolute;top:12px;right:12px;font-weight:700;font-size:.8rem;color:#9A3A06;background:rgba(255,253,249,.92);border-radius:999px;padding:4px 10px}
 .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
-.body h3{font-size:1.25rem}
-.body .sub{font-size:.9rem;color:var(--muted);margin-top:-4px}
-.body h4{margin:4px 0 2px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.body h3{font-size:1.22rem}
+.body .sub{font-size:.9rem;color:var(--muted);margin-top:2px}
+.body h4{margin:4px 0 2px;font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .body ol,.body ul{margin:0;padding-left:20px}
 .body li{margin:3px 0}
 .body ul.avoid li::marker{content:"✕  ";color:#B4361C;font-size:.8em}
-.yt{margin-top:auto;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 12px;border-radius:10px;border:1px solid var(--line)}
+.links{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.yt{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:.88rem;padding:8px 12px;border-radius:10px;border:1px solid var(--line)}
 .yt:hover{background:#F3EEE6}
 .yt svg{width:18px;height:18px}
+.vid{border:0;background:var(--ink);color:#fff;font-weight:600;font-size:.88rem;padding:9px 13px;border-radius:10px}
+
+/* Plan */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:12px 0 4px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;min-height:96px}
+.day b{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+.day .t{display:block;font-size:.84rem;font-weight:600;border-radius:8px;padding:3px 7px;margin-bottom:4px}
+.t.f{background:var(--accent-soft);color:#9A3A06}
+.t.n{background:var(--teal-soft);color:var(--teal)}
+.t.w{background:#EFE9DF;color:var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.box h3{font-size:1.1rem;margin-bottom:8px}
+.box ul{margin:0;padding-left:20px}
+.box li{margin:5px 0}
+table.prog{width:100%;border-collapse:collapse;font-size:.92rem}
+table.prog th,table.prog td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+table.prog th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 
 /* Session */
 .setup{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:16px}
@@ -79,22 +99,21 @@ details.tips li{margin:4px 0}
 .chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .small{font-size:.86rem;color:var(--muted)}
 .big{border:0;background:var(--accent);color:#fff;font-weight:600;font-size:1.1rem;padding:14px 22px;border-radius:14px;justify-self:start}
-.summary{font-size:.95rem}
-
 .runner{display:none;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .runner.on{display:block}
 .rtop{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:10px;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--muted)}
 .progress{height:6px;background:#EFE9DF}
 .progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s linear}
-.rmain{display:grid;grid-template-columns:1.2fr 1fr;gap:0}
-.rstage{background:linear-gradient(#FBF8F3,#F3EDE3);border-right:1px solid var(--line);position:relative}
-.rstage svg{display:block;width:100%;height:auto}
+.rmain{display:grid;grid-template-columns:1.2fr 1fr}
+.rstage{background:#F3EDE3;border-right:1px solid var(--line);position:relative;aspect-ratio:720/640}
+.rstage video{display:block;width:100%;height:100%;object-fit:cover}
+.rstage.dim video{opacity:.5}
 .rinfo{padding:18px;display:flex;flex-direction:column;gap:10px}
 .phase{font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
-.phase.work{color:var(--accent)} .phase.rest{color:var(--ok)} .phase.warm{color:#8A5A00}
-.rname{font-family:"Bricolage Grotesque",Outfit,system-ui,sans-serif;font-size:1.8rem;font-weight:800;line-height:1.05}
-.clock{font-family:"Bricolage Grotesque",Outfit,system-ui,sans-serif;font-weight:800;font-size:clamp(4rem,14vw,7rem);line-height:1;letter-spacing:-.03em}
-.cue{font-size:1rem;color:var(--ink);background:#F3EEE6;border-radius:12px;padding:10px 12px}
+.phase.work{color:var(--accent)} .phase.rest{color:var(--ok)} .phase.warm{color:#8A5A00} .phase.neck{color:var(--teal)}
+.rname{font-family:"Bricolage Grotesque",Outfit,sans-serif;font-size:1.8rem;font-weight:800;line-height:1.05}
+.clock{font-family:"Bricolage Grotesque",Outfit,sans-serif;font-weight:800;font-size:clamp(4rem,14vw,7rem);line-height:1;letter-spacing:-.03em}
+.cue{font-size:1rem;background:#F3EEE6;border-radius:12px;padding:10px 12px}
 .cue.flash{background:var(--accent);color:#fff}
 .next{font-size:.92rem;color:var(--muted)}
 .ctrls{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
@@ -103,529 +122,259 @@ details.tips li{margin:4px 0}
 .done{padding:40px 20px;text-align:center}
 .done h2{font-size:2rem;margin-bottom:8px}
 
-@media (max-width:720px){
-  .rmain{grid-template-columns:1fr}
-  .rstage{border-right:0;border-bottom:1px solid var(--line)}
-  .clock{font-size:4.5rem}
-  .rname{font-size:1.5rem}
-}
-.vid{align-self:flex-start;border:0;background:var(--ink);color:#fff;font-weight:600;font-size:.9rem;padding:9px 13px;border-radius:10px}
 .vmodal{position:fixed;inset:0;z-index:50;background:rgba(20,22,26,.72);display:grid;place-items:center;padding:16px}
 .vbox{background:var(--card);border-radius:18px;overflow:hidden;width:min(960px,100%)}
 .vhead{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;gap:10px}
 .vclose{border:0;background:#EFE9DF;border-radius:10px;width:40px;height:40px;font-size:1.1rem}
 .vbox video{display:block;width:100%;height:auto;background:#000}
+
+@media (max-width:760px){
+  .week{grid-template-columns:repeat(2,1fr)}
+  .rmain{grid-template-columns:1fr}
+  .rstage{border-right:0;border-bottom:1px solid var(--line)}
+  .clock{font-size:4.5rem}
+  .rname{font-size:1.5rem}
+}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
 [hidden]{display:none!important}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="eyebrow">Plan de 3 días · 20 minutos</div>
+    <div class="eyebrow">Fuerza 3 días · Cuello y trapecios a diario</div>
     <h1>Entrena en casa</h1>
-    <p class="lede">Todo con bandas elásticas de 10, 20 y 30 kg. Cada ejercicio tiene una demostración animada, los pasos para hacerlo bien y los errores más típicos. Toca la animación para pausarla.</p>
+    <p class="lede">Plan de fuerza con bandas elásticas de 10, 20 y 30 kg y un programa específico para el cuello y los trapecios. Cada ejercicio tiene una animación que marca en naranja los músculos que trabajan.</p>
   </header>
 
-
   <nav class="tabs" aria-label="Secciones">
+    <a href="#plan" data-view="plan">El plan</a>
     <a href="#calentamiento" data-view="calentamiento">Calentamiento</a>
     <a href="#dia-a" data-view="dia-a">Día A</a>
     <a href="#dia-b" data-view="dia-b">Día B</a>
     <a href="#dia-c" data-view="dia-c">Día C</a>
     <a href="#estiramientos" data-view="estiramientos">Estiramientos</a>
-    <a href="#cuello" data-view="cuello">Cuello y espalda</a>
+    <a href="#cuello" data-view="cuello">Cuello y trapecios</a>
     <a href="#entrenar" data-view="entrenar" class="go">▶ Entrenar</a>
   </nav>
 
   <main id="view"></main>
 </div>
+
 <div class="vmodal" id="vmodal" hidden onclick="if(event.target===this)closeVideo()" role="dialog" aria-modal="true" aria-label="Vídeo: cómo anclar la banda a la puerta">
   <div class="vbox">
     <div class="vhead"><b>Cómo anclar la banda a la puerta</b><button class="vclose" type="button" onclick="closeVideo()" aria-label="Cerrar">✕</button></div>
-    <video src="video/anclar-banda-puerta.mp4?v=3" controls playsinline preload="metadata"></video>
+    <video src="video/anclar-banda-puerta.mp4?v=3" controls playsinline preload="none"></video>
   </div>
 </div>
 
 <script>
-/* ============ Figura animada ============ */
-const L={T:58,N:6,R:12,U:30,F:28,TH:40,SH:40,FT:12};
-const GY=200;
-const rad=d=>d*Math.PI/180;
-const dirA=a=>[Math.sin(rad(a)),Math.cos(rad(a))];
-const add=(p,v,k=1)=>[p[0]+v[0]*k,p[1]+v[1]*k];
-
-function ik(B,T,L1,L2,b){
-  const dx=T[0]-B[0],dy=T[1]-B[1];
-  const d=Math.hypot(dx,dy);
-  const dd=Math.min(Math.max(d,Math.abs(L1-L2)+0.1),L1+L2-0.01);
-  const th=Math.atan2(dy,dx);
-  const a=Math.acos((L1*L1+dd*dd-L2*L2)/(2*L1*dd));
-  const m=[B[0]+L1*Math.cos(th+b*a),B[1]+L1*Math.sin(th+b*a)];
-  const e=[B[0]+dd*Math.cos(th),B[1]+dd*Math.sin(th)];
-  return [m,e];
-}
-
-function solve(p,view){
-  const P={};
-  const hip=p.hip.slice();
-  let t=p.t;
-  if(p.sh){t=Math.atan2(p.sh[0]-hip[0],-(p.sh[1]-hip[1]))*180/Math.PI;}
-  const td=[Math.sin(rad(t)),-Math.cos(rad(t))];
-  const front=view==='front';
-  P.hip=hip; P.sho=add(hip,td,L.T); P.head=add(P.sho,td,L.N+L.R);
-  if(p.hd) P.head=add(P.head,p.hd);
-  if(p.sd) P.sho=add(P.sho,p.sd);
-  {const dx=P.head[0]-P.sho[0],dy=P.head[1]-P.sho[1],dd=Math.hypot(dx,dy)||1;P.neck=add(P.sho,[dx/dd,dy/dd],Math.max(0,dd-L.R));}
-  const sw=front?15:0,hw=front?9:0;
-  P.s1=add(P.sho,[sw,0]); P.s2=add(P.sho,[-sw,0]); P.h1=add(hip,[hw,0]); P.h2=add(hip,[-hw,0]);
-  const limbs=[['a1','s1',L.U,L.F,'e1','w1',1],['a2','s2',L.U,L.F,'e2','w2',2],['l1','h1',L.TH,L.SH,'k1','f1',1],['l2','h2',L.TH,L.SH,'k2','f2',2]];
-  for(const [k,b,l1,l2,m,e,side] of limbs){
-    const s=p[k];
-    if(Array.isArray(s)){
-      const sc=s.length>2?s[2]:1, mir=(front&&side===2)?-1:1;
-      const d1=dirA(s[0]); d1[0]*=mir; const d2=dirA(s[1]); d2[0]*=mir;
-      P[m]=add(P[b],d1,l1*sc); P[e]=add(P[m],d2,l2*sc);
-    }
-  }
-  if(p.anchor){
-    const [part,at]=p.anchor; const c=P[part]; const dx=at[0]-c[0],dy=at[1]-c[1];
-    for(const key in P){P[key]=[P[key][0]+dx,P[key][1]+dy];}
-  }
-  for(const [k,b,l1,l2,m,e] of limbs){
-    const s=p[k];
-    if(s && !Array.isArray(s)){
-      let T=s.to;
-      if(s.ref) T=add(P[s.ref==='sho'?'sho':'hip'],s.to);
-      const [mm,ee]=ik(P[b],T,l1,l2,s.b);
-      P[m]=mm; P[e]=ee;
-    }
-  }
-  [[1,'fa1'],[2,'fa2']].forEach(([i,key])=>{
-    const d=dirA(p[key]); if(front&&i===2) d[0]*=-1;
-    const len=front?L.FT*0.5:L.FT;
-    P['t'+i]=add(P['f'+i],d,len);
-    P['m'+i]=add(P['f'+i],d,len*0.5);
-  });
-  return P;
-}
-
-function lerp(a,b,k){
-  if(typeof a==='number') return a+(b-a)*k;
-  if(Array.isArray(a)) return a.map((v,i)=>lerp(v,b[i],k));
-  if(a&&typeof a==='object'){const o={};for(const key in a){o[key]=(key in b)?lerp(a[key],b[key],k):a[key];}return o;}
-  return k<.5?a:b;
-}
-const ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
-
-const BASE={hip:[120,117],t:0,a1:[0,0],a2:[0,0],l1:[0,0],l2:[0,0],fa1:90,fa2:90,hd:[0,0],sd:[0,0],pp:0};
-const S=o=>Object.assign({},BASE,o);
-
-/* ---- props ---- */
-function propsSVG(props){
-  let s=`<line x1="6" y1="${GY+1}" x2="254" y2="${GY+1}" stroke="#CFC5B5" stroke-width="2"/>`;
-  for(const pr of props||[]){
-    if(pr.type==='wall') s+=`<rect x="${pr.x}" y="16" width="${pr.w||12}" height="${GY-16}" fill="var(--prop)" stroke="var(--prop-dark)"/>`;
-    if(pr.type==='door'){
-      s+=`<rect x="${pr.x}" y="14" width="14" height="${GY-14}" fill="var(--prop)" stroke="var(--prop-dark)"/>`;
-      s+=`<circle cx="${pr.ax}" cy="${pr.ay}" r="4" fill="var(--prop-dark)"/>`;
-    }
-    if(pr.type==='chair'){
-      const {x1,x2,y,back}=pr;
-      s+=`<g fill="var(--prop)" stroke="var(--prop-dark)"><rect x="${x1}" y="${y}" width="${x2-x1}" height="6" rx="2"/>`+
-         `<rect x="${x1+3}" y="${y+6}" width="5" height="${GY-y-6}"/><rect x="${x2-8}" y="${y+6}" width="5" height="${GY-y-6}"/>`+
-         (back==='left'?`<rect x="${x1}" y="${y-58}" width="6" height="58" rx="2"/>`:`<rect x="${x2-6}" y="${y-58}" width="6" height="58" rx="2"/>`)+`</g>`;
-    }
-    if(pr.type==='towel') s+=`<rect x="${pr.x}" y="${pr.y}" width="${pr.w}" height="${pr.h}" rx="3" fill="#BFD6CC" stroke="#8FB5A5"/>`;
-    if(pr.type==='mat') s+=`<rect x="${pr.x1}" y="${GY-3}" width="${pr.x2-pr.x1}" height="4" rx="2" fill="#C9D9D1"/>`;
-  }
-  return s;
-}
-
-const NS='http://www.w3.org/2000/svg';
-function mk(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent&&parent.appendChild(e);return e;}
-
-class Fig{
-  constructor(container,anim,opts={}){
-    this.anim=anim; this.view=anim.view||'side';
-    const svg=mk('svg',{viewBox:'0 -16 260 231',role:'img','aria-label':opts.label||'Demostración del ejercicio'});
-    svg.innerHTML=propsSVG(anim.props)+(anim.label?`<text x="248" y="26" text-anchor="end" font-family="Outfit, system-ui, sans-serif" font-size="11" font-weight="600" fill="#9A3A06">${anim.label}</text>`:'');
-    container.appendChild(svg); this.svg=svg;
-    const front=this.view==='front';
-    const farC=front?'var(--ink)':'var(--far)';
-    const g=mk('g',{'stroke-linecap':'round','stroke-linejoin':'round',fill:'none'},svg);
-    const pl=(c,w)=>mk('polyline',{stroke:c,'stroke-width':w},g);
-    this.el={
-      a2:pl(farC,7), l2:pl(farC,8),
-      torso:pl('var(--ink)',11),
-      neck:pl('var(--ink)',7),
-      l1:pl('var(--ink)',8),
-      head:mk('circle',{r:L.R,fill:'var(--ink)'},g),
-      a1:pl('var(--ink)',7)
-    };
-    this.bands=(anim.bands||[]).map(b=>{
-      if(b.ring) return {b,el:mk('ellipse',{rx:5,ry:9,fill:'none',stroke:'var(--accent)','stroke-width':3.5},g)};
-      return {b,el:mk('line',{stroke:'var(--accent)','stroke-width':3.5,'stroke-linecap':'round'},g)};
-    });
-    if(anim.pulse){this.pulse=mk('path',{stroke:'var(--accent)','stroke-width':3.5,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},g);}
-    this.T=0; this.playing=true; this.build();
-    this.draw(anim.frames[0]);
-  }
-  build(){
-    const a=this.anim, n=a.frames.length, segs=[];
-    const dur=a.dur||1;
-    const hold=i=>(a.frames[i].h||0);
-    const seq=[];
-    if(a.loop==='pingpong'){for(let i=0;i<n;i++)seq.push(i);for(let i=n-2;i>0;i--)seq.push(i);}
-    else for(let i=0;i<n;i++)seq.push(i);
-    for(let j=0;j<seq.length;j++){
-      const i=seq[j], nx=seq[(j+1)%seq.length];
-      if(hold(i)) segs.push({a:i,b:i,d:hold(i)});
-      if(a.loop==='restart' && j===seq.length-1) continue;
-      segs.push({a:i,b:nx,d:dur});
-    }
-    this.segs=segs; this.total=segs.reduce((s,x)=>s+x.d,0);
-  }
-  poseAt(t){
-    t=t%this.total; let acc=0;
-    for(const s of this.segs){
-      if(t<acc+s.d){const k=ease((t-acc)/s.d);return lerp(this.anim.frames[s.a],this.anim.frames[s.b],k);}
-      acc+=s.d;
-    }
-    return this.anim.frames[0];
-  }
-  draw(p){
-    const P=solve(p,this.view), f=x=>x[0].toFixed(1)+','+x[1].toFixed(1);
-    const E=this.el;
-    E.torso.setAttribute('points',[P.hip,P.sho].map(f).join(' '));
-    E.neck.setAttribute('points',[P.sho,P.neck].map(f).join(' '));
-    E.head.setAttribute('cx',P.head[0]); E.head.setAttribute('cy',P.head[1]);
-    E.a1.setAttribute('points',[P.s1,P.e1,P.w1].map(f).join(' '));
-    E.a2.setAttribute('points',[P.s2,P.e2,P.w2].map(f).join(' '));
-    E.l1.setAttribute('points',[P.h1,P.k1,P.f1,P.t1].map(f).join(' '));
-    E.l2.setAttribute('points',[P.h2,P.k2,P.f2,P.t2].map(f).join(' '));
-    if(this.pulse){const pu=this.anim.pulse,c=P[pu.part],x=c[0]+pu.dx,y=c[1]+(pu.dy||0),d=pu.dir;
-      this.pulse.setAttribute('d',`M${x-d*12} ${y} L${x} ${y} M${x-d*5} ${y-6} L${x} ${y} L${x-d*5} ${y+6}`);
-      this.pulse.setAttribute('opacity',Math.max(0,Math.min(1,p.pp)));}
-    for(const {b,el} of this.bands){
-      if(b.ring){el.setAttribute('cx',P[b.ring][0]);el.setAttribute('cy',P[b.ring][1]);continue;}
-      const A=typeof b.from==='string'?P[b.from]:b.from, B=typeof b.to==='string'?P[b.to]:b.to;
-      el.setAttribute('x1',A[0]);el.setAttribute('y1',A[1]);el.setAttribute('x2',B[0]);el.setAttribute('y2',B[1]);
-    }
-  }
-  tick(dt){ if(!this.playing) return; this.T+=dt; this.draw(this.poseAt(this.T)); }
-}
-
-const FIGS=new Set();
-let lastT=performance.now();
-function loop(now){
-  const dt=Math.min(.1,(now-lastT)/1000); lastT=now;
-  for(const f of FIGS){ if(f.svg.isConnected && f.visible!==false) f.tick(dt); }
-  requestAnimationFrame(loop);
-}
-requestAnimationFrame(loop);
-const io=('IntersectionObserver' in window)?new IntersectionObserver(es=>{for(const e of es){if(e.target.__fig)e.target.__fig.visible=e.isIntersecting;}}):null;
-function addFig(container,anim,opts){
-  const f=new Fig(container,anim,opts); FIGS.add(f); f.svg.__fig=f; if(io) io.observe(f.svg); return f;
-}
-
-/* ============ Animaciones ============ */
-const BAND=(from,to)=>({from,to});
-const sho=(b)=>({to:[8,4],ref:'sho',b});
-const A={};
-
-A.jj={view:'front',loop:'pingpong',dur:.45,frames:[
-  S({hip:[130,117],a1:[12,8],a2:[12,8],l1:[2,2],l2:[2,2]}),
-  S({hip:[130,121],a1:[160,172],a2:[160,172],l1:[18,18],l2:[18,18]})]};
-A.jjIni={view:'front',loop:'cycle',dur:.6,frames:[
-  S({hip:[130,117],a1:[12,8],a2:[12,8],l1:[2,2],l2:[2,2]}),
-  S({hip:[130,117],a1:[115,125],a2:[115,125],l1:[20,20],l2:[2,2]}),
-  S({hip:[130,117],a1:[12,8],a2:[12,8],l1:[2,2],l2:[2,2]}),
-  S({hip:[130,117],a1:[115,125],a2:[115,125],l1:[2,2],l2:[20,20]})]};
-
-A.circ={loop:'restart',dur:.42,frames:[0,90,180,270,360].map(u=>S({a1:[u,u],a2:[u,u]}))};
-
-const legsSq=(x)=>({l1:{to:[x,197],b:-1},l2:{to:[x,197],b:-1}});
-A.sq0={loop:'pingpong',dur:1.1,frames:[
-  S({hip:[120,117],...legsSq(122),a1:[5,5],a2:[5,5]}),
-  S({hip:[102,150],t:38,...legsSq(122),a1:[88,90],a2:[88,90]})]};
-
-A.hip={view:'front',loop:'cycle',dur:.55,frames:[[137,116,-5],[130,114,0],[123,116,5],[130,117,0]].map(([x,y,t])=>S({hip:[x,y],t,
-  l1:{to:[139,197],b:-1},l2:{to:[121,197],b:1},a1:{to:[13,-4],ref:'hip',b:-1},a2:{to:[-13,-4],ref:'hip',b:1}}))};
-
-A.pull={view:'front',loop:'pingpong',dur:.9,label:'banda 10 kg',bands:[BAND('w1','w2')],frames:[
-  S({hip:[130,117],a1:[90,90,.22],a2:[90,90,.22],l1:[3,3],l2:[3,3]}),
-  S({hip:[130,117],a1:[90,90,1],a2:[90,90,1],l1:[3,3],l2:[3,3]})]};
-
-A.knees={loop:'cycle',dur:.42,frames:[
-  S({l1:[80,0],a1:[-35,60],a2:[35,110]}),
-  S({a1:[0,35],a2:[0,35]}),
-  S({l2:[80,0],a2:[-35,60],a1:[35,110]}),
-  S({a1:[0,35],a2:[0,35]})]};
-
-A.squat={loop:'pingpong',dur:1.2,label:'banda 20 kg',bands:[BAND('m1','w1')],frames:[
-  S({hip:[120,117],...legsSq(122),a1:sho(1),a2:sho(1)}),
-  S({hip:[102,150],t:38,...legsSq(122),a1:sho(1),a2:sho(1)})]};
-A.squatIni={loop:'pingpong',dur:1.3,props:[{type:'chair',x1:58,x2:102,y:155,back:'left'}],frames:[
-  S({hip:[122,117],...legsSq(126),a1:[10,5],a2:[10,5]}),
-  Object.assign(S({hip:[98,149],t:30,...legsSq(126),a1:[85,88],a2:[85,88]}),{h:.5})]};
-
-const pushArms=(x,y,b)=>({a1:{to:[x,y],b},a2:{to:[x,y],b}});
-A.push={loop:'pingpong',dur:1.1,frames:[70,81].map(t=>S({t,hip:[0,0],l1:[-t,-t],l2:[-t,-t],fa1:40,fa2:40,anchor:['f1',[50,188]],...pushArms(184,197,1)}))};
-A.pushIni={loop:'pingpong',dur:1.2,props:[{type:'wall',x:190,w:14}],frames:[22,34].map(t=>S({t,hip:[0,0],l1:[-t,-t],l2:[-t,-t],anchor:['f1',[80,197]],...pushArms(188,80,1)}))};
-
-A.row={loop:'pingpong',dur:1.1,label:'banda 20 kg',props:[{type:'door',x:222,ax:222,ay:85}],bands:[BAND('w1',[222,85])],frames:[
-  S({hip:[108,118],t:-4,l1:{to:[116,197],b:-1},l2:{to:[98,197],b:-1},a1:[78,78],a2:[78,78]}),
-  S({hip:[108,118],t:-4,l1:{to:[116,197],b:-1},l2:{to:[98,197],b:-1},a1:[-45,80],a2:[-45,80]})]};
-A.rowIni=Object.assign({},A.row,{label:'banda 10 kg'});
-
-const lungeF=(hip,front,back,which,arms)=>{
-  const o=S({hip,...arms});
-  const fl={to:[front,197],b:-1}, bl={to:[back,190],b:-1};
-  if(which===1){o.l1=fl;o.l2=bl;o.fa2=45;} else {o.l2=fl;o.l1=bl;o.fa1=45;}
-  return o;
-};
-const hands={a1:[-25,45],a2:[-25,45]};
-A.lunge={loop:'cycle',dur:.95,frames:[
-  S({hip:[125,117],l1:{to:[127,197],b:-1},l2:{to:[127,197],b:-1},...hands}),
-  lungeF([122,152],162,86,1,hands),
-  S({hip:[125,117],l1:{to:[127,197],b:-1},l2:{to:[127,197],b:-1},...hands}),
-  lungeF([122,152],162,86,2,hands)]};
-A.lungeIni={loop:'pingpong',dur:1.1,frames:[lungeF([122,122],152,92,1,hands),lungeF([122,140],152,92,1,hands)]};
-
-A.plank={loop:'pingpong',dur:1.6,props:[{type:'mat',x1:30,x2:230}],frames:[80.4,79.6].map(t=>S({t,hip:[0,0],l1:[-t,-t],l2:[-t,-t],fa1:0,fa2:0,a1:[0,90],a2:[0,90],anchor:['f1',[45,188]]}))};
-A.plankIni={loop:'pingpong',dur:1.6,props:[{type:'mat',x1:30,x2:230}],frames:[73.4,72.6].map(t=>S({t,hip:[0,0],l1:[-t,-90],l2:[-t,-90],fa1:200,fa2:200,a1:[0,90],a2:[0,90],anchor:['k1',[85,193]]}))};
-
-A.rdl={loop:'pingpong',dur:1.3,label:'banda 20–30 kg',bands:[BAND('m1','w1')],frames:[
-  S({hip:[120,119],...legsSq(124),a1:[2,0],a2:[2,0]}),
-  S({hip:[96,125],t:72,...legsSq(124),a1:[0,0],a2:[0,0]})]};
-A.rdlIni=Object.assign({},A.rdl,{label:'banda 10 kg'});
-
-A.ohp={view:'front',loop:'pingpong',dur:1.2,label:'banda 10–20 kg',bands:[BAND('m1','w1'),BAND('m2','w2')],frames:[
-  S({hip:[130,117],a1:[75,178],a2:[75,178],l1:[4,4],l2:[4,4]}),
-  S({hip:[130,117],a1:[168,176],a2:[168,176],l1:[4,4],l2:[4,4]})]};
-A.ohpIni=Object.assign({},A.ohp,{label:'banda 10 kg'});
-
-const bridgeF=(hy,hx)=>S({hip:[hx,hy],sh:[72,186],l1:{to:[166,196],b:-1},l2:{to:[166,196],b:-1},a1:[92,92],a2:[92,92]});
-A.bridge={loop:'pingpong',dur:1.2,label:'banda 10 kg',props:[{type:'mat',x1:40,x2:200}],bands:[{ring:'k1'}],frames:[bridgeF(192,128),Object.assign(bridgeF(163,126),{h:.5})]};
-A.bridgeIni={loop:'pingpong',dur:1.2,props:[{type:'mat',x1:40,x2:200}],frames:[bridgeF(192,128),Object.assign(bridgeF(163,126),{h:.5})]};
-
-const DB={hip:[138,192],sh:[82,187],fa1:180,fa2:180};
-A.deadbug={loop:'cycle',dur:1,props:[{type:'mat',x1:40,x2:230}],frames:[
-  S({...DB,a1:[180,180],a2:[180,180],l1:[180,90],l2:[180,90]}),
-  S({...DB,a1:[-95,-95],a2:[180,180],l1:[180,90],l2:[96,96]}),
-  S({...DB,a1:[180,180],a2:[180,180],l1:[180,90],l2:[180,90]}),
-  S({...DB,a1:[180,180],a2:[-95,-95],l1:[96,96],l2:[180,90]})]};
-const tt=[178,152], tap=[184,192];
-A.deadbugIni={loop:'cycle',dur:.9,props:[{type:'mat',x1:40,x2:230}],frames:[
-  S({...DB,a1:[180,180],a2:[180,180],l1:{to:tt,b:-1},l2:{to:tt,b:-1}}),
-  S({...DB,a1:[180,180],a2:[180,180],l1:{to:tap,b:-1},l2:{to:tt,b:-1}}),
-  S({...DB,a1:[180,180],a2:[180,180],l1:{to:tt,b:-1},l2:{to:tt,b:-1}}),
-  S({...DB,a1:[180,180],a2:[180,180],l1:{to:tt,b:-1},l2:{to:tap,b:-1}})]};
-
-A.rlunge={loop:'pingpong',dur:1.15,label:'banda 20 kg',bands:[BAND('m1','w1')],frames:[
-  S({hip:[125,117],l1:{to:[128,197],b:-1},l2:{to:[128,197],b:-1},a1:sho(1),a2:sho(1)}),
-  Object.assign(S({hip:[115,152],l1:{to:[135,197],b:-1},l2:{to:[72,190],b:-1},fa2:45,a1:sho(1),a2:sho(1)}),{h:.2})]};
-A.rlungeIni={loop:'pingpong',dur:1.2,frames:[
-  S({hip:[125,117],l1:{to:[128,197],b:-1},l2:{to:[128,197],b:-1},...hands}),
-  S({hip:[117,136],l1:{to:[132,197],b:-1},l2:{to:[78,190],b:-1},fa2:45,...hands})]};
-
-A.chest={loop:'pingpong',dur:1.1,label:'banda 20 kg',props:[{type:'door',x:26,ax:40,ay:85}],bands:[BAND([40,85],'w1')],frames:[
-  S({hip:[132,117],t:6,l1:{to:[148,197],b:-1},l2:{to:[116,197],b:-1},a1:[-60,92],a2:[-60,92]}),
-  S({hip:[132,117],t:6,l1:{to:[148,197],b:-1},l2:{to:[116,197],b:-1},a1:[88,90],a2:[88,90]})]};
-A.chestIni=Object.assign({},A.chest,{label:'banda 10 kg'});
-
-const r1=(a1)=>S({hip:[112,138],t:48,l1:{to:[150,197],b:-1},l2:{to:[88,197],b:-1},a1,a2:{to:[140,160],b:-1}});
-A.row1={loop:'pingpong',dur:1.1,label:'banda 20 kg',bands:[BAND('m1','w1')],frames:[r1([0,0]),r1([-150,5])]};
-A.row1Ini=Object.assign({},A.row1,{label:'banda 10 kg'});
-
-const dipF=(hy)=>S({hip:[106,hy],l1:{to:[155,197],b:-1},l2:{to:[155,197],b:-1},a1:{to:[98,148],b:1},a2:{to:[98,148],b:1}});
-A.dips={loop:'pingpong',dur:1.2,props:[{type:'chair',x1:44,x2:100,y:150,back:'left'}],frames:[dipF(148),dipF(170)]};
-A.dipsIni={loop:'pingpong',dur:1,label:'banda 10 kg',props:[{type:'door',x:192,ax:192,ay:28}],bands:[BAND('w1',[192,28])],frames:[
-  S({a1:[4,112],a2:[4,112]}),S({a1:[4,4],a2:[4,4]})]};
-
-const mcF=(ext,tuck,w)=>{const o=S({t:66,hip:[0,0],a1:[0,0],a2:[0,0],anchor:['w1',[182,197]]});
-  const E={to:[56,192],b:-1},T={to:[112,186],b:1};
-  if(w===1){o.l1=E;o.l2=T;o.fa1=-50;o.fa2=30;} else {o.l2=E;o.l1=T;o.fa2=-50;o.fa1=30;} return o;};
-A.mc={loop:'pingpong',dur:.42,frames:[mcF(0,0,1),mcF(0,0,2)]};
-const wcF=(w)=>{const o=S({hip:[110,123],t:22,...pushArms(188,80,1)});
-  const st={to:[80,197],b:-1},up={to:[130,168],b:-1};
-  if(w===1){o.l1=up;o.l2=st;} else {o.l2=up;o.l1=st;} return o;};
-A.mcIni={loop:'pingpong',dur:.7,props:[{type:'wall',x:190,w:14}],frames:[wcF(1),wcF(2)]};
-
-A.quad={loop:'pingpong',dur:1.8,frames:[
-  S({l1:[-10,190],fa1:200,a1:{to:[106,121],b:-1},a2:[80,85]}),
-  S({l1:[-10,190],fa1:200,a1:{to:[106,121],b:-1},a2:[84,88]})]};
-A.ham={loop:'pingpong',dur:1.8,frames:[52,58].map(t=>S({hip:[108,140],t,l1:{to:[170,190],b:-1},l2:{to:[104,197],b:-1},fa1:160,a1:{to:[148,170],b:1},a2:{to:[148,170],b:1}}))};
-A.pec={loop:'pingpong',dur:1.8,props:[{type:'wall',x:56,w:14}],frames:[4,9].map(t=>S({hip:[125,117],t,a1:[-88,-88],a2:[0,10]}))};
-A.child={loop:'pingpong',dur:1.8,props:[{type:'mat',x1:50,x2:235}],frames:[107,110].map(t=>S({hip:[95,165],t,l1:[43,-90],l2:[43,-90],fa1:-90,fa2:-90,a1:[85,88],a2:[85,88]}))};
-
-A.chin={loop:'pingpong',dur:.8,frames:[S({hd:[1,0]}),Object.assign(S({hd:[-8,1]}),{h:.9})]};
-A.shrug={loop:'cycle',dur:.5,frames:[S({sd:[0,0]}),S({sd:[2,-8]}),S({sd:[-4,-6]}),S({sd:[-5,1]})]};
-A.angel={view:'front',loop:'pingpong',dur:1.4,frames:[
-  S({hip:[130,117],a1:[92,178],a2:[92,178],l1:[3,3],l2:[3,3]}),
-  S({hip:[130,117],a1:[138,162],a2:[138,162],l1:[3,3],l2:[3,3]})]};
-A.face={loop:'pingpong',dur:1.1,label:'banda 10 kg',props:[{type:'door',x:222,ax:222,ay:42}],bands:[BAND('w1',[222,42])],frames:[
-  S({hip:[108,118],t:-4,l1:{to:[116,197],b:-1},l2:{to:[98,197],b:-1},a1:[97,97],a2:[97,97]}),
-  Object.assign(S({hip:[108,118],t:-4,l1:{to:[116,197],b:-1},l2:{to:[98,197],b:-1},a1:[-150,90,.7],a2:[-150,90,.7]}),{h:.4})]};
-A.trap={view:'front',loop:'pingpong',dur:1.8,frames:[[8,3],[10,4]].map(hd=>S({hip:[130,117],hd,l1:[3,3],l2:[3,3],a2:[8,4],a1:[140,-110]}))};
-
-const KN={hip:[120,153],l1:[0,-90],l2:[0,-90],fa1:-90,fa2:-90};
-A.shrugB={loop:'pingpong',dur:.9,bands:[BAND('m1','w1')],frames:[S({a1:[2,0],a2:[2,0]}),Object.assign(S({a1:[2,0],a2:[2,0],sd:[0,-9]}),{h:.4})]};
-A.crunch={loop:'pingpong',dur:1.1,props:[{type:'door',x:222,ax:222,ay:28},{type:'mat',x1:60,x2:180}],bands:[BAND('w1',[222,28])],frames:[
-  S({...KN,t:10,a1:{to:[6,-10],ref:'sho',b:1},a2:{to:[6,-10],ref:'sho',b:1}}),
-  Object.assign(S({...KN,t:62,a1:{to:[6,-10],ref:'sho',b:1},a2:{to:[6,-10],ref:'sho',b:1}}),{h:.3})]};
-A.lat={loop:'pingpong',dur:1.1,props:[{type:'door',x:222,ax:222,ay:28},{type:'mat',x1:50,x2:170}],bands:[BAND('w1',[222,28])],frames:[
-  S({...KN,hip:[110,153],t:6,a1:[152,152],a2:[152,152]}),
-  Object.assign(S({...KN,hip:[110,153],t:6,a1:[10,168],a2:[10,168]}),{h:.3})]};
-const rb=(a)=>S({hip:[108,132],t:52,l1:{to:[128,197],b:-1},l2:{to:[124,197],b:-1},a1:a,a2:a});
-A.rowBent={loop:'pingpong',dur:1.1,bands:[BAND('m1','w1')],frames:[rb([0,0]),Object.assign(rb([-150,5]),{h:.3})]};
-A.yraise={view:'front',loop:'pingpong',dur:1.2,bands:[BAND('m1','w1'),BAND('m2','w2')],frames:[
-  S({hip:[130,117],a1:[8,8],a2:[8,8],l1:[4,4],l2:[4,4]}),Object.assign(S({hip:[130,117],a1:[150,150],a2:[150,150],l1:[4,4],l2:[4,4]}),{h:.3})]};
-A.curl={loop:'pingpong',dur:1,bands:[BAND('m1','w1')],frames:[S({a1:[4,4],a2:[4,4]}),Object.assign(S({a1:[4,160],a2:[4,160]}),{h:.2})]};
-const ch=(x,y)=>S({hip:[150,117],l1:[8,8],l2:[8,8],a1:{to:[x,y],ref:'sho',b:1},a2:{to:[x,y],ref:'sho',b:-1}});
-A.chop={view:'front',loop:'pingpong',dur:1.1,props:[{type:'door',x:20,ax:30,ay:30}],bands:[BAND('w1',[30,30])],frames:[ch(-62,-52),Object.assign(ch(58,58),{h:.2})]};
-A.wallBack={loop:'pingpong',dur:.6,props:[{type:'wall',x:66,w:12}],pulse:{part:'head',dx:-15,dir:-1},frames:[
-  Object.assign(S({hip:[90,117],l1:{to:[104,197],b:-1},l2:{to:[104,197],b:-1},hd:[1,0],pp:0}),{h:.5}),
-  Object.assign(S({hip:[90,117],l1:{to:[104,197],b:-1},l2:{to:[104,197],b:-1},hd:[-3,1],pp:1}),{h:1.6})]};
-A.wallSide={view:'front',loop:'pingpong',dur:.6,props:[{type:'wall',x:160,w:14},{type:'towel',x:141,y:31,w:19,h:20}],pulse:{part:'head',dx:6,dir:1},frames:[
-  Object.assign(S({hip:[128,117],a1:[6,4],a2:[6,4],l1:[4,4],l2:[4,4],pp:0}),{h:.5}),
-  Object.assign(S({hip:[128,117],a1:[6,4],a2:[6,4],l1:[4,4],l2:[4,4],hd:[1,0],pp:1}),{h:1.6})]};
-
-/* ============ Ejercicios ============ */
+/* ================= Ejercicios ================= */
+const ANCH={pecho:'Anclaje a la altura del pecho',cara:'Anclaje a la altura de la cara',arriba:'Anclaje arriba (parte alta de la puerta)',abajo:'Anclaje abajo (cerca del suelo)'};
 const EX={
-  jj:{name:'Jumping jacks',yt:'jumping jacks tecnica',anim:A.jj,
+  // Calentamiento
+  jj:{name:'Jumping jacks',musc:'Todo el cuerpo',yt:'jumping jacks tecnica',
     how:['De pie, pies juntos y brazos pegados al cuerpo.','Salta abriendo piernas y subiendo los brazos por encima de la cabeza.','Vuelve a cerrar con otro salto. Aterriza suave, con la punta del pie.'],avoid:['Caer con las piernas rígidas.','Ir tan rápido que pierdes el ritmo.']},
-  circ:{name:'Círculos de brazos',yt:'circulos de brazos calentamiento hombros',anim:A.circ,
-    how:['De pie, brazos estirados a los lados del cuerpo.','Dibuja círculos grandes con los brazos.','A mitad del tiempo, cambia el sentido.'],avoid:['Hacerlos a tirones.','Arquear la espalda.']},
-  sq0:{name:'Sentadilla sin peso',yt:'sentadilla sin peso tecnica',anim:A.sq0,
+  sq0:{name:'Sentadilla sin peso',musc:'Piernas y glúteos',yt:'sentadilla sin peso tecnica',
     how:['Pies a la anchura de los hombros, puntas un poco hacia fuera.','Lleva la cadera atrás como si fueras a sentarte, con los brazos al frente.','Baja hasta muslos paralelos y sube empujando con los talones.'],avoid:['Levantar los talones del suelo.','Que las rodillas se vayan hacia dentro.']},
-  pull:{name:'Aperturas con banda',sub:'Pull-apart · espalda alta',yt:'pull apart banda elastica tecnica',anim:A.pull,band:'10–20 kg',
+  circ:{name:'Círculos de brazos',musc:'Hombros',yt:'circulos de brazos calentamiento hombros',
+    how:['De pie, brazos estirados.','Dibuja círculos grandes con los brazos, hacia delante.','A mitad del tiempo, cambia el sentido.'],avoid:['Hacerlos a tirones.','Arquear la espalda.']},
+  pull:{name:'Aperturas con banda',sub:'Pull-apart',musc:'Espalda alta y hombro posterior',band:'10 kg',yt:'pull apart banda elastica tecnica',
     how:['Sujeta la banda con los brazos estirados al frente, a la altura del pecho.','Separa las manos hasta que la banda toque el pecho, juntando las escápulas.','Vuelve despacio, sin dejar que la banda tire de ti.'],avoid:['Doblar mucho los codos.','Subir los hombros hacia las orejas.']},
-
-  squat:{name:'Sentadilla con banda',yt:'sentadilla con banda elastica tecnica',anim:A.squat,band:'20–30 kg',
+  // Fuerza
+  squat:{name:'Sentadilla con banda',musc:'Cuádriceps y glúteos',band:'20–30 kg',yt:'sentadilla con banda elastica tecnica',
     how:['Pisa la banda con los pies a la anchura de los hombros y pásala por encima de los hombros.','Baja llevando la cadera atrás, pecho alto, hasta que los muslos queden paralelos al suelo.','Sube empujando con los talones y aprieta los glúteos arriba.'],avoid:['Que las rodillas se cierren hacia dentro.','Redondear la espalda al bajar.']},
-  row:{name:'Remo de pie con banda',sub:'Espalda',yt:'remo con banda elastica anclada en puerta',anim:A.row,band:'20–30 kg',anchor:true,
-    how:['Ancla la banda a la altura del pecho y da unos pasos atrás hasta que tenga tensión.','Con los brazos estirados, tira llevando los codos hacia atrás, pegados al cuerpo.','Junta las escápulas 1 segundo al final y vuelve despacio.'],avoid:['Echar el cuerpo hacia atrás para tirar.','Subir los hombros.']},
-  chest:{name:'Press de pecho con banda',yt:'press de pecho con banda elastica anclada',anim:A.chest,band:'20 kg',anchor:true,
+  row:{name:'Remo de pie con banda',musc:'Espalda media, dorsales y bíceps',band:'20–30 kg',anchor:'pecho',yt:'remo con banda elastica anclada en puerta',
+    how:['Ancla la banda a la altura del pecho y da unos pasos atrás hasta que tenga tensión.','Con los brazos estirados, tira llevando los codos atrás, pegados al cuerpo.','Junta las escápulas 1 segundo al final y vuelve despacio.'],avoid:['Echar el cuerpo hacia atrás para tirar.','Subir los hombros.']},
+  chest:{name:'Press de pecho con banda',musc:'Pecho, tríceps y hombro',band:'20–30 kg',anchor:'pecho',yt:'press de pecho con banda elastica anclada',
     how:['Ancla la banda a la altura del pecho y ponte de espaldas a la puerta, con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante hasta estirar los brazos.','Vuelve despacio controlando la banda.'],avoid:['Arquear la espalda al empujar.','Soltar la tensión de golpe.']},
-  shrugB:{name:'Encogimientos con banda',sub:'Trapecio',yt:'encogimientos de trapecio con banda elastica',anim:A.shrugB,band:'30 kg',
-    how:['Pisa la banda con los dos pies y agarra los extremos con los brazos estirados a los lados.','Sube los hombros hacia las orejas todo lo que puedas, sin doblar los codos.','Aguanta 1 segundo arriba y baja despacio, del todo.'],avoid:['Girar los hombros en círculo.','Adelantar la cabeza al subir.']},
-  crunch:{name:'Crunch de rodillas con banda',sub:'Abdominales',yt:'crunch de rodillas con banda elastica',anim:A.crunch,band:'20 kg',anchor:true,
-    how:['Ancla la banda arriba, arrodíllate de frente a la puerta (con un cojín bajo las rodillas) y sujeta la banda junto a la cabeza.','Encoge el abdomen llevando los codos hacia los muslos, redondeando la espalda.','Vuelve despacio sin dejar que la banda te levante.'],avoid:['Tirar con los brazos: las manos no se separan de la cabeza.','Echar el culo hacia atrás para bajar.']},
-
-  rdl:{name:'Peso muerto rumano con banda',yt:'peso muerto rumano con banda elastica',anim:A.rdl,band:'30 kg',
+  shrugB:{name:'Encogimientos con banda',musc:'Trapecio superior',band:'30 kg',yt:'encogimientos de trapecio con banda elastica',
+    how:['Pisa la banda con los dos pies y agarra los extremos con los brazos estirados.','Sube los hombros hacia las orejas todo lo que puedas, sin doblar los codos.','Aguanta 2 segundos arriba y baja despacio, del todo.'],avoid:['Girar los hombros en círculo.','Adelantar la cabeza al subir.']},
+  bridge:{name:'Puente de glúteo con banda',musc:'Glúteos e isquiotibiales',band:'10–20 kg en las rodillas',yt:'puente de gluteo con banda tecnica',
+    how:['Tumbado boca arriba, rodillas dobladas, pies apoyados y la banda alrededor de las rodillas.','Sube la cadera empujando con los talones y abriendo un poco las rodillas contra la banda.','Aguanta 2 segundos arriba y baja despacio.'],avoid:['Arquear la espalda en lugar de subir con los glúteos.','Empujar con las puntas de los pies.']},
+  face:{name:'Face pull con banda',musc:'Trapecio medio y hombro posterior',band:'10–20 kg',anchor:'cara',yt:'face pull con banda elastica tecnica',
+    how:['Ancla la banda a la altura de la cara y agárrala con las palmas hacia abajo.','Tira hacia la cara abriendo los codos hacia los lados y altos.','Junta las escápulas 1 segundo, con las manos a los lados de la cabeza, y vuelve despacio.'],avoid:['Encoger los hombros al tirar.','Echar el cuerpo hacia atrás.']},
+  rdl:{name:'Peso muerto rumano con banda',musc:'Isquiotibiales, glúteos y lumbares',band:'30 kg',yt:'peso muerto rumano con banda elastica',
     how:['Pisa la banda con los pies a la anchura de la cadera y agarra los extremos.','Con las rodillas un poco flexionadas, lleva la cadera atrás bajando el tronco con la espalda recta.','Cuando notes tensión detrás de los muslos, sube apretando los glúteos.'],avoid:['Redondear la espalda.','Doblar mucho las rodillas (no es una sentadilla).']},
-  row1:{name:'Remo a una mano con banda',sub:'Espalda',yt:'remo a una mano con banda elastica',anim:A.row1,band:'20–30 kg',switch:true,
-    how:['Pisa la banda con el pie de delante, inclina el tronco y apoya la otra mano en el muslo.','Tira llevando el codo hacia atrás y arriba, pegado al cuerpo.','Baja despacio. A mitad del tiempo, cambia de brazo.'],avoid:['Girar el tronco para tirar.','Redondear la espalda.']},
-  ohp:{name:'Press de hombros con banda',yt:'press militar con banda elastica',anim:A.ohp,band:'10–20 kg',
-    how:['Pisa la banda con los dos pies y sube las manos a la altura de los hombros.','Empuja hacia arriba hasta estirar los brazos.','Baja despacio a la altura de los hombros.'],avoid:['Arquear la zona lumbar al empujar.','Bajar de golpe.']},
-  face:{name:'Face pull con banda',sub:'Trapecio medio y hombro posterior',yt:'face pull con banda elastica tecnica',anim:A.face,band:'10–20 kg',anchor:true,
-    how:['Ancla la banda a la altura de la cara y agárrala con las palmas hacia abajo.','Tira hacia la cara abriendo los codos hacia los lados y altos.','Junta las escápulas al final, con las manos a los lados de la cabeza, y vuelve despacio.'],avoid:['Encoger los hombros al tirar.','Echar el cuerpo hacia atrás.']},
-  lat:{name:'Jalón con banda',sub:'Espalda (dorsales)',yt:'jalon al pecho con banda elastica anclada puerta',anim:A.lat,band:'20 kg',anchor:true,
-    how:['Ancla la banda arriba, arrodíllate a un paso de la puerta y agárrala con los brazos estirados hacia arriba.','Tira llevando los codos hacia abajo, hacia las costillas, sacando pecho.','Junta las escápulas abajo y vuelve despacio con los brazos estirados.'],avoid:['Encoger los hombros.','Echar el cuerpo hacia atrás para tirar.']},
-  bridge:{name:'Puente de glúteo con banda',yt:'puente de gluteo con banda tecnica',anim:A.bridge,band:'10–20 kg en las rodillas',
-    how:['Tumbado boca arriba, rodillas dobladas y pies apoyados. Banda alrededor de las rodillas.','Sube la cadera empujando con los talones y abriendo un poco las rodillas contra la banda.','Aguanta un segundo arriba y baja despacio.'],avoid:['Arquear la espalda en lugar de subir con los glúteos.','Empujar con las puntas de los pies.']},
-
-  rlunge:{name:'Zancada inversa con banda',yt:'zancada inversa con banda elastica',anim:A.rlunge,band:'20 kg',switch:true,
-    how:['Pisa la banda con el pie de delante y sujeta los extremos a la altura de los hombros.','Da un paso atrás con la otra pierna y baja hasta que la rodilla casi toque el suelo.','Vuelve empujando con la pierna de delante. A mitad del tiempo, cambia de pierna.'],avoid:['Que la rodilla de delante se vaya hacia dentro.','Inclinarte hacia delante.']},
-  rowBent:{name:'Remo inclinado con banda',sub:'Espalda',yt:'remo inclinado con banda elastica',anim:A.rowBent,band:'20–30 kg',
-    how:['Pisa la banda con los dos pies, flexiona un poco las rodillas e inclina el tronco con la espalda recta.','Tira de los dos extremos llevando los codos hacia atrás, pegados al cuerpo.','Junta las escápulas arriba y baja despacio.'],avoid:['Redondear la espalda.','Levantar el tronco para tirar.']},
-  pushdown:{name:'Extensión de tríceps con banda',yt:'extension de triceps con banda elastica polea alta',anim:A.dipsIni,band:'10–20 kg',anchor:true,
-    how:['Ancla la banda arriba (parte alta de la puerta) y ponte de frente.','Codos pegados al cuerpo; estira los brazos hacia abajo del todo.','Sube despacio hasta que los antebrazos queden horizontales. Los codos no se mueven.'],avoid:['Separar los codos del cuerpo.','Inclinarte encima de la banda.']},
-  yraise:{name:'Elevaciones en Y con banda',sub:'Trapecio bajo y postura',yt:'elevaciones en Y con banda elastica',anim:A.yraise,band:'10 kg',
+  lat:{name:'Jalón con banda',musc:'Dorsales y espalda alta',band:'20 kg',anchor:'arriba',yt:'jalon al pecho con banda elastica anclada puerta',
+    how:['Ancla la banda arriba, arrodíllate a un paso de la puerta (con un cojín) y agárrala con los brazos estirados.','Tira llevando los codos hacia abajo, hacia las costillas, sacando pecho.','Junta las escápulas abajo y vuelve despacio.'],avoid:['Encoger los hombros.','Echar el cuerpo hacia atrás para tirar.']},
+  ohp:{name:'Press de hombros con banda',musc:'Hombros y tríceps',band:'20 kg',yt:'press militar con banda elastica',
+    how:['Pisa la banda con los dos pies y sube las manos a la altura de los hombros.','Empuja hacia arriba hasta estirar los brazos, con el abdomen apretado.','Baja despacio a la altura de los hombros.'],avoid:['Arquear la zona lumbar al empujar.','Bajar de golpe.']},
+  row1:{name:'Remo a una mano con banda',musc:'Dorsales y espalda media',band:'20–30 kg',switch:true,yt:'remo a una mano con banda elastica',
+    how:['Pisa la banda con el pie de delante, inclina el tronco y apoya la otra mano en el muslo.','Tira llevando el codo atrás y arriba, pegado al cuerpo.','Baja despacio. A mitad del tiempo, cambia de brazo.'],avoid:['Girar el tronco para tirar.','Redondear la espalda.']},
+  deadbugB:{name:'Dead bug con banda',musc:'Abdominales profundos',band:'10 kg',anchor:'abajo',yt:'dead bug con banda elastica',
+    how:['Ancla la banda abajo, detrás de tu cabeza. Túmbate boca arriba y sujétala con los brazos estirados hacia el techo.','Rodillas dobladas a 90°. Estira una pierna hasta casi tocar el suelo sin que los brazos se muevan.','Vuelve y cambia de pierna. La zona lumbar, siempre pegada al suelo.'],avoid:['Que la zona lumbar se despegue del suelo.','Dejar que la banda te mueva los brazos.']},
+  yraise:{name:'Elevaciones en Y con banda',musc:'Trapecio inferior y hombros',band:'10 kg',yt:'elevaciones en Y con banda elastica',
     how:['Pisa la banda con los dos pies y agarra un extremo con cada mano.','Con los brazos estirados y los pulgares hacia arriba, súbelos en diagonal formando una Y.','Baja despacio. Mientras subes, lleva los hombros hacia abajo y atrás.'],avoid:['Encoger los hombros hacia las orejas.','Arquear la espalda para subir más.']},
-  curl:{name:'Curl de bíceps con banda',yt:'curl de biceps con banda elastica',anim:A.curl,band:'20 kg',
-    how:['Pisa la banda con los dos pies y agarra los extremos con las palmas hacia delante.','Sube las manos doblando los codos, que se quedan pegados al cuerpo.','Baja despacio hasta estirar los brazos.'],avoid:['Balancear el cuerpo.','Adelantar los codos.']},
-  chop:{name:'Leñador con banda',sub:'Abdominales y oblicuos',yt:'leñador con banda elastica woodchop',anim:A.chop,band:'10–20 kg',anchor:true,switch:true,
-    how:['Ancla la banda arriba y ponte de lado a la puerta, con los pies separados.','Con los brazos casi estirados, tira de la banda en diagonal desde arriba hasta la cadera contraria, girando el tronco.','Vuelve despacio. A mitad del tiempo, cambia de lado.'],avoid:['Tirar solo con los brazos: el giro sale del tronco.','Doblar la espalda.']},
-
-  chin:{name:'Retracción de cuello',sub:'Doble mentón',yt:'retraccion cervical chin tuck ejercicio',anim:A.chin,
-    how:['Sentado o de pie, espalda recta y mirada al frente.','Lleva la cabeza hacia atrás en línea recta, como haciendo papada, sin mirar hacia abajo.','Aguanta 2–3 segundos y suelta.'],avoid:['Inclinar la cabeza hacia abajo en lugar de llevarla hacia atrás.','Hacerlo con dolor.']},
-  wallBack:{name:'Empuje de cabeza contra la pared',sub:'Isométrico hacia atrás',yt:'isometrico cuello contra la pared retraccion',anim:A.wallBack,
-    how:['De espaldas a una pared, con los talones a un palmo de ella y la espalda apoyada.','Mete la barbilla (como haciendo papada) y empuja la parte de atrás de la cabeza contra la pared.','Aguanta 5–10 segundos empujando con fuerza, suelta y repite hasta acabar el tiempo.'],avoid:['Levantar la barbilla al empujar.','Ir al máximo de golpe: sube la fuerza poco a poco.']},
-  wallSide:{name:'Empuje lateral contra la pared',sub:'Isométrico de lado',yt:'isometrico lateral cuello contra la pared',anim:A.wallSide,switch:true,
-    how:['De lado a la pared, con una toalla doblada entre la cabeza y la pared.','Con la cabeza recta, empuja de lado contra la toalla sin mover el cuello.','Aguanta 5–10 segundos, suelta y repite. A mitad del tiempo, cambia de lado.'],avoid:['Inclinar la cabeza: no se mueve, solo empuja.','Subir el hombro del lado que empuja.']},
-  angel:{name:'Ángeles en la pared',sub:'Postura',yt:'angeles en la pared wall angels ejercicio postura',anim:A.angel,
-    how:['De espaldas a una pared: culo, espalda y cabeza apoyados. Pies un poco separados de la pared.','Brazos en forma de W, con codos y dorso de las manos tocando la pared.','Desliza los brazos hacia arriba sin despegarlos y vuelve a bajar a la W.'],avoid:['Arquear la zona lumbar para llegar más arriba.','Subir los hombros hacia las orejas.']},
-  trap:{name:'Estiramiento de trapecio',yt:'estiramiento trapecio superior cuello',anim:A.trap,switch:true,
-    how:['Sentado o de pie, deja caer el hombro derecho, con el brazo relajado hacia el suelo.','Inclina la cabeza hacia el lado izquierdo, oreja hacia el hombro.','Apoya la mano izquierda encima de la cabeza sin tirar. A mitad del tiempo, cambia de lado.'],avoid:['Tirar de la cabeza con la mano.','Girar la cara: la nariz mira al frente.']},
-  pec:{name:'Estiramiento de pecho',yt:'estiramiento de pecho en pared',anim:A.pec,switch:true,
-    how:['Apoya la palma en una pared o marco de puerta, brazo a la altura del hombro.','Gira el cuerpo poco a poco hacia el lado contrario.','Notarás el estiramiento en el pecho y el hombro. A mitad del tiempo, cambia.'],avoid:['Forzar hasta sentir dolor en el hombro.','Encoger el hombro.']},
-  quad:{name:'Estiramiento de cuádriceps',yt:'estiramiento de cuadriceps de pie',anim:A.quad,switch:true,
-    how:['De pie, apóyate en una pared con una mano.','Lleva el talón hacia el glúteo y sujeta el pie con la otra mano.','Rodillas juntas. A mitad del tiempo, cambia de pierna.'],avoid:['Si no llegas al pie, usa una toalla o apoya el empeine en una silla detrás.','Arquear la espalda.']},
-  ham:{name:'Estiramiento de isquiotibiales',yt:'estiramiento isquiotibiales de pie',anim:A.ham,switch:true,
-    how:['Adelanta una pierna estirada con el talón en el suelo y la punta hacia arriba.','Dobla la pierna de atrás e inclina el tronco con la espalda recta, manos en el muslo.','Notarás el estiramiento detrás del muslo. A mitad del tiempo, cambia.'],avoid:['Rebotar.','Redondear la espalda para llegar más abajo.']},
+  rlunge:{name:'Zancada inversa con banda',musc:'Cuádriceps y glúteos',band:'20 kg',switch:true,yt:'zancada inversa con banda elastica',
+    how:['Pisa la banda con el pie de delante y sujeta los extremos a la altura de los hombros.','Da un paso atrás y baja hasta que la rodilla de atrás casi toque el suelo.','Vuelve empujando con la pierna de delante. A mitad del tiempo, cambia de pierna.'],avoid:['Que la rodilla de delante se vaya hacia dentro.','Inclinarte hacia delante.']},
+  rowBent:{name:'Remo inclinado con banda',musc:'Espalda media, dorsales y trapecio',band:'20–30 kg',yt:'remo inclinado con banda elastica',
+    how:['Pisa la banda con los dos pies, flexiona un poco las rodillas e inclina el tronco con la espalda recta.','Tira de los dos extremos llevando los codos atrás, pegados al cuerpo.','Junta las escápulas 1 segundo y baja despacio.'],avoid:['Redondear la espalda.','Levantar el tronco para tirar.']},
+  pressInc:{name:'Press inclinado con banda',musc:'Pecho superior y hombros',band:'20 kg',anchor:'abajo',yt:'press inclinado con banda elastica',
+    how:['Ancla la banda abajo, ponte de espaldas a la puerta con un pie adelantado.','Con las manos junto al pecho, empuja hacia delante y hacia arriba, en diagonal.','Vuelve despacio a la altura del pecho.'],avoid:['Arquear la zona lumbar.','Encoger los hombros al empujar.']},
+  chop:{name:'Leñador con banda',musc:'Abdominales y oblicuos',band:'10–20 kg',anchor:'arriba',switch:true,yt:'leñador con banda elastica woodchop',
+    how:['Ancla la banda arriba y ponte de lado a la puerta, pies separados.','Con los brazos casi estirados, tira en diagonal desde arriba hasta la cadera contraria, girando el tronco.','Vuelve despacio. A mitad del tiempo, cambia de lado.'],avoid:['Tirar solo con los brazos: el giro sale del tronco.','Doblar la espalda.']},
+  pushdown:{name:'Extensión de tríceps con banda',musc:'Tríceps',band:'10–20 kg',anchor:'arriba',yt:'extension de triceps con banda elastica polea alta',
+    how:['Ancla la banda arriba y ponte de frente.','Codos pegados al cuerpo; estira los brazos hacia abajo del todo.','Sube despacio hasta que los antebrazos queden horizontales.'],avoid:['Separar los codos del cuerpo.','Inclinarte encima de la banda.']},
+  // Estiramientos
+  quad:{name:'Estiramiento de cuádriceps',musc:'Cuádriceps',switch:true,yt:'estiramiento de cuadriceps de pie',
+    how:['De pie, apóyate en una pared con una mano.','Lleva el talón hacia el glúteo y sujeta el pie con la otra mano.','Rodillas juntas. A mitad del tiempo, cambia de pierna.'],avoid:['Si no llegas al pie, usa una toalla.','Arquear la espalda.']},
+  ham:{name:'Estiramiento de isquiotibiales',musc:'Parte de atrás del muslo',switch:true,yt:'estiramiento isquiotibiales de pie',
+    how:['Adelanta una pierna estirada con el talón en el suelo y la punta hacia arriba.','Dobla la pierna de atrás e inclina el tronco con la espalda recta, manos en el muslo.','A mitad del tiempo, cambia.'],avoid:['Rebotar.','Redondear la espalda para llegar más abajo.']},
+  pec:{name:'Estiramiento de pecho',musc:'Pecho y hombro',switch:true,yt:'estiramiento de pecho en pared',
+    how:['Apoya la palma en una pared o marco de puerta, brazo a la altura del hombro.','Gira el cuerpo poco a poco hacia el lado contrario.','A mitad del tiempo, cambia de brazo.'],avoid:['Forzar hasta sentir dolor en el hombro.','Encoger el hombro.']},
+  trap:{name:'Estiramiento de trapecio',musc:'Trapecio superior',switch:true,yt:'estiramiento trapecio superior cuello',
+    how:['Deja caer el hombro derecho, con el brazo relajado hacia el suelo.','Inclina la cabeza hacia la izquierda, oreja hacia el hombro.','Apoya la mano izquierda encima de la cabeza sin tirar. A mitad del tiempo, cambia.'],avoid:['Tirar de la cabeza con la mano.','Girar la cara: la nariz mira al frente.']},
+  // Cuello
+  chinNod:{name:'Flexión de cuello tumbado',sub:'Flexores profundos del cuello',musc:'Flexores profundos del cuello',yt:'flexion craneocervical chin nod ejercicio',
+    how:['Túmbate boca arriba con las rodillas dobladas y la cabeza apoyada.','Asiente muy despacio, como diciendo «sí», metiendo la barbilla sin levantar la cabeza del suelo.','Aguanta 10 segundos y suelta. Repite hasta acabar el tiempo.'],avoid:['Levantar la cabeza del suelo.','Apretar la mandíbula o los músculos de delante del cuello: es un movimiento pequeño.']},
+  wallBack:{name:'Empuje de cabeza contra la pared',sub:'Isométrico hacia atrás',musc:'Extensores del cuello',yt:'isometrico cuello contra la pared retraccion',
+    how:['De espaldas a una pared, con los talones a un palmo de ella y la espalda apoyada.','Mete la barbilla y empuja la parte de atrás de la cabeza contra la pared.','Aguanta y suelta (mira la progresión arriba). Repite hasta acabar el tiempo.'],avoid:['Levantar la barbilla al empujar.','Ir al máximo de golpe: sube la fuerza poco a poco.']},
+  isoSide:{name:'Isométrico lateral con la mano',sub:'Inclinación lateral',musc:'Laterales del cuello',switch:true,yt:'isometrico lateral cuello con la mano',
+    how:['Sentado o de pie, cabeza recta. Apoya la palma en un lado de la cabeza, sobre la oreja.','Empuja la cabeza contra la mano y la mano contra la cabeza: nada se mueve.','Aguanta y suelta. A mitad del tiempo, cambia de lado.'],avoid:['Inclinar o girar la cabeza.','Subir el hombro.']},
+  latRaise:{name:'Elevaciones laterales con banda',sub:'El ejercicio estrella del programa',musc:'Hombros y trapecio superior',band:'10–20 kg',yt:'elevaciones laterales con banda elastica',
+    how:['Pisa la banda con los dos pies y agarra un extremo con cada mano.','Sube los brazos por los lados, con los codos un poco doblados, hasta la altura de los hombros.','Baja despacio en 2–3 segundos. Haz entre 10 y 20 repeticiones.'],avoid:['Subir los brazos por encima de los hombros.','Balancear el cuerpo.']},
+  extRot:{name:'Rotación externa con banda',musc:'Manguito rotador y hombro posterior',band:'10 kg',yt:'rotacion externa con banda elastica hombro',
+    how:['Codos pegados al cuerpo y doblados a 90°, banda entre las manos.','Abre los antebrazos hacia fuera sin separar los codos del cuerpo.','Junta las escápulas al final y vuelve despacio.'],avoid:['Separar los codos.','Arquear la espalda.']},
+  angel:{name:'Ángeles en la pared',sub:'Postura',musc:'Trapecio medio e inferior',yt:'angeles en la pared wall angels ejercicio postura',
+    how:['De espaldas a una pared: culo, espalda y cabeza apoyados. Pies un poco separados de la pared.','Brazos en forma de W, con codos y dorso de las manos tocando la pared.','Desliza los brazos hacia arriba sin despegarlos y vuelve a la W.'],avoid:['Arquear la zona lumbar.','Subir los hombros hacia las orejas.']},
+  levator:{name:'Estiramiento del elevador de la escápula',sub:'Nariz hacia la axila',musc:'Parte de atrás del cuello',switch:true,yt:'estiramiento elevador de la escapula',
+    how:['Gira la cabeza 45° hacia la izquierda y baja la nariz hacia la axila izquierda.','Apoya la mano izquierda en la parte de atrás de la cabeza, sin tirar.','Deja caer el hombro derecho. A mitad del tiempo, cambia de lado.'],avoid:['Tirar con la mano.','Hacer rebotes.']},
 };
 
-const PLAN={
-  'calentamiento':{title:'Calentamiento',sub:'2 minutos · igual todos los días · 30 s por ejercicio, sin descanso',ids:['jj','circ','sq0','pull']},
-  'dia-a':{title:'Día A · Piernas, empuje y espalda',sub:'Circuito de 6 ejercicios con banda',ids:['squat','row','chest','shrugB','pull','crunch']},
-  'dia-b':{title:'Día B · Cadena posterior, hombros y espalda',sub:'Circuito de 6 ejercicios con banda',ids:['rdl','row1','ohp','face','lat','bridge']},
-  'dia-c':{title:'Día C · Fuerza general y espalda',sub:'Circuito de 6 ejercicios con banda',ids:['rlunge','rowBent','pushdown','yraise','curl','chop']},
+/* ================= Plan ================= */
+const DAYS={
+  'dia-a':{title:'Día A',sub:'Sentadilla, empuje horizontal y mucha espalda',blocks:[['squat','row'],['chest','shrugB'],['bridge','face']]},
+  'dia-b':{title:'Día B',sub:'Bisagra de cadera, empuje vertical y tirón desde arriba',blocks:[['rdl','lat'],['ohp','row1'],['deadbugB','yraise']]},
+  'dia-c':{title:'Día C',sub:'Zancada, press inclinado y trabajo de postura',blocks:[['rlunge','rowBent'],['pressInc','pull'],['chop','pushdown']]},
+};
+const LISTS={
+  'calentamiento':{title:'Calentamiento',sub:'Unos 3 minutos · igual todos los días de fuerza · 40 s por ejercicio, sin descanso',ids:['jj','sq0','circ','pull']},
   'estiramientos':{title:'Vuelta a la calma',sub:'2 minutos · 30 s por estiramiento, respirando tranquilo',ids:['quad','ham','pec','trap']},
-  'cuello':{title:'Cuello y espalda alta',sub:'6 minutos · todos los días, también los de descanso · 40 s por ejercicio',ids:['chin','wallBack','wallSide','angel','face','trap','pec']},
+  'cuello':{title:'Cuello y trapecios',sub:'Unos 8 minutos · todos los días, también los de descanso · 40 s por ejercicio',ids:['chinNod','wallBack','isoSide','latRaise','shrugB','face','extRot','angel','trap','levator']},
 };
+const WEEKS=[{k:'s1',label:'Semanas 1–2',w:35},{k:'s3',label:'Semanas 3–5',w:40},{k:'s6',label:'Semana 6 en adelante',w:45}];
+const ROUND=120, CHANGE=10, ROUNDS=3;
 
-/* ============ Estado ============ */
-function variant(id){
-  const ex=EX[id];
-  const anim=ex.band?Object.assign({},ex.anim,{label:'banda '+ex.band.replace(' en las rodillas','')}):Object.assign({},ex.anim,{label:undefined});
-  return Object.assign({},ex,{anim});
-}
-
+/* ================= Utilidades ================= */
 const YT_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#E62117" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8z"/><path fill="#fff" d="M9.8 15.1V8.9L15.2 12z"/></svg>';
 const ytUrl=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
+const media=id=>({src:'anim/'+id+'.mp4',poster:'anim/'+id+'.jpg'});
+const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function clearFigs(){for(const f of [...FIGS]){if(!f.keep){FIGS.delete(f);if(io)io.unobserve(f.svg);}}}
+// Vídeos: se cargan y reproducen solo cuando se ven
+const vio=('IntersectionObserver' in window)?new IntersectionObserver(es=>{
+  for(const e of es){const v=e.target;
+    if(e.isIntersecting){ if(!v.src) v.src=v.dataset.src; if(!v.dataset.paused&&!reduce){const p=v.play();if(p&&p.catch)p.catch(()=>{});} }
+    else v.pause();
+  }},{rootMargin:'200px'}):null;
+function videoEl(id){
+  const m=media(id), v=document.createElement('video');
+  v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline',''); v.setAttribute('muted',''); v.preload='none';
+  v.poster=m.poster; v.dataset.src=m.src; v.setAttribute('aria-label','Animación: '+EX[id].name);
+  if(vio) vio.observe(v); else {v.src=m.src; v.autoplay=true;}
+  return v;
+}
 
-function renderList(key){
-  const P=PLAN[key]; const v=document.getElementById('view');
-  clearFigs();
-  const isCircuit=key.startsWith('dia');
-  v.innerHTML=`<section class="intro"><h2>${P.title}</h2><p>${P.sub}${isCircuit?' · trabajo/descanso según la semana (mira la pestaña Entrenar)':''}</p>
-    <div class="meta">${isCircuit?'<span class="pill">6 ejercicios</span><span class="pill">3 rondas</span><span class="pill">15 min</span>':''}</div>${P.ids.some(id=>variant(id).anchor)?'<button class="vid" type="button" id="introVid" style="margin-top:12px">▶ Vídeo: cómo anclar la banda a la puerta (1 min)</button>':''}</section>
-    ${key==='calentamiento'?TIPS:''}${key==='cuello'?NECK:''}
-    <div class="grid" id="grid"></div>`;
-  const grid=document.getElementById('grid');
-  const iv=document.getElementById('introVid'); if(iv) iv.addEventListener('click',openVideo);
-  P.ids.forEach((id,i)=>{
-    const ex=EX[id], V=variant(id);
-    const c=document.createElement('article'); c.className='card';
-    c.innerHTML=`<div class="stage"><span class="num">${i+1}</span><button class="pp" type="button">Pausa</button></div>
-      <div class="body">
-        <div><h3>${V.name}</h3>${V.sub?`<div class="sub">${V.sub}</div>`:''}</div>
-        <div class="meta" style="margin-top:0">${V.band?`<span class="pill band">Banda ${V.band}</span>`:'<span class="pill">Sin banda</span>'}${ex.switch?'<span class="pill">Cambia de lado a mitad</span>':''}</div>
-        <div><h4>Cómo se hace</h4><ol>${V.how.map(x=>`<li>${x}</li>`).join('')}</ol></div>
-        <div><h4>Evita</h4><ul class="avoid">${V.avoid.map(x=>`<li>${x}</li>`).join('')}</ul></div>
-        ${V.anchor?'<button class="vid" type="button">▶ Vídeo: cómo anclar la banda a la puerta</button>':''}
-        <a class="yt" href="${ytUrl(ex.yt)}" target="_blank" rel="noopener">${YT_ICON} Ver vídeos en YouTube</a>
-      </div>`;
-    grid.appendChild(c);
-    const st=c.querySelector('.stage'), pp=c.querySelector('.pp');
-    const f=addFig(st,V.anim,{label:'Demostración: '+V.name});
-    const toggle=()=>{f.playing=!f.playing;pp.textContent=f.playing?'Pausa':'Reproducir';};
-    st.addEventListener('click',toggle);
-    const vb=c.querySelector('.vid'); if(vb) vb.addEventListener('click',openVideo);
+function card(id,label){
+  const ex=EX[id];
+  const c=document.createElement('article'); c.className='card';
+  c.innerHTML=`<div class="stage"><span class="num">${label}</span>${ex.band?`<span class="kg">banda ${ex.band.replace(' en las rodillas','')}</span>`:''}<button class="pp" type="button">Pausa</button></div>
+    <div class="body">
+      <div><h3>${ex.name}</h3><div class="sub">${ex.musc}${ex.sub&&ex.sub!==ex.musc?' · '+ex.sub:''}</div></div>
+      <div class="meta" style="margin-top:0">${ex.band?`<span class="pill band">Banda ${ex.band}</span>`:''}${ex.anchor?`<span class="pill">${ANCH[ex.anchor]}</span>`:''}${ex.switch?'<span class="pill">Cambia de lado a mitad</span>':''}</div>
+      <div><h4>Cómo se hace</h4><ol>${ex.how.map(x=>`<li>${x}</li>`).join('')}</ol></div>
+      <div><h4>Evita</h4><ul class="avoid">${ex.avoid.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      <div class="links">${ex.anchor?'<button class="vid" type="button">▶ Cómo anclar la banda</button>':''}<a class="yt" href="${ytUrl(ex.yt)}" target="_blank" rel="noopener">${YT_ICON} Vídeos en YouTube</a></div>
+    </div>`;
+  const st=c.querySelector('.stage'), pp=c.querySelector('.pp');
+  const v=videoEl(id); st.insertBefore(v,st.firstChild);
+  const toggle=()=>{ if(v.paused){v.dataset.paused='';if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{});pp.textContent='Pausa';} else {v.pause();v.dataset.paused='1';pp.textContent='Reproducir';} };
+  st.addEventListener('click',toggle);
+  if(reduce){pp.textContent='Reproducir';v.dataset.paused='1';}
+  const vb=c.querySelector('.vid'); if(vb) vb.addEventListener('click',openVideo);
+  return c;
+}
+
+/* ================= Vistas ================= */
+const TIPS_FUERZA=`<details class="tips"><summary>Cómo hacer cada serie (léelo una vez)</summary><ul>
+<li><b>Elige la banda para hacer 10–15 repeticiones</b> en el tiempo de trabajo, con las 2 últimas difíciles pero bien hechas.</li>
+<li><b>Cuando llegue sobrado a 15</b>, sube de banda en ese ejercicio o junta dos bandas. Así progresa semana a semana.</li>
+<li><b>Ritmo:</b> 1 segundo para tirar o empujar, 1 segundo de pausa apretando (sobre todo en los de espalda) y 2 segundos para volver.</li>
+<li><b>Agujetas sí, dolor articular no.</b> Si duele una rodilla, la espalda o un hombro, para ese ejercicio.</li>
+</ul></details>`;
+
+function renderDay(key){
+  const D=DAYS[key], v=document.getElementById('view');
+  v.innerHTML=`<section class="intro"><h2>${D.title} · ${D.sub}</h2>
+    <p>3 superseries. Haz el ejercicio <b>1</b>, cambia al <b>2</b> sin descansar, descansa lo que quede hasta completar 2 minutos y repite. <b>3 rondas</b> de cada superserie.</p>
+    <div class="meta"><span class="pill">≈ 23 min con calentamiento y estiramientos</span><span class="pill">6 ejercicios · 18 series</span><span class="pill teal">+ Cuello y trapecios (8 min)</span></div>
+    <button class="vid" type="button" id="introVid" style="margin-top:12px">▶ Vídeo: cómo anclar la banda a la puerta (1 min)</button></section>${TIPS_FUERZA}`;
+  document.getElementById('introVid').addEventListener('click',openVideo);
+  D.blocks.forEach((b,i)=>{
+    const s=document.createElement('section'); s.className='block';
+    s.innerHTML=`<div class="block-head"><h3>Superserie ${i+1}</h3><span>${EX[b[0]].musc.split(',')[0]} + ${EX[b[1]].musc.split(',')[0]} · 3 rondas</span></div><div class="grid pair"></div>`;
+    const g=s.querySelector('.grid');
+    g.appendChild(card(b[0],(i+1)+'.1')); g.appendChild(card(b[1],(i+1)+'.2'));
+    v.appendChild(s);
   });
 }
 
-const TIPS=`<details class="tips" open><summary>Antes de empezar (léelo una vez)</summary><ul>
-<li><b>Elige la banda para que cueste.</b> En cada ejercicio, las 2–3 últimas repeticiones tienen que costar de verdad, pero con buena técnica. Si acaba el tiempo sobrado, la próxima vez usa una banda más dura o junta dos.</li>
-<li><b>Ritmo controlado:</b> 1 segundo para tirar o empujar y 2 segundos para volver. Sin rebotes ni tirones.</li>
-<li><b>Progresa:</b> cada dos semanas sube el tiempo de trabajo (pestaña Entrenar) y, en cuanto puedas, la banda.</li>
-<li><b>Agujetas sí, dolor articular no.</b> Si duele una rodilla, la espalda o un hombro, para ese ejercicio.</li>
-<li>Si hace mucho que no hace ejercicio y tiene la tensión alta o algún problema de corazón, mejor que se haga una revisión antes de apretar.</li>
-<li>Necesita un anclaje de puerta para los ejercicios con la banda anclada (mira el vídeo), zapatillas y agua cerca.</li>
+const NECK_TIPS=`<details class="tips teal" open><summary>Por qué este programa y cómo progresar</summary><ul>
+<li><b>Fuerza, no solo estiramientos.</b> En un ensayo con trabajadores de oficina con dolor frecuente de cuello y hombros, solo 2 minutos al día de elevaciones laterales con banda elástica, cinco días a la semana durante 10 semanas, redujeron de forma clara el dolor. Este programa parte de esa idea y añade los flexores profundos del cuello, isométricos y trabajo de postura.</li>
+<li><b>Semanas 1–2:</b> isométricos al 50 % de fuerza, 5 segundos y 5 de descanso. Bandas de 10 kg en elevaciones y rotaciones; 20 kg en encogimientos.</li>
+<li><b>Semanas 3–6:</b> isométricos al 70 %, 10 segundos. Coge la banda más corta o pasa a la siguiente cuando hagas 20 repeticiones fáciles.</li>
+<li><b>Semana 7 en adelante:</b> haz dos vueltas seguidas de elevaciones laterales y encogimientos (el resto, una).</li>
+<li><b>En el trabajo:</b> levántate cada 45–60 minutos; pantalla a la altura de los ojos y a un brazo de distancia; hombros abajo y codos apoyados al teclear.</li>
+<li><b>Molestia leve</b> que se va en el día: normal. <b>Si el dolor baja al brazo, hay hormigueo, pérdida de fuerza o mareos</b>, o no mejora en unas semanas, que lo vea un médico o fisioterapeuta.</li>
 </ul></details>`;
 
-const NECK=`<details class="tips" open><summary>Para el cuello y los trapecios (por estar muchas horas sentado)</summary><ul>
-<li><b>Haz esta rutina a diario</b>, por ejemplo a media mañana o al terminar de trabajar. Son 6 minutos y se puede hacer en ropa de calle.</li>
-<li><b>Levántate cada 45–60 minutos</b> aunque sea un minuto: camina, haz 5 retracciones de cuello y 10 círculos de hombros.</li>
-<li><b>Pantalla a la altura de los ojos</b> y a un brazo de distancia; si usa portátil, mejor con un soporte y teclado aparte.</li>
-<li><b>Hombros abajo y atrás</b> al teclear, con los codos apoyados. Los trapecios cargados suelen venir de tener los hombros subidos sin darse cuenta.</li>
-<li>Los empujes contra la pared van con fuerza, pero sin dolor. Si el dolor baja al brazo, hay hormigueos, mareos o no mejora en unas semanas, que lo vea un fisioterapeuta o su médico.</li>
-</ul></details>`;
+function renderList(key){
+  const P=LISTS[key], v=document.getElementById('view');
+  const neck=key==='cuello';
+  v.innerHTML=`<section class="intro"><h2>${P.title}</h2><p>${P.sub}</p>
+    ${neck?'<div class="meta"><span class="pill teal">10 ejercicios</span><span class="pill">Los isométricos van con fuerza, pero sin dolor</span></div><button class="vid" type="button" id="introVid" style="margin-top:12px">▶ Vídeo: cómo anclar la banda a la puerta (1 min)</button>':''}</section>
+    ${neck?NECK_TIPS:''}<div class="grid" id="grid"></div>`;
+  const iv=document.getElementById('introVid'); if(iv) iv.addEventListener('click',openVideo);
+  const g=document.getElementById('grid');
+  P.ids.forEach((id,i)=>g.appendChild(card(id,i+1)));
+}
 
+function renderPlan(){
+  const v=document.getElementById('view');
+  const wk=[['Lun',[['f','Día A'],['n','Cuello']]],['Mar',[['n','Cuello'],['w','Caminar']]],['Mié',[['f','Día B'],['n','Cuello']]],['Jue',[['n','Cuello'],['w','Caminar']]],['Vie',[['f','Día C'],['n','Cuello']]],['Sáb',[['n','Cuello'],['w','Caminar']]],['Dom',[['w','Descanso']]]];
+  v.innerHTML=`<section class="intro"><h2>Cómo está montado</h2>
+    <p>Tres días de fuerza de cuerpo completo con superseries (dos ejercicios seguidos que no se estorban) y un programa corto de cuello y trapecios para hacer a diario.</p>
+    <div class="week">${wk.map(([d,ts])=>`<div class="day"><b>${d}</b>${ts.map(([c,t])=>`<span class="t ${c}">${t}</span>`).join('')}</div>`).join('')}</div>
+    <p class="small" style="margin-top:8px">Si un día no puede, que lo mueva al siguiente, pero sin hacer dos días de fuerza seguidos.</p></section>
+    <div class="cols">
+      <div class="box"><h3>Por qué funciona</h3><ul>
+        <li><b>Cuerpo completo 3 veces por semana:</b> cada músculo recibe trabajo cada 2–3 días, lo más eficaz cuando se empieza.</li>
+        <li><b>Más volumen en menos tiempo:</b> con superseries salen 18 series de trabajo en unos 18 minutos: a la semana, unas 12 series para las piernas y 6–9 para pecho y hombros.</li>
+        <li><b>Prioridad a la espalda y el trapecio:</b> 8 ejercicios de tirón a la semana (unas 24 series), más el programa de cuello, para compensar las horas sentado.</li>
+        <li><b>Progresión clara:</b> más tiempo de trabajo cada pocas semanas y bandas más duras cuando las repeticiones salen fáciles.</li>
+      </ul></div>
+      <div class="box"><h3>Progresión del plan de fuerza</h3>
+        <table class="prog"><thead><tr><th>Semanas</th><th>Trabajo</th><th>Descanso por ronda</th></tr></thead><tbody>
+        <tr><td>1–2</td><td>35 s por ejercicio</td><td>40 s</td></tr>
+        <tr><td>3–5</td><td>40 s por ejercicio</td><td>30 s</td></tr>
+        <tr><td>6 en adelante</td><td>45 s por ejercicio</td><td>20 s</td></tr></tbody></table>
+        <p class="small" style="margin:10px 0 0">Siempre 3 rondas por superserie. Además, sube de banda en cuanto llegue a 15 repeticiones fáciles.</p></div>
+      <div class="box"><h3>Lo que necesita</h3><ul>
+        <li>Las bandas de 10, 20 y 30 kg.</li>
+        <li>Un anclaje de puerta (en la pestaña de cada día está el vídeo de cómo ponerlo).</li>
+        <li>Una esterilla o alfombra y un cojín para las rodillas.</li>
+        <li>Zapatillas y agua.</li>
+      </ul></div>
+      <div class="box"><h3>Fuera del entrenamiento</h3><ul>
+        <li><b>Caminar a diario</b> (meta: 7.000–8.000 pasos) ayuda tanto como el entrenamiento a perder grasa y descargar la espalda.</li>
+        <li><b>Proteína en cada comida</b> (carne, pescado, huevos, legumbres, lácteos) para que el músculo crezca.</li>
+        <li>Si tiene la tensión alta o algún problema de corazón, mejor una revisión médica antes de apretar.</li>
+      </ul></div>
+    </div>`;
+}
+
+/* ================= Vídeo del anclaje ================= */
 function openVideo(){
   const m=document.getElementById('vmodal'); m.hidden=false;
   const v=m.querySelector('video'); try{v.currentTime=0; const p=v.play(); if(p&&p.catch)p.catch(()=>{});}catch(e){}
@@ -634,46 +383,50 @@ function openVideo(){
 function closeVideo(){const m=document.getElementById('vmodal'); m.hidden=true; try{m.querySelector('video').pause();}catch(e){}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo();});
 
-/* ============ Modo entrenar ============ */
-const WEEKS=[{k:'s1',label:'Semanas 1–2',w:30,r:20},{k:'s3',label:'Semanas 3–4',w:35,r:15},{k:'s5',label:'Semana 5 en adelante',w:40,r:10}];
-const SET={day:'dia-a',week:'s1',rounds:3,sound:true};
-try{Object.assign(SET,JSON.parse(localStorage.getItem('set')||'{}'));}catch(e){}
-SET.rounds=3; if(!WEEKS.some(w=>w.k===SET.week))SET.week='s1';
-const saveSet=()=>{try{localStorage.setItem('set',JSON.stringify(SET));}catch(e){}};
+/* ================= Modo entrenar ================= */
+const SET={day:'dia-a',week:'s1',sound:true};
+try{Object.assign(SET,JSON.parse(localStorage.getItem('set2')||'{}'));}catch(e){}
+if(!(SET.day in DAYS)&&SET.day!=='cuello')SET.day='dia-a';
+if(!WEEKS.some(w=>w.k===SET.week))SET.week='s1';
+const saveSet=()=>{try{localStorage.setItem('set2',JSON.stringify(SET));}catch(e){}};
 
 function buildSeq(){
-  const wk=WEEKS.find(w=>w.k===SET.week)||WEEKS[0];
   const seq=[];
   if(SET.day==='cuello'){
-    const ids=PLAN.cuello.ids;
-    ids.forEach((id,i)=>{seq.push({id,kind:'work',d:40,phase:'Cuello y espalda'});if(ids[i+1])seq.push({id:ids[i+1],kind:'rest',d:8,phase:'Cambio'});});
+    const ids=LISTS.cuello.ids;
+    ids.forEach((id,i)=>{seq.push({id,kind:'neck',d:40,phase:`Cuello · ${i+1} de ${ids.length}`});if(ids[i+1])seq.push({id:ids[i+1],kind:'rest',d:10,phase:'Cambio'});});
     return seq;
   }
-  PLAN['calentamiento'].ids.forEach(id=>seq.push({id,kind:'warm',d:30,phase:'Calentamiento'}));
-  const ids=PLAN[SET.day].ids;
-  for(let r=1;r<=SET.rounds;r++){
-    ids.forEach((id,i)=>{
-      seq.push({id,kind:'work',d:wk.w,phase:`Ronda ${r} de ${SET.rounds}`});
-      seq.push({id:ids[i+1]||(r<SET.rounds?ids[0]:null),kind:'rest',d:wk.r,phase:'Descanso'});
-    });
-  }
-  PLAN['estiramientos'].ids.forEach(id=>seq.push({id,kind:'cool',d:30,phase:'Estiramientos'}));
-  return seq.filter(s=>!(s.kind==='rest'&&!s.id));
+  const w=(WEEKS.find(x=>x.k===SET.week)||WEEKS[0]).w;
+  const rest=ROUND-2*w-CHANGE;
+  LISTS.calentamiento.ids.forEach(id=>seq.push({id,kind:'warm',d:40,phase:'Calentamiento'}));
+  const B=DAYS[SET.day].blocks;
+  B.forEach((b,bi)=>{
+    for(let r=1;r<=ROUNDS;r++){
+      const ph=`Superserie ${bi+1} · ronda ${r} de ${ROUNDS}`;
+      seq.push({id:b[0],kind:'work',d:w,phase:ph});
+      seq.push({id:b[1],kind:'rest',d:CHANGE,phase:'Cambio rápido'});
+      seq.push({id:b[1],kind:'work',d:w,phase:ph});
+      const nextId=r<ROUNDS?b[0]:(B[bi+1]?B[bi+1][0]:LISTS.estiramientos.ids[0]);
+      seq.push({id:nextId,kind:'rest',d:rest,phase:'Descanso'});
+    }
+  });
+  LISTS.estiramientos.ids.forEach(id=>seq.push({id,kind:'warm',d:30,phase:'Estiramientos'}));
+  return seq;
 }
 const fmt=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 
 function renderSession(){
-  clearFigs();
   const v=document.getElementById('view');
   const chips=(key,opts)=>opts.map(o=>`<button type="button" data-k="${key}" data-v="${o.v}" aria-pressed="${String(SET[key])===String(o.v)}">${o.l}</button>`).join('');
   v.innerHTML=`<section class="setup" id="setup">
     <h2>Entrenamiento guiado</h2>
-    <p class="small" style="margin:-8px 0 0">El temporizador te va diciendo qué hacer, con la animación de cada ejercicio. Calentamiento + circuito + estiramientos.</p>
-    <div class="field"><span class="lbl">¿Qué día toca?</span><div class="chips">${chips('day',[{v:'dia-a',l:'Día A'},{v:'dia-b',l:'Día B'},{v:'dia-c',l:'Día C'},{v:'cuello',l:'Solo cuello y espalda (6 min)'}])}</div></div>
-    <div class="field" id="fWeek"><span class="lbl">¿En qué semana está?</span><div class="chips">${chips('week',WEEKS.map(w=>({v:w.k,l:`${w.label} · ${w.w}s / ${w.r}s`})))}</div>
-      <span class="small">Trabajo / descanso por ejercicio. Siempre 3 rondas.</span></div>
+    <p class="small" style="margin:-8px 0 0">El temporizador te dice qué toca en cada momento, con la animación del ejercicio y pitidos al cambiar.</p>
+    <div class="field"><span class="lbl">¿Qué toca hoy?</span><div class="chips">${chips('day',[{v:'dia-a',l:'Día A'},{v:'dia-b',l:'Día B'},{v:'dia-c',l:'Día C'},{v:'cuello',l:'Cuello y trapecios'}])}</div></div>
+    <div class="field" id="fWeek"><span class="lbl">¿En qué semana está?</span><div class="chips">${chips('week',WEEKS.map(w=>({v:w.k,l:`${w.label} · ${w.w} s`})))}</div>
+      <span class="small">Tiempo de trabajo por ejercicio. Las rondas siempre duran 2 minutos.</span></div>
     <div class="field"><span class="lbl">Sonido</span><div class="chips">${chips('sound',[{v:true,l:'Pitidos activados'},{v:false,l:'Sin sonido'}])}</div></div>
-    <div class="summary" id="sum"></div>
+    <div id="sum"></div>
     <button class="big" id="start" type="button">▶ Empezar</button>
   </section>
   <section class="runner" id="runner">
@@ -697,13 +450,13 @@ function renderSession(){
     </div>
   </section>`;
   const upd=()=>{
-    const seq=buildSeq(); const tot=seq.reduce((s,x)=>s+x.d,0);
-    const nk=SET.day==='cuello'; document.getElementById('fWeek').hidden=nk; 
-    document.getElementById('sum').innerHTML=`<b>${PLAN[SET.day].title}</b> · duración total ≈ <b>${Math.round(tot/60)} min</b>`;
+    const seq=buildSeq(), tot=seq.reduce((s,x)=>s+x.d,0);
+    document.getElementById('fWeek').hidden=SET.day==='cuello';
+    const t=SET.day==='cuello'?'Cuello y trapecios':DAYS[SET.day].title+' · '+DAYS[SET.day].sub;
+    document.getElementById('sum').innerHTML=`<b>${t}</b> · duración ≈ <b>${Math.round(tot/60)} min</b>`;
   };
   v.querySelectorAll('.chips button').forEach(b=>b.addEventListener('click',()=>{
-    const k=b.dataset.k; let val=b.dataset.v;
-    if(k==='rounds')val=+val; if(k==='sound')val=(val==='true');
+    const k=b.dataset.k; let val=b.dataset.v; if(k==='sound')val=(val==='true');
     SET[k]=val; saveSet();
     v.querySelectorAll(`.chips button[data-k="${k}"]`).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
     upd();
@@ -722,50 +475,48 @@ function beep(freq=880,len=.12){
     g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+len);o.start();o.stop(AC.currentTime+len+.02);
   }catch(e){}
 }
-
 function startRun(){
   beep(660,.05);
   const seq=buildSeq();
-  RUN={seq,i:0,left:seq[0].d,paused:false,fig:null,total:seq.reduce((s,x)=>s+x.d,0),lastBeep:null,switched:false};
+  RUN={seq,i:0,left:seq[0].d,paused:false,total:seq.reduce((s,x)=>s+x.d,0),lastBeep:null,switched:false};
   document.getElementById('setup').hidden=true;
   document.getElementById('runner').classList.add('on');
-  document.getElementById('rDay').textContent=PLAN[SET.day].title;
+  document.getElementById('rDay').textContent=SET.day==='cuello'?'Cuello y trapecios':DAYS[SET.day].title;
+  const st=document.getElementById('rStage');
+  RUN.video=document.createElement('video'); Object.assign(RUN.video,{muted:true,loop:true,playsInline:true}); RUN.video.setAttribute('playsinline',''); st.appendChild(RUN.video);
   try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(l=>RUN&&(RUN.lock=l)).catch(()=>{});}catch(e){}
   showStep();
   RUN.timer=setInterval(tickRun,100); RUN.last=performance.now();
-  document.getElementById('bPause').onclick=()=>{RUN.paused=!RUN.paused;document.getElementById('bPause').textContent=RUN.paused?'Seguir':'Pausa';if(RUN.fig)RUN.fig.playing=!RUN.paused;};
+  document.getElementById('bPause').onclick=()=>{RUN.paused=!RUN.paused;document.getElementById('bPause').textContent=RUN.paused?'Seguir':'Pausa';RUN.paused?RUN.video.pause():RUN.video.play().catch(()=>{});};
   document.getElementById('bSkip').onclick=()=>nextStep();
   document.getElementById('bBack').onclick=()=>{if(RUN.i>0){RUN.i--;RUN.left=RUN.seq[RUN.i].d;showStep();}};
   document.getElementById('bStop').onclick=()=>stopRun(false);
 }
 function stopRun(done){
   if(!RUN) return; clearInterval(RUN.timer); try{RUN.lock&&RUN.lock.release();}catch(e){}
-  if(RUN.fig){FIGS.delete(RUN.fig);}
+  try{RUN.video.pause();}catch(e){}
   RUN=null;
-  if(done){
-    document.getElementById('runner').innerHTML=`<div class="done"><h2>¡Sesión completada! 💪</h2><p class="small">Buen trabajo. Bebe agua y descansa hasta el próximo día de entrenamiento.</p><button class="big" type="button" onclick="renderSession()">Volver</button></div>`;
-  } else renderSession();
+  if(done) document.getElementById('runner').innerHTML=`<div class="done"><h2>¡Sesión completada! 💪</h2><p class="small">Buen trabajo. Bebe agua y anota qué bandas has usado para superarlo la próxima vez.</p><button class="big" type="button" onclick="renderSession()">Volver</button></div>`;
+  else renderSession();
 }
 function nextStep(){
-  if(!RUN) return;
-  RUN.i++;
+  if(!RUN) return; RUN.i++;
   if(RUN.i>=RUN.seq.length){beep(1040,.4);stopRun(true);return;}
   RUN.left=RUN.seq[RUN.i].d; showStep();
 }
 function showStep(){
-  const s=RUN.seq[RUN.i]; RUN.switched=false; RUN.lastBeep=null;
-  const V=variant(s.id);
+  const s=RUN.seq[RUN.i], ex=EX[s.id]; RUN.switched=false; RUN.lastBeep=null;
   const ph=document.getElementById('rPhase');
-  ph.textContent=s.phase; ph.className='phase '+(s.kind==='work'?'work':s.kind==='rest'?'rest':'warm');
-  document.getElementById('rName').textContent=s.kind==='rest'?'Siguiente: '+V.name:V.name;
+  ph.textContent=s.phase; ph.className='phase '+(s.kind==='work'?'work':s.kind==='rest'?'rest':s.kind==='neck'?'neck':'warm');
+  document.getElementById('rName').textContent=s.kind==='rest'?'Siguiente: '+ex.name:ex.name;
   const cue=document.getElementById('rCue'); cue.classList.remove('flash');
-  cue.textContent=s.kind==='rest'?('Respira y prepárate. '+(V.band?'Coge la banda de '+V.band+'.':'')):(V.how[V.how.length>2?1:0]);
-  let nx=null; for(let j=RUN.i+1;j<RUN.seq.length;j++){if(RUN.seq[j].kind!=='rest'){nx=RUN.seq[j];break;}}
-  document.getElementById('rNext').textContent=nx&&s.kind!=='rest'?'Después: '+variant(nx.id).name:'';
-  const st=document.getElementById('rStage'); st.innerHTML='';
-  if(RUN.fig) FIGS.delete(RUN.fig);
-  RUN.fig=new Fig(st,V.anim,{label:V.name}); RUN.fig.playing=!RUN.paused; FIGS.add(RUN.fig);
-  st.style.opacity=s.kind==='rest'?.55:1;
+  cue.textContent=s.kind==='rest'?('Respira y prepárate.'+(ex.band?' Banda '+ex.band+'.':'')+(ex.anchor?' '+ANCH[ex.anchor]+'.':'')):ex.how[1];
+  let nx=null; for(let j=RUN.i+1;j<RUN.seq.length;j++){if(RUN.seq[j].kind!=='rest'&&RUN.seq[j].id!==s.id){nx=RUN.seq[j];break;}}
+  document.getElementById('rNext').textContent=nx&&s.kind!=='rest'?'Después: '+EX[nx.id].name:'';
+  const m=media(s.id);
+  if(RUN.video.dataset.id!==s.id){RUN.video.dataset.id=s.id;RUN.video.poster=m.poster;RUN.video.src=m.src;}
+  if(!RUN.paused&&!reduce) RUN.video.play().catch(()=>{});
+  document.getElementById('rStage').classList.toggle('dim',s.kind==='rest');
   if(s.kind!=='rest') beep(990,.25); else beep(520,.2);
   renderClock();
 }
@@ -781,10 +532,9 @@ function tickRun(){
   const now=performance.now(), dt=(now-RUN.last)/1000; RUN.last=now;
   if(RUN.paused) return;
   RUN.left-=dt;
-  const s=RUN.seq[RUN.i];
-  const sec=Math.ceil(RUN.left);
+  const s=RUN.seq[RUN.i], sec=Math.ceil(RUN.left);
   if(sec<=3&&sec>=1&&RUN.lastBeep!==sec){RUN.lastBeep=sec;beep(740,.08);}
-  if(EX[s.id]&&EX[s.id].switch&&s.kind!=='rest'&&!RUN.switched&&RUN.left<=s.d/2){
+  if(EX[s.id].switch&&s.kind!=='rest'&&!RUN.switched&&RUN.left<=s.d/2){
     RUN.switched=true; beep(880,.15);
     const c=document.getElementById('rCue'); c.textContent='¡Cambia de lado!'; c.classList.add('flash');
   }
@@ -792,14 +542,18 @@ function tickRun(){
   renderClock();
 }
 
-/* ============ Navegación ============ */
+/* ================= Navegación ================= */
 function route(){
   const h=(location.hash||'').replace('#','');
-  const key=(h in PLAN||h==='entrenar')?h:'calentamiento';
+  const key=(h in DAYS||h in LISTS||h==='entrenar'||h==='plan')?h:'plan';
   document.querySelectorAll('nav.tabs a').forEach(a=>a.setAttribute('aria-current',a.dataset.view===key?'page':'false'));
   if(RUN && key==='entrenar') return;
   if(RUN) stopRun(false);
-  if(key==='entrenar') renderSession(); else renderList(key);
+  document.querySelectorAll('#view video').forEach(v=>{if(vio)vio.unobserve(v);v.pause();});
+  if(key==='entrenar') renderSession();
+  else if(key==='plan') renderPlan();
+  else if(key in DAYS) renderDay(key);
+  else renderList(key);
 }
 window.addEventListener('hashchange',route);
 route();
